@@ -9,10 +9,11 @@
 import UIKit
 import AFNetworking
 
-class ViewController: UIViewController, RequestTokenLoader {
+class ViewController: UIViewController, AuthenticationDelegate {
 
     //MARK: Properties
     var requestToken: String = ""
+    var moveiApi: MovieApiManager!
     
     //MARK: Outlets
     @IBOutlet weak var loginField: UITextField!
@@ -31,6 +32,7 @@ class ViewController: UIViewController, RequestTokenLoader {
             }
             else {
                 print("login - \(login), password - \(password)")
+                validateToken(login, password)
             }
         } else {
             print("Input problem")
@@ -39,6 +41,7 @@ class ViewController: UIViewController, RequestTokenLoader {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        moveiApi = MovieApiManager(delegate: self)
         loadRequestToken()
     }
     
@@ -48,18 +51,40 @@ class ViewController: UIViewController, RequestTokenLoader {
             print("Token restored:\n \(t.requestToken!)")
             requestToken = t.requestToken!
         } else {
-            MovieApiManager.loadToken(self)
+            moveiApi.loadToken()
         }
     }
     
-    func tokenLoadedSuccessfully(token: Token) -> Void {
-        print("Token loaded:\n \(token.requestToken)")
+    func tokenLoadedSuccessfully(token: Token) {
+        print("Token loaded:\n \(token.requestToken!)")
         SessionCache.save(token)
         requestToken = token.requestToken!
     }
     
-    func tokenLoadingFailed(error: NSError) -> Void {
+    func tokenLoadingFailed(error: NSError) {
         print(error)
+    }
+    
+    func tokenValidatedSuccessfully(token: Token) {
+        print("Token validated:\n \(token.requestToken!)")
+        SessionCache.save(token)
+        requestToken = token.requestToken!
+    }
+    
+    func tokenValidationFailed(error: NSError) {
+        print(error)
+    }
+    
+    func sessionLoadedSuccessfully() {
+        
+    }
+    
+    func sessionLoadingFailed() {
+        
+    }
+    
+    func validateToken(log: String, _ pass: String){
+        moveiApi.validateToken(requestToken, login: log, password: pass)
     }
     
     func showInputAlert(message: String){
