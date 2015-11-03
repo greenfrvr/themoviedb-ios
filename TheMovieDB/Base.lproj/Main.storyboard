@@ -43,7 +43,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pzP-Y4-Znz">
-                                <rect key="frame" x="20" y="124" width="560" height="427"/>
+                                <rect key="frame" x="8" y="124" width="584" height="427"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="mja-0v-7y3" kind="embed" id="Dq9-o1-9FT"/>
@@ -55,18 +55,17 @@
                         <constraints>
                             <constraint firstItem="zjS-aJ-9bK" firstAttribute="top" secondItem="XfZ-YK-Nb2" secondAttribute="bottom" constant="16" id="0ge-iW-WB0"/>
                             <constraint firstItem="bG2-2B-CvB" firstAttribute="leading" secondItem="caT-wG-tG1" secondAttribute="trailing" constant="12" id="C8O-KU-yaE"/>
+                            <constraint firstItem="pzP-Y4-Znz" firstAttribute="leading" secondItem="ROP-lk-0rU" secondAttribute="leading" constant="8" id="C9U-GS-lOC"/>
                             <constraint firstItem="pzP-Y4-Znz" firstAttribute="top" secondItem="caT-wG-tG1" secondAttribute="bottom" constant="12" id="Cag-cD-v51"/>
                             <constraint firstItem="zjS-aJ-9bK" firstAttribute="leading" secondItem="caT-wG-tG1" secondAttribute="trailing" constant="12" id="F71-nn-5SY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bG2-2B-CvB" secondAttribute="trailing" id="W1s-jx-rHB"/>
                             <constraint firstItem="caT-wG-tG1" firstAttribute="leading" secondItem="ROP-lk-0rU" secondAttribute="leadingMargin" constant="12" id="WGI-Yz-ZPa"/>
-                            <constraint firstItem="pzP-Y4-Znz" firstAttribute="leading" secondItem="ROP-lk-0rU" secondAttribute="leadingMargin" id="XKE-k4-Ovc"/>
                             <constraint firstItem="pzP-Y4-Znz" firstAttribute="centerX" secondItem="ROP-lk-0rU" secondAttribute="centerX" id="XdA-fW-nL4"/>
+                            <constraint firstAttribute="trailing" secondItem="pzP-Y4-Znz" secondAttribute="trailing" constant="8" id="eAQ-fh-9k0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zjS-aJ-9bK" secondAttribute="trailing" id="fDW-IE-XuW"/>
                             <constraint firstItem="bG2-2B-CvB" firstAttribute="top" secondItem="XfZ-YK-Nb2" secondAttribute="bottom" constant="44" id="hPT-1F-6Kz"/>
                             <constraint firstItem="zjS-aJ-9bK" firstAttribute="leading" secondItem="caT-wG-tG1" secondAttribute="trailing" constant="12" id="mbu-bk-dLB"/>
-                            <constraint firstItem="pzP-Y4-Znz" firstAttribute="leading" secondItem="ROP-lk-0rU" secondAttribute="leadingMargin" id="s1h-QJ-5J5"/>
                             <constraint firstItem="G6r-f3-x3d" firstAttribute="top" secondItem="pzP-Y4-Znz" secondAttribute="bottom" id="tGE-MK-2np"/>
-                            <constraint firstItem="pzP-Y4-Znz" firstAttribute="trailing" secondItem="ROP-lk-0rU" secondAttribute="trailingMargin" id="y5x-VY-rJl"/>
                             <constraint firstItem="caT-wG-tG1" firstAttribute="top" secondItem="XfZ-YK-Nb2" secondAttribute="bottom" constant="12" id="yQc-IG-DOA"/>
                         </constraints>
                     </view>
@@ -86,16 +85,16 @@
             <objects>
                 <tableViewController id="mja-0v-7y3" customClass="UserListsTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" id="H2U-ut-bcA">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="427"/>
+                        <rect key="frame" x="0.0" y="0.0" width="584" height="427"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ListsTableViewCell" id="WN2-a3-8Tr" customClass="ListsTableViewCell" customModule="TheMovieDB" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="560" height="72"/>
+                                <rect key="frame" x="0.0" y="28" width="584" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WN2-a3-8Tr" id="Yyi-Aq-FWb">
-                                    <rect key="frame" x="0.0" y="0.0" width="527" height="71"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="551" height="71"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8B-Fx-9K2">
@@ -124,10 +123,8 @@
                                     <constraints>
                                         <constraint firstItem="V8B-Fx-9K2" firstAttribute="leading" secondItem="Yyi-Aq-FWb" secondAttribute="leadingMargin" id="5fy-fu-o4D"/>
                                         <constraint firstItem="V8B-Fx-9K2" firstAttribute="centerX" secondItem="Yyi-Aq-FWb" secondAttribute="centerX" id="DoU-Ky-ngo"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="CVb-pJ-SfT" secondAttribute="trailing" id="EER-Mw-D5x"/>
                                         <constraint firstItem="CVb-pJ-SfT" firstAttribute="trailing" secondItem="Yyi-Aq-FWb" secondAttribute="trailingMargin" constant="4" id="IWM-TR-BLK"/>
                                         <constraint firstItem="V8B-Fx-9K2" firstAttribute="top" secondItem="Yyi-Aq-FWb" secondAttribute="topMargin" id="TBW-LH-fx8"/>
-                                        <constraint firstItem="CVb-pJ-SfT" firstAttribute="top" secondItem="Yyi-Aq-FWb" secondAttribute="topMargin" id="pcA-Ph-DUo"/>
                                         <constraint firstItem="CVb-pJ-SfT" firstAttribute="top" secondItem="Yyi-Aq-FWb" secondAttribute="topMargin" constant="4" id="tFp-rd-2oo"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -162,7 +159,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="List Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUV-Ht-iSe">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="List Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUV-Ht-iSe">
                                 <rect key="frame" x="237" y="289" width="84" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -172,6 +169,10 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QUV-Ht-iSe" firstAttribute="centerX" secondItem="rDO-jr-eXm" secondAttribute="centerX" id="BYc-0b-jEO"/>
+                            <constraint firstItem="QUV-Ht-iSe" firstAttribute="centerY" secondItem="rDO-jr-eXm" secondAttribute="centerY" id="tYO-up-LF8"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="List Details" id="odT-Lx-Bf2">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="98W-qg-Oni">
@@ -198,7 +199,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5V-Nl-Kxg">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5V-Nl-Kxg">
                                 <rect key="frame" x="279" y="289" width="42" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -208,6 +209,10 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="j5V-Nl-Kxg" firstAttribute="centerX" secondItem="jkT-VE-9fZ" secondAttribute="centerX" id="JEX-le-yva"/>
+                            <constraint firstItem="j5V-Nl-Kxg" firstAttribute="centerY" secondItem="jkT-VE-9fZ" secondAttribute="centerY" id="rYS-mr-OyZ"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="Search" selectedImage="Search-filled" id="y2S-9T-bmI"/>
                 </viewController>
@@ -226,7 +231,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favoites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSe-l1-7Bw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Favoites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSe-l1-7Bw">
                                 <rect key="frame" x="279" y="289" width="42" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -236,6 +241,10 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NSe-l1-7Bw" firstAttribute="centerY" secondItem="vjX-IF-9Lm" secondAttribute="centerY" id="1Mr-Lh-qRK"/>
+                            <constraint firstItem="NSe-l1-7Bw" firstAttribute="centerX" secondItem="vjX-IF-9Lm" secondAttribute="centerX" id="sxg-pd-Mck"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="1En-un-Rrl"/>
                 </viewController>
