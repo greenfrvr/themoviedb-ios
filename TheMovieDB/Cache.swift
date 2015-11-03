@@ -21,8 +21,12 @@ class SessionCache {
         }
     }
     
-    static func restoreSession() -> Session?{
+    static func restoreSession() -> Session? {
         return NSKeyedUnarchiver.unarchiveObjectWithFile(ArchiveURL.path!) as? Session
     }
 
+    static func restoreUser() -> Account? {
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(ArchiveURL.path!) as? Account
+    }
+    
 }

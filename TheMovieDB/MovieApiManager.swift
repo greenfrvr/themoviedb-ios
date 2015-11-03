@@ -11,9 +11,8 @@ import AFNetworking
 import ObjectMapper
 
 class AuthenticationManager {
-    
-    private var requestToken: String?
-    private let delegate: AuthenticationDelegate
+    var requestToken: String?
+    let delegate: AuthenticationDelegate
     
     init(delegate: AuthenticationDelegate){
         self.delegate = delegate
@@ -85,12 +84,96 @@ protocol AuthenticationDelegate {
     func sessionCreationFailed(error: NSError) -> Void
 }
 
+class AccountManager {
+    var account: Account?
+    let session: String
+    let accountDelegate: AccountDelegate?
+    let listsDelegate: ListsDelegate?
+    
+    init?(sessionId session: String, accountDelegate delegate: AccountDelegate){
+        self.session = session
+        self.accountDelegate = delegate
+        self.listsDelegate = nil
+        
+        if session.isEmpty {
+            return nil
+        }
+    }
+    
+    init?(sessionId session: String, listsDelegate delegate: ListsDelegate){
+        self.session = session
+        self.listsDelegate = delegate
+        self.accountDelegate = nil
+        
+        if session.isEmpty {
+            return nil
+        }
+    }
+    
+    func loadAccountData(){
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "session_id": session,
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.accountInfo, parameters: params,
+            success: { operation, response in
+                if let account = Mapper<Account>().map(response) {
+                    self.account = account
+                    self.accountDelegate?.userLoadedSuccessfully(account)
+                    self.listsDelegate?.userFetched()
+                }
+            },
+            failure: { operation, error in self.accountDelegate?.userLoadingFailed(error)
+        })
+
+    }
+    
+    func loadLists(){
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "session_id": session,
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.accountLists((self.account?.userId)!), parameters: params,
+            success: { operation, response in
+                if let lists = Mapper<ListInfoPages>().map(response) {
+                    self.listsDelegate?.userListsLoadedSuccessfully(lists)
+                }
+            },
+            failure: { operation, error in self.listsDelegate?.userListsLoadingFailed(error)
+        })
+
+    }
+    
+}
+
+protocol AccountDelegate {
+    
+    func userLoadedSuccessfully(account: Account) -> Void
+    
+    func userLoadingFailed(error: NSError) -> Void
+}
+
+protocol ListsDelegate {
+    
+    func userListsLoadedSuccessfully(pages: ListInfoPages) -> Void
+    
+    func userListsLoadingFailed(error: NSError) -> Void
+    
+    func userFetched() -> Void
+}
+
 class ApiEndpoints {
     
     static let apiKey = "2aa0c55316f571116e12e8911e17be97"
     static let baseUrl = "http://api.themoviedb.org/3/"
+    //auth
     static let newToken = "\(baseUrl)authentication/token/new"
     static let validateToken = "\(baseUrl)authentication/token/validate_with_login"
     static let createNewSession = "\(baseUrl)authentication/session/new"
+    //account
+    static let accountInfo = "\(baseUrl)account"
+    static let accountLists = { (id: Int) in "\(baseUrl)account/\(id)/lists" }
     
 }
