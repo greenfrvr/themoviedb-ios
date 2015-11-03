@@ -15,7 +15,7 @@ class Token: NSObject, NSCoding, Mappable {
     var expireAt: String?
     var success: Bool?
     
-    init?(token: String, expire: String){
+    init?(token: String, expire: String?){
         requestToken = token
         expireAt = expire
         
@@ -39,10 +39,10 @@ class Token: NSObject, NSCoding, Mappable {
 
     //MARK: NSCoding protocol
     required convenience init?(coder aDecoder: NSCoder) {
-        let token = aDecoder.decodeObjectForKey("token") as! String
-        let expire = aDecoder.decodeObjectForKey("expire") as! String
+        let token = aDecoder.decodeObjectForKey("token") as? String
+        let expire = aDecoder.decodeObjectForKey("expire") as? String
         
-        self.init(token: token, expire: expire)
+        self.init(token: token!, expire: expire)
     }
     
     func encodeWithCoder(aCoder: NSCoder) {

@@ -10,31 +10,33 @@ import Foundation
 import AFNetworking
 import ObjectMapper
 
-class MovieApiManager {
+class AuthenticationManager {
     
+    private var requestToken: String?
     private let delegate: AuthenticationDelegate
     
     init(delegate: AuthenticationDelegate){
         self.delegate = delegate
     }
     
-    func loadToken(){
+    func loadRequestToken(){
         let params = ["api_key": ApiEndpoints.apiKey]
         
         AFHTTPRequestOperationManager().GET(ApiEndpoints.newToken, parameters: params,
             success: { operation, response in
                 if let token = Mapper<Token>().map(response) {
                     self.delegate.tokenLoadedSuccessfully(token)
+                    self.requestToken = token.requestToken
                 }
             },
             failure: { operation, error in self.delegate.tokenLoadingFailed(error)
         })
     }
     
-    func validateToken(token: String, login: String, password: String){
+    func validateRequestToken(login: String, _ password: String){
         let params = [
             "api_key": ApiEndpoints.apiKey,
-            "request_token": token,
+            "request_token": requestToken!,
             "username": login,
             "password": password
         ]
@@ -42,11 +44,29 @@ class MovieApiManager {
         AFHTTPRequestOperationManager().GET(ApiEndpoints.validateToken, parameters: params,
             success: { operation, response in
                 if let token = Mapper<Token>().map(response) {
-                    self.delegate.tokenLoadedSuccessfully(token)
+                    self.delegate.tokenValidatedSuccessfully(token)
+                    self.requestToken = token.requestToken
                 }
             },
-            failure: { operation, error in self.delegate.tokenLoadingFailed(error)
+            failure: { operation, error in self.delegate.tokenValidationFailed(error)
         })
+    }
+    
+    func createSession(){
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "request_token": requestToken!,
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.createNewSession, parameters: params,
+            success: { operation, response in
+                if let session = Mapper<Session>().map(response) {
+                    self.delegate.sessionCreatedSuccessfully(session)
+                }
+            },
+            failure: { operation, error in self.delegate.sessionCreationFailed(error)
+        })
+
     }
 }
 
@@ -60,9 +80,9 @@ protocol AuthenticationDelegate {
     
     func tokenValidationFailed(error: NSError) -> Void
     
-    func sessionLoadedSuccessfully() -> Void
+    func sessionCreatedSuccessfully(session: Session) -> Void
     
-    func sessionLoadingFailed() -> Void
+    func sessionCreationFailed(error: NSError) -> Void
 }
 
 class ApiEndpoints {
@@ -71,5 +91,6 @@ class ApiEndpoints {
     static let baseUrl = "http://api.themoviedb.org/3/"
     static let newToken = "\(baseUrl)authentication/token/new"
     static let validateToken = "\(baseUrl)authentication/token/validate_with_login"
+    static let createNewSession = "\(baseUrl)authentication/session/new"
     
 }

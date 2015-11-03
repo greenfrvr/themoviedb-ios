@@ -10,25 +10,34 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="AccountController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="XfZ-YK-Nb2"/>
+                        <viewControllerLayoutGuide type="bottom" id="G6r-f3-x3d"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="ROP-lk-0rU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31q-iq-eNj">
+                                <rect key="frame" x="279" y="289" width="42" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Account" image="Account-male" selectedImage="Account-male-filled" id="Sf4-uj-msZ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="490" y="-309"/>
+            <point key="canvasLocation" x="566" y="-281"/>
         </scene>
         <!--Search-->
         <scene sceneID="qLq-Ef-MSF">
             <objects>
-                <viewController id="N7Q-yb-0fq" sceneMemberID="viewController">
+                <viewController id="N7Q-yb-0fq" customClass="SearchController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IWR-1S-lKr"/>
                         <viewControllerLayoutGuide type="bottom" id="SGF-kU-blB"/>
@@ -36,6 +45,15 @@
                     <view key="view" contentMode="scaleToFill" id="jkT-VE-9fZ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5V-Nl-Kxg">
+                                <rect key="frame" x="279" y="289" width="42" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -45,10 +63,10 @@
             </objects>
             <point key="canvasLocation" x="614" y="434"/>
         </scene>
-        <!--View Controller-->
+        <!--Favorites Controller-->
         <scene sceneID="WBg-XT-ov8">
             <objects>
-                <viewController id="Z0A-Rk-FyL" sceneMemberID="viewController">
+                <viewController id="Z0A-Rk-FyL" customClass="FavoritesController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="shS-0k-hfi"/>
                         <viewControllerLayoutGuide type="bottom" id="IJ4-sB-Ezh"/>
@@ -56,6 +74,15 @@
                     <view key="view" contentMode="scaleToFill" id="vjX-IF-9Lm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favoites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSe-l1-7Bw">
+                                <rect key="frame" x="279" y="289" width="42" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -65,10 +92,10 @@
             </objects>
             <point key="canvasLocation" x="103" y="1114"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign In Controller-->
         <scene sceneID="fO1-OR-pNQ">
             <objects>
-                <viewController id="9qG-mN-TCb" customClass="ViewController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9qG-mN-TCb" customClass="SignInController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TXT-JF-d4H"/>
                         <viewControllerLayoutGuide type="bottom" id="cCL-Sn-e2g"/>
@@ -93,7 +120,7 @@
                                     <constraint firstAttribute="width" constant="124" id="laV-M6-bdT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TheMovieDB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIZ-fU-5Bd">
                                 <rect key="frame" x="240" y="102" width="121" height="26"/>
@@ -110,13 +137,19 @@
                                     <action selector="signInClick:" destination="9qG-mN-TCb" eventType="touchUpInside" id="15J-hf-C9B"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EGl-0s-Dvy">
+                                <rect key="frame" x="290" y="377" width="20" height="20"/>
+                                <animations/>
+                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vnv-lR-GGZ" firstAttribute="centerX" secondItem="z6F-9v-QrX" secondAttribute="centerX" id="4Po-A3-raQ"/>
                             <constraint firstItem="qoV-36-ffy" firstAttribute="top" secondItem="vnv-lR-GGZ" secondAttribute="bottom" constant="64" id="56e-tG-Pd3"/>
+                            <constraint firstItem="EGl-0s-Dvy" firstAttribute="top" secondItem="vnv-lR-GGZ" secondAttribute="bottom" constant="24" id="BYa-sF-i5P"/>
                             <constraint firstItem="DOp-DE-shR" firstAttribute="centerX" secondItem="z6F-9v-QrX" secondAttribute="centerX" id="CtN-wm-4Y4"/>
+                            <constraint firstItem="EGl-0s-Dvy" firstAttribute="centerX" secondItem="z6F-9v-QrX" secondAttribute="centerX" id="EJs-eK-dL5"/>
                             <constraint firstItem="qIZ-fU-5Bd" firstAttribute="top" secondItem="TXT-JF-d4H" secondAttribute="bottom" constant="82" id="G1V-ba-g6p"/>
                             <constraint firstItem="DOp-DE-shR" firstAttribute="centerY" secondItem="z6F-9v-QrX" secondAttribute="centerY" id="Jbv-6S-ZVL"/>
                             <constraint firstItem="qIZ-fU-5Bd" firstAttribute="centerX" secondItem="z6F-9v-QrX" secondAttribute="centerX" id="gK5-wI-759"/>
@@ -125,6 +158,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loadingIndicator" destination="EGl-0s-Dvy" id="gye-2V-tuh"/>
                         <outlet property="loginField" destination="DOp-DE-shR" id="kD1-4l-Ye9"/>
                         <outlet property="passwordField" destination="vnv-lR-GGZ" id="bOL-ZK-xEP"/>
                     </connections>
@@ -136,9 +170,9 @@
         <!--Tab Bar Controller-->
         <scene sceneID="3Ez-w8-8gS">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="lNe-ed-atc" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainContentController" automaticallyAdjustsScrollViewInsets="NO" id="lNe-ed-atc" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" selectionIndicatorImage="¡" id="99Q-gK-hUh">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="99Q-gK-hUh">
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -159,6 +193,5 @@
         <image name="Account-male-filled" width="25" height="25"/>
         <image name="Search" width="25" height="25"/>
         <image name="Search-filled" width="25" height="25"/>
-        <image name="¡" width="540" height="540"/>
     </resources>
 </document>

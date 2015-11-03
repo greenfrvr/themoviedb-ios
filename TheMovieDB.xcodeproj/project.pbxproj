@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1174C9601BE895E400A0075B /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C95F1BE895E400A0075B /* SearchController.swift */; };
+		1174C9621BE8960D00A0075B /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9611BE8960D00A0075B /* FavoritesController.swift */; };
 		11759AD81BE764FB00BE2B46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AD71BE764FB00BE2B46 /* AppDelegate.swift */; };
-		11759ADA1BE764FB00BE2B46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AD91BE764FB00BE2B46 /* ViewController.swift */; };
+		11759ADA1BE764FB00BE2B46 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AD91BE764FB00BE2B46 /* SignInController.swift */; };
 		11759ADD1BE764FB00BE2B46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11759ADB1BE764FB00BE2B46 /* Main.storyboard */; };
 		11759ADF1BE764FB00BE2B46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11759ADE1BE764FB00BE2B46 /* Assets.xcassets */; };
 		11759AE21BE764FB00BE2B46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11759AE01BE764FB00BE2B46 /* LaunchScreen.storyboard */; };
@@ -39,9 +41,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1174C95F1BE895E400A0075B /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		1174C9611BE8960D00A0075B /* FavoritesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		11759AD41BE764FB00BE2B46 /* TheMovieDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMovieDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11759AD71BE764FB00BE2B46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		11759AD91BE764FB00BE2B46 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		11759AD91BE764FB00BE2B46 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		11759ADC1BE764FB00BE2B46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11759ADE1BE764FB00BE2B46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11759AE11BE764FB00BE2B46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -114,12 +118,14 @@
 			children = (
 				11FC7C791BE778C600838AA5 /* Api */,
 				11759AD71BE764FB00BE2B46 /* AppDelegate.swift */,
-				11759AD91BE764FB00BE2B46 /* ViewController.swift */,
+				11759AD91BE764FB00BE2B46 /* SignInController.swift */,
 				11759ADB1BE764FB00BE2B46 /* Main.storyboard */,
 				11759ADE1BE764FB00BE2B46 /* Assets.xcassets */,
 				11759AE01BE764FB00BE2B46 /* LaunchScreen.storyboard */,
 				11759AE31BE764FB00BE2B46 /* Info.plist */,
 				11759B051BE76D5800BE2B46 /* AccountController.swift */,
+				1174C95F1BE895E400A0075B /* SearchController.swift */,
+				1174C9611BE8960D00A0075B /* FavoritesController.swift */,
 			);
 			path = TheMovieDB;
 			sourceTree = "<group>";
@@ -355,8 +361,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				11759B061BE76D5800BE2B46 /* AccountController.swift in Sources */,
-				11759ADA1BE764FB00BE2B46 /* ViewController.swift in Sources */,
+				11759ADA1BE764FB00BE2B46 /* SignInController.swift in Sources */,
 				11FC7C7D1BE779F600838AA5 /* MovieApiManager.swift in Sources */,
+				1174C9621BE8960D00A0075B /* FavoritesController.swift in Sources */,
+				1174C9601BE895E400A0075B /* SearchController.swift in Sources */,
 				11759AD81BE764FB00BE2B46 /* AppDelegate.swift in Sources */,
 				11FC7C811BE7906300838AA5 /* Cache.swift in Sources */,
 				11FC7C7F1BE78E4E00838AA5 /* Models.swift in Sources */,
