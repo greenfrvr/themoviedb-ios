@@ -192,18 +192,18 @@ class ListDetailsManager {
     }
     
     func listDelete(listId id: String) {
-//        let params = [
-//            "api_key": ApiEndpoints.apiKey,
-//            "session_id": session
-//        ]
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "session_id": session
+        ]
+        
         self.detailsDelegate?.listRemovedSuccessfully()
-//        AFHTTPRequestOperationManager().DELETE(ApiEndpoints.listDetails(id), parameters: params,
-//            success: { operation, response in
-//                self.detailsDelegate?.listRemovedSuccessfully()
-//            },
-//            failure: { operation, error in self.detailsDelegate?.listRemovingFailed(error)
-//        })
-
+        AFHTTPRequestOperationManager().DELETE(ApiEndpoints.listDetails(id), parameters: params,
+            success: { operation, response in
+                self.detailsDelegate?.listRemovedSuccessfully()
+            },
+            failure: { operation, error in self.detailsDelegate?.listRemovingFailed(error)
+        })
     }
 }
 
