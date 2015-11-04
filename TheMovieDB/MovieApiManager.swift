@@ -90,24 +90,22 @@ class AccountManager {
     let accountDelegate: AccountDelegate?
     let listsDelegate: ListsDelegate?
     
-    init?(sessionId session: String, accountDelegate delegate: AccountDelegate){
+    init?(session: String, accountDelegate: AccountDelegate?, listsDelegate: ListsDelegate?){
         self.session = session
-        self.accountDelegate = delegate
-        self.listsDelegate = nil
+        self.accountDelegate = accountDelegate
+        self.listsDelegate = listsDelegate
         
         if session.isEmpty {
             return nil
         }
     }
     
-    init?(sessionId session: String, listsDelegate delegate: ListsDelegate){
-        self.session = session
-        self.listsDelegate = delegate
-        self.accountDelegate = nil
-        
-        if session.isEmpty {
-            return nil
-        }
+    convenience init?(sessionId id: String, accountDelegate delegate: AccountDelegate){
+        self.init(session: id, accountDelegate: delegate, listsDelegate: nil)
+    }
+    
+    convenience init?(sessionId id: String, listsDelegate delegate: ListsDelegate){
+        self.init(session: id, accountDelegate: nil, listsDelegate: delegate)
     }
     
     func loadAccountData(){
@@ -164,16 +162,95 @@ protocol ListsDelegate {
     func userFetched() -> Void
 }
 
+class ListDetailsManager {
+    let session: String
+    let detailsDelegate: ListDetailsDelegate?
+    
+    init?(sessionId: String, detailsDelegate delegate: ListDetailsDelegate){
+        self.session = sessionId
+        self.detailsDelegate = delegate
+        
+        if sessionId.isEmpty {
+            return nil
+        }
+    }
+    
+    func listDetails(listId id: String){
+        let params = [
+            "api_key": ApiEndpoints.apiKey
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.listDetails(id), parameters: params,
+            success: { operation, response in
+                if let details = Mapper<ListDetails>().map(response) {
+                    self.detailsDelegate?.listDetailsLoadedSuccessfully(details)
+                }
+            },
+            failure: { operation, error in self.detailsDelegate?.listDetailsLoadingFailed(error)
+        })
+        
+    }
+    
+    func listDelete(listId id: String) {
+//        let params = [
+//            "api_key": ApiEndpoints.apiKey,
+//            "session_id": session
+//        ]
+        self.detailsDelegate?.listRemovedSuccessfully()
+//        AFHTTPRequestOperationManager().DELETE(ApiEndpoints.listDetails(id), parameters: params,
+//            success: { operation, response in
+//                self.detailsDelegate?.listRemovedSuccessfully()
+//            },
+//            failure: { operation, error in self.detailsDelegate?.listRemovingFailed(error)
+//        })
+
+    }
+}
+
+protocol ListDetailsDelegate {
+    
+    func listDetailsLoadedSuccessfully(details: ListDetails) -> Void
+    
+    func listDetailsLoadingFailed(error: NSError) -> Void
+    
+    func listRemovedSuccessfully() -> Void
+    
+    func listRemovingFailed(error: NSError) -> Void
+}
+
 class ApiEndpoints {
     
     static let apiKey = "2aa0c55316f571116e12e8911e17be97"
-    static let baseUrl = "http://api.themoviedb.org/3/"
+    static let baseApiUrl = "http://api.themoviedb.org/3/"
+    static let baseShareUrl = "https://www.themoviedb.org/"
+    static let baseImageUrl = "http://image.tmdb.org/t/p/"
+    
     //auth
-    static let newToken = "\(baseUrl)authentication/token/new"
-    static let validateToken = "\(baseUrl)authentication/token/validate_with_login"
-    static let createNewSession = "\(baseUrl)authentication/session/new"
+    static let newToken = "\(baseApiUrl)authentication/token/new"
+    static let validateToken = "\(baseApiUrl)authentication/token/validate_with_login"
+    static let createNewSession = "\(baseApiUrl)authentication/session/new"
     //account
-    static let accountInfo = "\(baseUrl)account"
-    static let accountLists = { (id: Int) in "\(baseUrl)account/\(id)/lists" }
+    static let accountInfo = "\(baseApiUrl)account"
+    static let accountLists = { (id: Int) in "\(baseApiUrl)account/\(id)/lists" }
+    //list
+    static let listDetails = { (id: String) in "\(baseApiUrl)list/\(id)" }
+    static let listShare = { (id: String) in "\(baseShareUrl)list/\(id)"}
+    //config
+    static let posterSizes = [
+        1 : "w92",
+        2 : "w154",
+        3 : "w185",
+        4 : "w342",
+        5 : "w500",
+        6 : "w780",
+        0 : "original"]
+    static let profileSizes = [
+        1 : "w45",
+        2 : "w185",
+        3 : "h632",
+        0 : "original"
+    ]
+    //images
+    static let poster = { (size: Int, path: String) in "\(baseImageUrl)\(posterSizes[size]!)/\(path)?api_key=\(apiKey)"}
     
 }

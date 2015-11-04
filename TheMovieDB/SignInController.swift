@@ -79,7 +79,7 @@ class SignInController: UIViewController, AuthenticationDelegate {
     
     func tokenLoadingFailed(error: NSError) {
         print(error)
-        let alert: UIAlertView = UIAlertView.init(title: "Something went wrong", message: "Please come back to app again later", delegate: nil, cancelButtonTitle: "OK")
+        let alert = UIAlertView(title: "Something went wrong", message: "Please come back to app again later", delegate: nil, cancelButtonTitle: "OK")
         alert.show()
         
     }
@@ -111,7 +111,7 @@ class SignInController: UIViewController, AuthenticationDelegate {
 
     //MARK: UI
     func showInputAlert(message: String){
-        let alert: UIAlertView = UIAlertView.init(title: "Please fill required fields", message: message, delegate: nil, cancelButtonTitle: "OK, Got it")
+        let alert = UIAlertView(title: "Please fill required fields", message: message, delegate: nil, cancelButtonTitle: "OK, Got it")
         alert.show()
     }
     

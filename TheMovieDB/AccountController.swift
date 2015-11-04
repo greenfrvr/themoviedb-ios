@@ -19,6 +19,7 @@ class AccountController: UIViewController, AccountDelegate {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var fullNameLabel: UILabel!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     //MARK: Controller lifecycle
     override func viewDidLoad() {
@@ -33,6 +34,7 @@ class AccountController: UIViewController, AccountDelegate {
     
     //MARK: AccountDelegate
     func userLoadedSuccessfully(account: Account) {
+        loadingIndicator.stopAnimating()
         usernameLabel.text = account.username
         fullNameLabel.text = account.fullName
         print("Gravatar URL: \(account.gravatar)")

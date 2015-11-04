@@ -17,26 +17,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TheMovieDB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1a9-JM-3D9">
-                                <rect key="frame" x="240" y="240" width="121" height="26"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TheMovieDB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1a9-JM-3D9">
+                                <rect key="frame" x="240" y="287" width="121" height="26"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="VqA-cL-GXC">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                                <animations/>
-                            </activityIndicatorView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.086274509803921567" green="0.47843137254901957" blue="0.43137254901960786" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="VqA-cL-GXC" firstAttribute="top" secondItem="1a9-JM-3D9" secondAttribute="bottom" constant="24" id="EMQ-gU-8hb"/>
                             <constraint firstItem="1a9-JM-3D9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="NlH-Md-3J9"/>
-                            <constraint firstItem="VqA-cL-GXC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="TmW-Cz-7Fs"/>
                             <constraint firstItem="1a9-JM-3D9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="bK4-er-GNM"/>
-                            <constraint firstItem="VqA-cL-GXC" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="dYM-Ap-mpZ"/>
                         </constraints>
                     </view>
                 </viewController>
