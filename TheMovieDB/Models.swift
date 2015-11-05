@@ -226,7 +226,7 @@ struct ListDetails: Mappable {
 }
 
 //_______Search movies results item_______
-struct SearchMovieItem: Mappable {
+struct SearchMovieItem: Mappable, SearchViewRepresentation {
     var movieId: Int?
     var title: String?
     var titleOriginal: String?
@@ -262,6 +262,20 @@ struct SearchMovieItem: Mappable {
         video<-map["video"]
         adult<-map["adult"]
     }
+    
+    //MARK: SearchViewRepresentation
+    var representImage: String? {
+        return ApiEndpoints.poster(3, posterPath ?? "")
+    }
+    var representTitle: String? {
+        return title
+    }
+    var representDate: String? {
+        return releaseDate
+    }
+    var representDescription: String? {
+        return overview
+    }
 }
 
 //_______Search movies results_______
@@ -285,7 +299,7 @@ struct SearchMovieResults: Mappable {
 }
 
 //__________Search TV results item__________
-struct SearchTVItem: Mappable {
+struct SearchTVItem: Mappable, SearchViewRepresentation {
     var showId: Int?
     var name: String?
     var nameOriginal: String?
@@ -318,7 +332,20 @@ struct SearchTVItem: Mappable {
         voteCount<-map["vote_count"]
         originalLanguage<-map["original_language"]
         originCountry<-map["origin_country"]
-        
+    }
+    
+    //MARK: SearchViewRepresentation
+    var representImage: String? {
+        return ApiEndpoints.poster(3, posterPath ?? "")
+    }
+    var representTitle: String? {
+        return name
+    }
+    var representDate: String? {
+        return firstAirDate
+    }
+    var representDescription: String? {
+        return overview
     }
 }
 //_______Search TV results_______
@@ -341,7 +368,7 @@ struct SearchTVResults: Mappable {
 }
 
 //__________Search Person results item__________
-struct SearchPersonItem: Mappable {
+struct SearchPersonItem: Mappable, SearchViewRepresentation {
     var personId: Int?
     var name: String?
     var profilePath: String?
@@ -359,6 +386,16 @@ struct SearchPersonItem: Mappable {
         profilePath<-map["profile_path"]
         adult<-map["adult"]
     }
+    
+    //MARK: SearchViewRepresentation
+    var representImage: String? {
+        return ApiEndpoints.poster(3, profilePath ?? "")
+    }
+    var representTitle: String? {
+        return name
+    }
+    var representDate: String? { return "" }
+    var representDescription: String? { return "" }
 }
 //_______Search Person results_______
 struct SearchPersonResults: Mappable {

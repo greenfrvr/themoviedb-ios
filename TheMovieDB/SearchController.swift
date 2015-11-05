@@ -66,34 +66,23 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "SearchCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SearchViewCell
-        var itemTitle: String? = ""
-        var itemImagePath: String? = ""
-        var itemDate: String? = ""
-        var itemDescription: String? = ""
-        
         let section = indexPath.section
+        var item: SearchViewRepresentation? = nil
         
         if (scopeIndex == 0 && section == 0) || scopeIndex == 1 {
-            itemTitle = resultsMovies[indexPath.row].title
-            itemDate = resultsMovies[indexPath.row].releaseDate
-            itemDescription = resultsMovies[indexPath.row].overview
-            itemImagePath = resultsMovies[indexPath.row].posterPath
+            item = resultsMovies[indexPath.row]
         }
         else if (scopeIndex == 0 && section == 1) || scopeIndex == 2 {
-            itemTitle = resultsTvShow[indexPath.row].name
-            itemDate = resultsTvShow[indexPath.row].firstAirDate
-            itemDescription = resultsTvShow[indexPath.row].overview
-            itemImagePath = resultsTvShow[indexPath.row].posterPath
+            item = resultsTvShow[indexPath.row]
         }
         else if (scopeIndex == 0 && section == 2) || scopeIndex == 3{
-            itemTitle = resultsPerson[indexPath.row].name
-            itemImagePath = resultsPerson[indexPath.row].profilePath
+            item = resultsPerson[indexPath.row]
         }
         
-        cell.cellTitle.text = itemTitle
-        cell.cellDate.text = itemDate
-        cell.cellDescription.text = itemDescription
-        cell.cellImage.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, itemImagePath ?? "")), placeholderImage: UIImage(named: "defaultPhoto"))
+        cell.cellTitle.text = item?.representTitle
+        cell.cellDate.text = item?.representDate
+        cell.cellDescription.text = item?.representDescription
+        cell.cellImage.sd_setImageWithURL(NSURL(string: item?.representImage ?? ""), placeholderImage: UIImage(named: "defaultPhoto"))
         
         return cell
     }
@@ -115,29 +104,16 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if scopeIndex == 1 {
+        if (scopeIndex == 0 && section == 0) || scopeIndex == 1 {
             return resultsMovies.count
         }
-        else if scopeIndex == 2 {
+        else if (scopeIndex == 0 && section == 1) || scopeIndex == 2 {
             return resultsTvShow.count
         }
-        else if scopeIndex == 3 {
+        else if (scopeIndex == 0 && section == 2) || scopeIndex == 3 {
             return resultsPerson.count
         }
-        else {
-            switch section {
-            case 0:
-                print("Movie section contains \(resultsMovies.count) items")
-                return resultsMovies.count
-            case 1:
-                print("Series section")
-                return resultsTvShow.count
-            case 2:
-                print("People section")
-                return resultsPerson.count
-            default: return 0
-            }
-        }
+        return 0
     }
     
     //MARK: SearchBarDelegate

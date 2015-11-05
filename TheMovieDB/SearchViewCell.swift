@@ -16,3 +16,10 @@ class SearchViewCell: UITableViewCell {
     @IBOutlet weak var cellDescription: UILabel!
     
 }
+
+protocol SearchViewRepresentation {
+    var representImage: String? { get }
+    var representTitle: String? { get }
+    var representDate: String? { get }
+    var representDescription: String? { get }
+}
