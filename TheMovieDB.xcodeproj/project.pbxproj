@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1164CF4F1BEB876000E3893F /* SearchViewCell.swift */; };
 		1174C9601BE895E400A0075B /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C95F1BE895E400A0075B /* SearchController.swift */; };
 		1174C9621BE8960D00A0075B /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9611BE8960D00A0075B /* FavoritesController.swift */; };
 		1174C9641BE8BF0600A0075B /* UserListsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9631BE8BF0600A0075B /* UserListsTableController.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1164CF4F1BEB876000E3893F /* SearchViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		1174C95F1BE895E400A0075B /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		1174C9611BE8960D00A0075B /* FavoritesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		1174C9631BE8BF0600A0075B /* UserListsTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListsTableController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				1174C9671BE8D40C00A0075B /* ListsTableViewCell.swift */,
 				1180EFAE1BE9EB7F00082B6E /* ListItemViewCell.swift */,
 				1180EFB01BEA027500082B6E /* UILabelWithPadding.swift */,
+				1164CF4F1BEB876000E3893F /* SearchViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				11759AD81BE764FB00BE2B46 /* AppDelegate.swift in Sources */,
 				11FC7C811BE7906300838AA5 /* Cache.swift in Sources */,
 				11FC7C7F1BE78E4E00838AA5 /* Models.swift in Sources */,
+				1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */,
 				1174C96A1BE8E67900A0075B /* ListDetailsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,8 +9,8 @@
 import Foundation
 import ObjectMapper
 
+//_______Authorization request token_______
 class Token: NSObject, NSCoding, Mappable {
-    
     var requestToken: String?
     var expireAt: String?
     var success: Bool?
@@ -28,7 +28,6 @@ class Token: NSObject, NSCoding, Mappable {
     
     //MARK: Mappable protocol
     required init?(_ map: Map) {
-        
     }
 
     func mapping(map: Map) {
@@ -51,8 +50,8 @@ class Token: NSObject, NSCoding, Mappable {
     }
 }
 
+//_______Sesssion identificator_______
 class Session: NSObject, NSCoding, Mappable {
-    
     var sessionToken: String?
     var success: Bool?
     
@@ -68,7 +67,6 @@ class Session: NSObject, NSCoding, Mappable {
     
     //MARK: Mappable protocol
     required init?(_ map: Map) {
-        
     }
     
     func mapping(map: Map) {
@@ -88,7 +86,8 @@ class Session: NSObject, NSCoding, Mappable {
     }
 }
 
-class Account: NSObject, Mappable {
+//_______User account info_______
+struct Account: Mappable {
     var userId: Int?
     var username: String?
     var fullName: String?
@@ -101,11 +100,10 @@ class Account: NSObject, Mappable {
     }
     
     //MARK: Mappable protocol
-    required init?(_ map: Map) {
-        
+    init?(_ map: Map) {
     }
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         userId<-map["id"]
         username<-map["username"]
         fullName<-map["name"]
@@ -116,7 +114,8 @@ class Account: NSObject, Mappable {
     }
 }
 
-class ListInfo: Mappable {
+//_______User's lists single item_______
+struct ListInfo: Mappable {
     var listId: String?
     var listName: String?
     var poster: String?
@@ -131,11 +130,10 @@ class ListInfo: Mappable {
     }
     
     //MARK: Mappable protocol
-    required init?(_ map: Map) {
-        
+    init?(_ map: Map) {
     }
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         listId<-map["id"]
         listName<-map["name"]
         poster<-map["poster_path"]
@@ -147,18 +145,18 @@ class ListInfo: Mappable {
     }
 }
 
-class ListInfoPages: Mappable {
+//_______User's lists_______
+struct ListInfoPages: Mappable {
     var page: Int?
     var pagesTotal: Int?
     var resultsTotal: Int?
     var results: [ListInfo]?
     
     //MARK: Mappable protocol
-    required init?(_ map: Map) {
-        
+    init?(_ map: Map) {
     }
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         page<-map["page"]
         pagesTotal<-map["total_pages"]
         resultsTotal<-map["total_results"]
@@ -166,7 +164,8 @@ class ListInfoPages: Mappable {
     }
 }
 
-class ListItem: Mappable {
+//_______User's list movie item_______
+struct ListItem: Mappable {
     var itemId: Int?
     var title: String?
     var originalTitle: String?
@@ -179,11 +178,10 @@ class ListItem: Mappable {
     var adult: Bool?
     
     //MARK: Mappable protocol
-    required init?(_ map: Map) {
-        
+    init?(_ map: Map) {
     }
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         itemId<-map["id"]
         title<-map["title"]
         originalTitle<-map["original_title"]
@@ -197,7 +195,8 @@ class ListItem: Mappable {
     }
 }
 
-class ListDetails: Mappable {
+//_______User's list info_______
+struct ListDetails: Mappable {
     var listId: String?
     var name: String?
     var createdBy: String?
@@ -209,11 +208,10 @@ class ListDetails: Mappable {
     var items: [ListItem]?
     
     //MARK: Mappable protocol
-    required init?(_ map: Map) {
-        
+    init?(_ map: Map) {
     }
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         listId<-map["id"]
         name<-map["name"]
         createdBy<-map["created_by"]
@@ -226,3 +224,169 @@ class ListDetails: Mappable {
         
     }
 }
+
+//_______Search movies results item_______
+struct SearchMovieItem: Mappable {
+    var movieId: Int?
+    var title: String?
+    var titleOriginal: String?
+    var overview: String?
+    var genres: [Int]?
+    var backdropPath: String?
+    var posterPath: String?
+    var releaseDate: String?
+    var popularity: Double?
+    var voteAverage: Double?
+    var voteCount: Int?
+    var originalLanguage: String?
+    var video: Bool?
+    var adult: Bool?
+    
+    //MARK: Mappable protocol
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        movieId<-map["id"]
+        title<-map["title"]
+        titleOriginal<-map["original_title"]
+        overview<-map["overview"]
+        genres<-map["genre_ids"]
+        backdropPath<-map["backdrop_path"]
+        posterPath<-map["poster_path"]
+        releaseDate<-map["release_date"]
+        popularity<-map["popularity"]
+        voteAverage<-map["vote_average"]
+        voteCount<-map["vote_count"]
+        originalLanguage<-map["original_language"]
+        video<-map["video"]
+        adult<-map["adult"]
+    }
+}
+
+//_______Search movies results_______
+struct SearchMovieResults: Mappable {
+    var page: Int?
+    var results: [SearchMovieItem]?
+    var totalPages: Int?
+    var totalItems: Int?
+    
+    //MARK: Mappable protocol
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        page<-map["page"]
+        results<-map["results"]
+        totalPages<-map["total_pages"]
+        totalItems<-map["total_results"]
+    }
+    
+}
+
+//__________Search TV results item__________
+struct SearchTVItem: Mappable {
+    var showId: Int?
+    var name: String?
+    var nameOriginal: String?
+    var overview: String?
+    var genres: [Int]?
+    var backdropPath: String?
+    var posterPath: String?
+    var firstAirDate: String?
+    var popularity: Double?
+    var voteAverage: Double?
+    var voteCount: Int?
+    var originalLanguage: String?
+    var originCountry: [String]?
+    
+    //MARK: Mappable protocol
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        showId<-map["id"]
+        name<-map["name"]
+        nameOriginal<-map["original_name"]
+        overview<-map["overview"]
+        genres<-map["genre_ids"]
+        backdropPath<-map["backdrop_path"]
+        posterPath<-map["poster_path"]
+        firstAirDate<-map["first_air_date"]
+        popularity<-map["popularity"]
+        voteAverage<-map["vote_average"]
+        voteCount<-map["vote_count"]
+        originalLanguage<-map["original_language"]
+        originCountry<-map["origin_country"]
+        
+    }
+}
+//_______Search TV results_______
+struct SearchTVResults: Mappable {
+    var page: Int?
+    var results: [SearchTVItem]?
+    var totalPages: Int?
+    var totalItems: Int?
+    
+    //MARK: Mappable protocol
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        page<-map["page"]
+        results<-map["results"]
+        totalPages<-map["total_pages"]
+        totalItems<-map["total_results"]
+    }
+}
+
+//__________Search Person results item__________
+struct SearchPersonItem: Mappable {
+    var personId: Int?
+    var name: String?
+    var profilePath: String?
+    var popularity: Double?
+    var adult: Bool?
+    
+    //MARK: Mappable protocol
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        personId<-map["id"]
+        name<-map["name"]
+        popularity<-map["popularity"]
+        profilePath<-map["profile_path"]
+        adult<-map["adult"]
+    }
+}
+//_______Search Person results_______
+struct SearchPersonResults: Mappable {
+    var page: Int?
+    var results: [SearchPersonItem]?
+    var totalPages: Int?
+    var totalItems: Int?
+    
+    //MARK: Mappable protocol
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        page<-map["page"]
+        results<-map["results"]
+        totalPages<-map["total_pages"]
+        totalItems<-map["total_results"]
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

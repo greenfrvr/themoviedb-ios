@@ -10,6 +10,7 @@ import Foundation
 import AFNetworking
 import ObjectMapper
 
+//______________Authenication______________
 class AuthenticationManager {
     var requestToken: String?
     let delegate: AuthenticationDelegate
@@ -65,7 +66,6 @@ class AuthenticationManager {
             },
             failure: { operation, error in self.delegate.sessionCreationFailed(error)
         })
-
     }
 }
 
@@ -84,6 +84,7 @@ protocol AuthenticationDelegate {
     func sessionCreationFailed(error: NSError) -> Void
 }
 
+//______________Account info______________
 class AccountManager {
     var account: Account?
     let session: String
@@ -124,7 +125,6 @@ class AccountManager {
             },
             failure: { operation, error in self.accountDelegate?.userLoadingFailed(error)
         })
-
     }
     
     func loadLists(){
@@ -141,9 +141,7 @@ class AccountManager {
             },
             failure: { operation, error in self.listsDelegate?.userListsLoadingFailed(error)
         })
-
     }
-    
 }
 
 protocol AccountDelegate {
@@ -162,6 +160,7 @@ protocol ListsDelegate {
     func userFetched() -> Void
 }
 
+//______________List details info______________
 class ListDetailsManager {
     let session: String
     let detailsDelegate: ListDetailsDelegate?
@@ -188,7 +187,6 @@ class ListDetailsManager {
             },
             failure: { operation, error in self.detailsDelegate?.listDetailsLoadingFailed(error)
         })
-        
     }
     
     func listDelete(listId id: String) {
@@ -218,23 +216,103 @@ protocol ListDetailsDelegate {
     func listRemovingFailed(error: NSError) -> Void
 }
 
+//______________Search______________
+class SearchManager {
+    
+    let searchDelegate: SearchDelegate?
+    
+    init(delegate: SearchDelegate?){
+        searchDelegate = delegate
+    }
+    
+    func queryMovies(query: String){
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "query": query
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.searchMovie, parameters: params,
+            success: { operation, response in
+                if let results = Mapper<SearchMovieResults>().map(response) {
+                    self.searchDelegate?.searchMovieResuts(results)
+                }
+            },
+            failure: { operation, error in self.searchDelegate?.searchNoMoviesFound(error)
+        })
+    }
+    
+    func queryTvShow(query: String){
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "query": query
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.searchTvShow, parameters: params,
+            success: { operation, response in
+                if let results = Mapper<SearchTVResults>().map(response) {
+                    self.searchDelegate?.searchTvShowResuts(results)
+                }
+            },
+            failure: { operation, error in self.searchDelegate?.searchNoTvShowFound(error)
+        })
+    }
+    
+    func queryPerson(query: String){
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "query": query
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.searchPerson, parameters: params,
+            success: { operation, response in
+                if let results = Mapper<SearchPersonResults>().map(response) {
+                    self.searchDelegate?.searchPersonResuts(results)
+                }
+            },
+            failure: { operation, error in self.searchDelegate?.searchNoPersonFound(error)
+        })
+    }
+    
+}
+
+protocol SearchDelegate {
+    
+    func searchMovieResuts(results: SearchMovieResults) -> Void
+    
+    func searchNoMoviesFound(error: NSError) -> Void
+    
+    func searchTvShowResuts(results: SearchTVResults) -> Void
+    
+    func searchNoTvShowFound(error: NSError) -> Void
+    
+    func searchPersonResuts(results: SearchPersonResults) -> Void
+    
+    func searchNoPersonFound(error: NSError) -> Void
+}
+
+//______________API configuration______________
 class ApiEndpoints {
     
     static let apiKey = "2aa0c55316f571116e12e8911e17be97"
-    static let baseApiUrl = "http://api.themoviedb.org/3/"
-    static let baseShareUrl = "https://www.themoviedb.org/"
-    static let baseImageUrl = "http://image.tmdb.org/t/p/"
+    static let baseApiUrl = "http://api.themoviedb.org/3"
+    static let baseShareUrl = "https://www.themoviedb.org"
+    static let baseImageUrl = "http://image.tmdb.org/t/p"
     
     //auth
-    static let newToken = "\(baseApiUrl)authentication/token/new"
-    static let validateToken = "\(baseApiUrl)authentication/token/validate_with_login"
-    static let createNewSession = "\(baseApiUrl)authentication/session/new"
+    static let newToken = "\(baseApiUrl)/authentication/token/new"
+    static let validateToken = "\(baseApiUrl)/authentication/token/validate_with_login"
+    static let createNewSession = "\(baseApiUrl)/authentication/session/new"
     //account
-    static let accountInfo = "\(baseApiUrl)account"
-    static let accountLists = { (id: Int) in "\(baseApiUrl)account/\(id)/lists" }
+    static let accountInfo = "\(baseApiUrl)/account"
+    static let accountLists = { (id: Int) in "\(baseApiUrl)/account/\(id)/lists" }
     //list
-    static let listDetails = { (id: String) in "\(baseApiUrl)list/\(id)" }
-    static let listShare = { (id: String) in "\(baseShareUrl)list/\(id)"}
+    static let listDetails = { (id: String) in "\(baseApiUrl)/list/\(id)" }
+    static let listShare = { (id: String) in "\(baseShareUrl)/list/\(id)"}
+    //search
+    static let searchMovie = "\(baseApiUrl)/search/movie"
+    static let searchTvShow = "\(baseApiUrl)/search/tv"
+    static let searchPerson = "\(baseApiUrl)/search/person"
+
     //config
     static let posterSizes = [
         1 : "w92",
@@ -251,6 +329,6 @@ class ApiEndpoints {
         0 : "original"
     ]
     //images
-    static let poster = { (size: Int, path: String) in "\(baseImageUrl)\(posterSizes[size]!)/\(path)?api_key=\(apiKey)"}
+    static let poster = { (size: Int, path: String) in "\(baseImageUrl)/\(posterSizes[size]!)/\(path)?api_key=\(apiKey)"}
     
 }
