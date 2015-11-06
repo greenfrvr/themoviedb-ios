@@ -9,7 +9,13 @@
 import Foundation
 import ObjectMapper
 
-//_______Authorization request token_______
+//_____________________Pagintation protocol______________________
+protocol PaginationLoading {
+    var hasMorePages: Bool { get }
+    var nextPage: Int? { get }
+}
+
+//__________________Authorization request token__________________
 class Token: NSObject, NSCoding, Mappable {
     var requestToken: String?
     var expireAt: String?
@@ -50,7 +56,7 @@ class Token: NSObject, NSCoding, Mappable {
     }
 }
 
-//_______Sesssion identificator_______
+//__________________Sesssion identificator__________________
 class Session: NSObject, NSCoding, Mappable {
     var sessionToken: String?
     var success: Bool?
@@ -86,7 +92,7 @@ class Session: NSObject, NSCoding, Mappable {
     }
 }
 
-//_______User account info_______
+//__________________User account info__________________
 struct Account: Mappable {
     var userId: Int?
     var username: String?
@@ -114,7 +120,7 @@ struct Account: Mappable {
     }
 }
 
-//_______User's lists single item_______
+//__________________User's lists single item__________________
 struct ListInfo: Mappable {
     var listId: String?
     var listName: String?
@@ -145,7 +151,7 @@ struct ListInfo: Mappable {
     }
 }
 
-//_______User's lists_______
+//__________________User's lists__________________
 struct ListInfoPages: Mappable {
     var page: Int?
     var pagesTotal: Int?
@@ -164,7 +170,7 @@ struct ListInfoPages: Mappable {
     }
 }
 
-//_______User's list movie item_______
+//__________________User's list movie item__________________
 struct ListItem: Mappable {
     var itemId: Int?
     var title: String?
@@ -195,7 +201,7 @@ struct ListItem: Mappable {
     }
 }
 
-//_______User's list info_______
+//__________________User's list info__________________
 struct ListDetails: Mappable {
     var listId: String?
     var name: String?
@@ -225,7 +231,7 @@ struct ListDetails: Mappable {
     }
 }
 
-//_______Search movies results item_______
+//__________________Search movies results item__________________
 struct SearchMovieItem: Mappable, SearchViewRepresentation {
     var movieId: Int?
     var title: String?
@@ -278,8 +284,8 @@ struct SearchMovieItem: Mappable, SearchViewRepresentation {
     }
 }
 
-//_______Search movies results_______
-struct SearchMovieResults: Mappable {
+//__________________Search movies results__________________
+struct SearchMovieResults: Mappable, PaginationLoading {
     var page: Int?
     var results: [SearchMovieItem]?
     var totalPages: Int?
@@ -296,9 +302,17 @@ struct SearchMovieResults: Mappable {
         totalItems<-map["total_results"]
     }
     
+    //MARK: Pagintation
+    var hasMorePages: Bool {
+        return page < totalPages
+    }
+    
+    var nextPage: Int? {
+        return hasMorePages ? page! + 1 : nil
+    }
 }
 
-//__________Search TV results item__________
+//_____________________Search TV results item_____________________
 struct SearchTVItem: Mappable, SearchViewRepresentation {
     var showId: Int?
     var name: String?
@@ -348,8 +362,8 @@ struct SearchTVItem: Mappable, SearchViewRepresentation {
         return overview
     }
 }
-//_______Search TV results_______
-struct SearchTVResults: Mappable {
+//__________________Search TV results__________________
+struct SearchTVResults: Mappable, PaginationLoading {
     var page: Int?
     var results: [SearchTVItem]?
     var totalPages: Int?
@@ -365,9 +379,18 @@ struct SearchTVResults: Mappable {
         totalPages<-map["total_pages"]
         totalItems<-map["total_results"]
     }
+    
+    //MARK: Pagintation
+    var hasMorePages: Bool {
+        return page < totalPages
+    }
+    
+    var nextPage: Int? {
+        return hasMorePages ? page! + 1 : nil
+    }
 }
 
-//__________Search Person results item__________
+//_____________________Search Person results item_____________________
 struct SearchPersonItem: Mappable, SearchViewRepresentation {
     var personId: Int?
     var name: String?
@@ -397,8 +420,8 @@ struct SearchPersonItem: Mappable, SearchViewRepresentation {
     var representDate: String? { return "" }
     var representDescription: String? { return "" }
 }
-//_______Search Person results_______
-struct SearchPersonResults: Mappable {
+//__________________Search Person results__________________
+struct SearchPersonResults: Mappable, PaginationLoading {
     var page: Int?
     var results: [SearchPersonItem]?
     var totalPages: Int?
@@ -413,6 +436,15 @@ struct SearchPersonResults: Mappable {
         results<-map["results"]
         totalPages<-map["total_pages"]
         totalItems<-map["total_results"]
+    }
+    
+    //MARK: Pagintation
+    var hasMorePages: Bool {
+        return page < totalPages
+    }
+    
+    var nextPage: Int? {
+        return hasMorePages ? page! + 1 : nil
     }
 }
 

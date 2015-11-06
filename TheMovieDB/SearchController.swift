@@ -13,6 +13,8 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     
     //MARK: Properties
     var scopeIndex = 0
+    var nextPage: Int?
+    var hasMoreItems = false
     var query: String?
     var searchManager: SearchManager?
     var resultsMovies = [SearchMovieItem]()
@@ -23,34 +25,90 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var pagintationView: UIView!
+    @IBOutlet weak var pagintationIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var pagintationLabel: UILabel!
     
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         searchManager = SearchManager(delegate: self)
         searchTableView.dataSource = self
         searchTableView.delegate = self
+        searchTableView.tableFooterView?.hidden = true
     }
+    
+    //MARK: Data
+    func receiveResults(@autoclosure persistData: () -> Void, pages: PaginationLoading) {
+        persistData()
+        
+        hasMoreItems = scopeIndex > 0 && pages.hasMorePages
+        nextPage = pages.nextPage
+        
+        loadingIndicator.stopAnimating()
+        searchTableView.reloadData()
+        searchTableView.tableFooterView?.hidden = true
+    }
+    
+    func executeQuery() {
+        print("Searching for: \(searchBar.text!)")
+        if let queryString = query where !queryString.isEmpty {
+            loadingIndicator.startAnimating()
+            switch scopeIndex {
+            case 0:
+                searchManager?.queryMovies(queryString)
+                searchManager?.queryTvShow(queryString)
+                searchManager?.queryPerson(queryString)
+            case 1:
+                searchManager?.queryMovies(queryString)
+            case 2:
+                searchManager?.queryTvShow(queryString)
+            case 3:
+                searchManager?.queryPerson(queryString)
+            default: return
+            }
+        }
+    }
+    
+    func loadNextPage(){
+        searchTableView.tableFooterView?.hidden = false
+        if let page = nextPage {
+            if scopeIndex == 1 {
+                searchManager?.queryMovies(query!, page: page)
+            }
+            if scopeIndex == 2 {
+                searchManager?.queryTvShow(query!, page: page)
+            }
+            if scopeIndex == 3 {
+                searchManager?.queryPerson(query!, page: page)
+            }
+        }
+        hasMoreItems = false
+    }
+    
+    func clearResutls(){
+        resultsMovies.removeAll()
+        resultsTvShow.removeAll()
+        resultsPerson.removeAll()
+        searchTableView.reloadData()
+        searchTableView.tableFooterView?.hidden = true
+    }
+
     
     //MARK: SearchDelegate
     func searchMovieResuts(searchResults: SearchMovieResults) {
-        resultsMovies = searchResults.results!
-        print("\(resultsMovies.count) movies loaded")
-        loadingIndicator.stopAnimating()
-        searchTableView.reloadData()
+        receiveResults(self.resultsMovies += searchResults.results!, pages: searchResults)
+        print("\(searchResults.results!.count) movies loaded out of \(searchResults.totalItems!)")
     }
     
     func searchTvShowResuts(searchResults: SearchTVResults) {
-        resultsTvShow = searchResults.results!
-        print("\(resultsTvShow.count) tv shows loaded")
-        loadingIndicator.stopAnimating()
-        searchTableView.reloadData()
+        receiveResults(self.resultsTvShow += searchResults.results!, pages: searchResults)
+        print("\(searchResults.results!.count) tv shows loaded out of \(searchResults.totalItems!)")
     }
     
     func searchPersonResuts(searchResults: SearchPersonResults) {
-        resultsPerson = searchResults.results!
-        print("\(resultsPerson.count) persons loaded")
-        loadingIndicator.stopAnimating()
-        searchTableView.reloadData()
+        receiveResults(self.resultsPerson += searchResults.results!, pages: searchResults)
+        print("\(searchResults.results!.count) psersons loaded out of \(searchResults.totalItems!)")
     }
     
     func searchNoMoviesFound(error: NSError) {
@@ -74,20 +132,8 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentifier = "SearchCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SearchViewCell
-        let section = indexPath.section
-        var item: SearchViewRepresentation? = nil
-        
-        if (scopeIndex == 0 && section == 0) || scopeIndex == 1 {
-            item = resultsMovies[indexPath.row]
-        }
-        else if (scopeIndex == 0 && section == 1) || scopeIndex == 2 {
-            item = resultsTvShow[indexPath.row]
-        }
-        else if (scopeIndex == 0 && section == 2) || scopeIndex == 3{
-            item = resultsPerson[indexPath.row]
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(SearchViewCell.identifier, forIndexPath: indexPath) as! SearchViewCell
+        let item = extractDataForRepresentation(row: indexPath.row, section: indexPath.section)
         
         cell.cellTitle.text = item?.representTitle
         cell.cellDate.text = item?.representDate
@@ -95,6 +141,19 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         cell.cellImage.sd_setImageWithURL(NSURL(string: item?.representImage ?? ""), placeholderImage: UIImage(named: "defaultPhoto"))
         
         return cell
+    }
+    
+    func extractDataForRepresentation(row row: Int, section: Int) -> SearchViewRepresentation? {
+        if (scopeIndex == 0 && section == 0) || scopeIndex == 1 {
+            return resultsMovies[row]
+        }
+        else if (scopeIndex == 0 && section == 1) || scopeIndex == 2 {
+            return resultsTvShow[row]
+        }
+        else if (scopeIndex == 0 && section == 2) || scopeIndex == 3{
+            return resultsPerson[row]
+        }
+        return nil
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -106,7 +165,7 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         let title: String?
         switch sectionIndex {
         case 0: title = "Movies"
-        case 1: title = "Series"
+        case 1: title = "TV Show"
         case 2: title = "People"
         default: title = nil
         }
@@ -126,6 +185,16 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         return 0
     }
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+        
+        if deltaOffset <= 0 && hasMoreItems {
+            loadNextPage()
+        }
+    }
+    
     //MARK: SearchBarDelegate
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         query = searchBar.text!
@@ -136,6 +205,7 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         query = searchBar.text!
+        clearResutls()
         executeQuery()
         searchBar.resignFirstResponder()
     }
@@ -144,33 +214,10 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         searchBar.text = ""
         searchBar.resignFirstResponder()
     }
-    
-    //MARK: Data
-    func clearResutls(){
-        resultsMovies.removeAll()
-        resultsTvShow.removeAll()
-        resultsPerson.removeAll()
-        searchTableView.reloadData()
-    }
-    
-    func executeQuery() {
-        print("Searching for: \(searchBar.text!)")
-        if let queryString = query where !queryString.isEmpty {
-            loadingIndicator.startAnimating()
-            switch scopeIndex {
-            case 0:
-                searchManager?.queryMovies(queryString)
-                searchManager?.queryTvShow(queryString)
-                searchManager?.queryPerson(queryString)
-            case 1:
-                searchManager?.queryMovies(queryString)
-            case 2:
-                searchManager?.queryTvShow(queryString)
-            case 3:
-                searchManager?.queryPerson(queryString)
-            default: return
-            }
-        }
-    }
-    
 }
+
+
+
+
+
+

@@ -225,10 +225,11 @@ class SearchManager {
         searchDelegate = delegate
     }
     
-    func queryMovies(query: String){
+    func queryMovies(query: String, page: Int = 1){
         let params = [
             "api_key": ApiEndpoints.apiKey,
-            "query": query
+            "query": query,
+            "page": page
         ]
         
         AFHTTPRequestOperationManager().GET(ApiEndpoints.searchMovie, parameters: params,
@@ -241,10 +242,11 @@ class SearchManager {
         })
     }
     
-    func queryTvShow(query: String){
+    func queryTvShow(query: String, page: Int = 1){
         let params = [
             "api_key": ApiEndpoints.apiKey,
-            "query": query
+            "query": query,
+            "page": page
         ]
         
         AFHTTPRequestOperationManager().GET(ApiEndpoints.searchTvShow, parameters: params,
@@ -257,7 +259,7 @@ class SearchManager {
         })
     }
     
-    func queryPerson(query: String){
+    func queryPerson(query: String, page: Int = 1){
         let params = [
             "api_key": ApiEndpoints.apiKey,
             "query": query
