@@ -21,6 +21,7 @@
 		11759AED1BE764FB00BE2B46 /* TheMovieDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AEC1BE764FB00BE2B46 /* TheMovieDBTests.swift */; };
 		11759AF81BE764FB00BE2B46 /* TheMovieDBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AF71BE764FB00BE2B46 /* TheMovieDBUITests.swift */; };
 		11759B061BE76D5800BE2B46 /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759B051BE76D5800BE2B46 /* AccountController.swift */; };
+		117CF94F1BECD56E00BA2A3B /* MovieDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */; };
 		1180EFAD1BE9EAA900082B6E /* ListItemsCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1180EFAC1BE9EAA900082B6E /* ListItemsCollectionController.swift */; };
 		1180EFAF1BE9EB7F00082B6E /* ListItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1180EFAE1BE9EB7F00082B6E /* ListItemViewCell.swift */; };
 		1180EFB11BEA027500082B6E /* UILabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1180EFB01BEA027500082B6E /* UILabelWithPadding.swift */; };
@@ -68,6 +69,7 @@
 		11759AF71BE764FB00BE2B46 /* TheMovieDBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMovieDBUITests.swift; sourceTree = "<group>"; };
 		11759AF91BE764FB00BE2B46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11759B051BE76D5800BE2B46 /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
+		117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailsController.swift; sourceTree = "<group>"; };
 		1180EFAC1BE9EAA900082B6E /* ListItemsCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListItemsCollectionController.swift; sourceTree = "<group>"; };
 		1180EFAE1BE9EB7F00082B6E /* ListItemViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListItemViewCell.swift; sourceTree = "<group>"; };
 		1180EFB01BEA027500082B6E /* UILabelWithPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelWithPadding.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				1174C9611BE8960D00A0075B /* FavoritesController.swift */,
 				1174C9691BE8E67900A0075B /* ListDetailsController.swift */,
 				1180EFAC1BE9EAA900082B6E /* ListItemsCollectionController.swift */,
+				117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1180EFAF1BE9EB7F00082B6E /* ListItemViewCell.swift in Sources */,
+				117CF94F1BECD56E00BA2A3B /* MovieDetailsController.swift in Sources */,
 				1180EFAD1BE9EAA900082B6E /* ListItemsCollectionController.swift in Sources */,
 				1180EFB11BEA027500082B6E /* UILabelWithPadding.swift in Sources */,
 				1174C9641BE8BF0600A0075B /* UserListsTableController.swift in Sources */,

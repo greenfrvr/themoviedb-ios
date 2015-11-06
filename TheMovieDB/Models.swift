@@ -448,8 +448,55 @@ struct SearchPersonResults: Mappable, PaginationLoading {
     }
 }
 
-
-
+//____________________Movie info___________________
+struct MovieInfo: Mappable {
+    var movieId: Int?
+    var imdbId: String?
+    var title: String?
+    var tagline: String?
+    var overview: String?
+    var genres: [Genre]?
+    var runtime: Int?
+    var voteAverage: Double?
+    var voteCount: Int?
+    var releaseDate: String?
+    var budget: Int?
+    var revenue: Int?
+    var posterPath: String?
+    
+    //MARK: Mappable protocol
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        movieId<-map["id"]
+        imdbId<-map["imdb_id"]
+        title<-map["title"]
+        tagline<-map["tagline"]
+        overview<-map["overview"]
+        genres<-map["genres"]
+        runtime<-map["runtime"]
+        voteAverage<-map["vote_average"]
+        voteCount<-map["vote_count"]
+        releaseDate<-map["release_date"]
+        budget<-map["budget"]
+        revenue<-map["revenue"]
+        posterPath<-map["poster_path"]
+    }
+    
+    struct Genre: Mappable {
+        var id: String?
+        var name: String?
+        
+        init?(_ map: Map) {
+        }
+        
+        mutating func mapping(map: Map) {
+            id<-map["id"]
+            name<-map["name"]
+        }
+    }
+}
 
 
 

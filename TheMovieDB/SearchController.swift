@@ -185,6 +185,15 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         return 0
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if (scopeIndex == 0 && indexPath.section == 0) || scopeIndex == 1 {
+            let controller = storyboard?.instantiateViewControllerWithIdentifier("MovieDetails") as! MovieDetailsController
+            let movie = resultsMovies[indexPath.row]
+            controller.movieId = String(movie.movieId!)
+            presentViewController(controller, animated: true, completion: nil)
+        }
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height

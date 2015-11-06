@@ -292,6 +292,40 @@ protocol SearchDelegate {
     func searchNoPersonFound(error: NSError) -> Void
 }
 
+class MovieDetailsManager {
+    
+    let delegate: MovieDetailsDelegate?
+    
+    init(delegate: MovieDetailsDelegate){
+        self.delegate = delegate
+    }
+    
+    func loadDetails(id: String){
+        let params = [
+            "api_key": ApiEndpoints.apiKey
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.movieDetails(id), parameters: params,
+            success: { operation, response in
+                if let results = Mapper<MovieInfo>().map(response) {
+                    self.delegate?.detailsLoadedSuccessfully(results)
+                }
+            },
+            failure: { operation, error in self.delegate?.detailsLoadingFailed(error)
+        })
+
+    }
+    
+}
+
+protocol MovieDetailsDelegate {
+    
+    func detailsLoadedSuccessfully(details: MovieInfo) -> Void
+    
+    func detailsLoadingFailed(error: NSError) -> Void
+    
+}
+
 //______________API configuration______________
 class ApiEndpoints {
     
@@ -314,7 +348,9 @@ class ApiEndpoints {
     static let searchMovie = "\(baseApiUrl)/search/movie"
     static let searchTvShow = "\(baseApiUrl)/search/tv"
     static let searchPerson = "\(baseApiUrl)/search/person"
-
+    //details 
+    static let movieDetails = { (id: String) in "\(baseApiUrl)/movie/\(id)" }
+    
     //config
     static let posterSizes = [
         1 : "w92",
