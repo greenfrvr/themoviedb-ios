@@ -22,6 +22,7 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     //MARK: Outlets
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,29 +34,38 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     //MARK: SearchDelegate
     func searchMovieResuts(searchResults: SearchMovieResults) {
         resultsMovies = searchResults.results!
+        print("\(resultsMovies.count) movies loaded")
+        loadingIndicator.stopAnimating()
         searchTableView.reloadData()
     }
     
     func searchTvShowResuts(searchResults: SearchTVResults) {
         resultsTvShow = searchResults.results!
+        print("\(resultsTvShow.count) tv shows loaded")
+        loadingIndicator.stopAnimating()
         searchTableView.reloadData()
     }
     
     func searchPersonResuts(searchResults: SearchPersonResults) {
         resultsPerson = searchResults.results!
+        print("\(resultsPerson.count) persons loaded")
+        loadingIndicator.stopAnimating()
         searchTableView.reloadData()
     }
     
     func searchNoMoviesFound(error: NSError) {
         print(error)
+        loadingIndicator.stopAnimating()
     }
     
     func searchNoTvShowFound(error: NSError) {
         print(error)
+        loadingIndicator.stopAnimating()
     }
     
     func searchNoPersonFound(error: NSError) {
         print(error)
+        loadingIndicator.stopAnimating()
     }
     
     //MARK: TableViewDataSource
@@ -95,10 +105,10 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         
         let title: String?
         switch sectionIndex {
-            case 0: title = "Movies"
-            case 1: title = "Series"
-            case 2: title = "People"
-            default: title = nil
+        case 0: title = "Movies"
+        case 1: title = "Series"
+        case 2: title = "People"
+        default: title = nil
         }
         return title
     }
@@ -118,20 +128,35 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     
     //MARK: SearchBarDelegate
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        print("Selected scope: \(selectedScope)")
+        query = searchBar.text!
         scopeIndex = selectedScope
-        searchTableView.reloadData()
+        clearResutls()
+        executeQuery()
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        print("Search initiated with query: \(searchBar.text!)")
         query = searchBar.text!
         executeQuery()
         searchBar.resignFirstResponder()
     }
     
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+    
+    //MARK: Data
+    func clearResutls(){
+        resultsMovies.removeAll()
+        resultsTvShow.removeAll()
+        resultsPerson.removeAll()
+        searchTableView.reloadData()
+    }
+    
     func executeQuery() {
-        if let queryString = query {
+        print("Searching for: \(searchBar.text!)")
+        if let queryString = query where !queryString.isEmpty {
+            loadingIndicator.startAnimating()
             switch scopeIndex {
             case 0:
                 searchManager?.queryMovies(queryString)
