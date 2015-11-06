@@ -59,11 +59,7 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
         detailsManager = ListDetailsManager(sessionId: session.sessionToken!, detailsDelegate: self)
         detailsManager?.listDetails(listId: argList.listId!)
     }
-    
-    override func viewWillAppear(animated: Bool) {
-    
-    }
-    
+        
     override func viewDidAppear(animated: Bool) {
         if let list = argList {
             print("List loaded: \(list.listId!)")
@@ -86,7 +82,6 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
     }
     
     func listRemovedSuccessfully() {
-        print("List removed successfully")
         performSegueWithIdentifier("ItemRemoved", sender: self)
     }
     
@@ -100,5 +95,4 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
             collectionDelegate = segue.destinationViewController as? ListItemsCollectionDelegate
         }
     }
-    
 }

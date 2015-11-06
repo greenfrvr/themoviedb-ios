@@ -10,6 +10,8 @@ import UIKit
 
 class ListsTableViewCell: UITableViewCell {
 
+    static let identifier = "ListsTableViewCell"
+    
     @IBOutlet weak var listTitleLabel: UILabel!
     @IBOutlet weak var listDescLabel: UILabel!
     @IBOutlet weak var listCounterLabel: UILabel!

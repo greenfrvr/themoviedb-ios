@@ -35,14 +35,15 @@ class AccountController: UIViewController, AccountDelegate {
     //MARK: AccountDelegate
     func userLoadedSuccessfully(account: Account) {
         loadingIndicator.stopAnimating()
+        
         usernameLabel.text = account.username
         fullNameLabel.text = account.fullName
-        print("Gravatar URL: \(account.gravatar)")
         avatarImageView.sd_setImageWithURL(NSURL(string: account.gravatar), placeholderImage: UIImage.init(named: "defaultPhoto"))
-     }
+    }
     
     func userLoadingFailed(error: NSError) {
         print(error)
     }
-    
 }
+
+

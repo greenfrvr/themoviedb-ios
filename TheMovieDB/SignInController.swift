@@ -55,11 +55,6 @@ class SignInController: UIViewController, AuthenticationDelegate {
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     //MARK: Session cache check
     func loadCachedSession(){
         session = SessionCache.restoreSession()
@@ -77,20 +72,9 @@ class SignInController: UIViewController, AuthenticationDelegate {
         print("Token loaded:\n \(token.requestToken!)")
     }
     
-    func tokenLoadingFailed(error: NSError) {
-        print(error)
-        let alert = UIAlertView(title: "Something went wrong", message: "Please come back to app again later", delegate: nil, cancelButtonTitle: "OK")
-        alert.show()
-        
-    }
-    
     func tokenValidatedSuccessfully(token: Token) {
         print("Token validated:\n \(token.requestToken!)")
         authManager.createSession()
-    }
-    
-    func tokenValidationFailed(error: NSError) {
-        print(error)
     }
     
     func sessionCreatedSuccessfully(session: Session) {
@@ -98,6 +82,16 @@ class SignInController: UIViewController, AuthenticationDelegate {
         SessionCache.save(session)
         loadingIndicator.stopAnimating()
         moveToMainController()
+    }
+    
+    func tokenLoadingFailed(error: NSError) {
+        print(error)
+        let alert = UIAlertView(title: "Something went wrong", message: "Please come back to app again later", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
+    }
+    
+    func tokenValidationFailed(error: NSError) {
+        print(error)
     }
     
     func sessionCreationFailed(error: NSError) {
@@ -116,7 +110,6 @@ class SignInController: UIViewController, AuthenticationDelegate {
     }
     
     func moveToMainController(){
-        print("Calling main controller")
         let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainContentController") as! UITabBarController
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.window?.rootViewController = mainController

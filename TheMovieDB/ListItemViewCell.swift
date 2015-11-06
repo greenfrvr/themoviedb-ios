@@ -9,10 +9,10 @@
 import UIKit
 
 class ListItemViewCell: UICollectionViewCell {
-
+    
+    static let identifier = "ListItemViewCell"
+    
     @IBOutlet weak var movieNameLabel: UILabelWithPadding!
     @IBOutlet weak var posterImageView: UIImageView!
-    
-    
     
 }

@@ -46,7 +46,7 @@
                                 <rect key="frame" x="8" y="108" width="359" height="510"/>
                                 <animations/>
                                 <connections>
-                                    <segue destination="mja-0v-7y3" kind="embed" id="Dq9-o1-9FT"/>
+                                    <segue destination="mja-0v-7y3" kind="embed" identifier="UserListsSegue" id="Dq9-o1-9FT"/>
                                 </connections>
                             </containerView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="IZs-z8-xr4">

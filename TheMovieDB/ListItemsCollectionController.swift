@@ -11,16 +11,14 @@ import SDWebImage
 
 class ListItemsCollectionController: UICollectionViewController, ListItemsCollectionDelegate {
     
-    var items: [ListItem] = []
+    var items = [ListItem]()
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cellIdentifier = "ListItemViewCell"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! ListItemViewCell
-        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ListItemViewCell.identifier, forIndexPath: indexPath) as! ListItemViewCell
         let item = items[indexPath.row]
         
         cell.movieNameLabel.padding = 10
@@ -35,7 +33,6 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
     }
     
     func collectionFetched(collection: [ListItem]) {
-        print("collection fetched")
         items += collection
         collectionView?.reloadData()
     }

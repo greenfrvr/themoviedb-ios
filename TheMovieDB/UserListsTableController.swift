@@ -11,15 +11,13 @@ import UIKit
 class UserListsTableController: UITableViewController, ListsDelegate {
 
     //MARK: Properties
-    var lastLoadedPage: Int = 1
-    var pagesTotal: Int = 1
     var session: Session!
     var accountManager: AccountManager?
     var lists: [ListInfo] = []
     
+    //MARK: Actions
     @IBAction func unwindItemRemoved(segue: UIStoryboardSegue){
         if let selectedIndex = tableView.indexPathForSelectedRow {
-            print("selected index found")
             lists.removeAtIndex(selectedIndex.row)
             tableView.deleteRowsAtIndexPaths([selectedIndex], withRowAnimation: .Fade)
         }
@@ -35,24 +33,20 @@ class UserListsTableController: UITableViewController, ListsDelegate {
     }
     
     //MARK: ListsDelegate
-    func userListsLoadedSuccessfully(pages: ListInfoPages) {
-        pagesTotal = pages.pagesTotal!
-        lastLoadedPage = pages.page!
-        lists = pages.results!
-        
-        print("Pages loaded, total count is \(pages.resultsTotal!)")
+    func userListsLoadedSuccessfully(results: ListInfoPages) {
+        lists = results.results!
         
         tableView.reloadData()
         refreshControl?.endRefreshing()
         updateRefreshingTitle()
     }
+   
+    func userFetched(){
+        accountManager?.loadLists()
+    }
     
     func userListsLoadingFailed(error: NSError) {
         print(error)
-    }
-    
-    func userFetched(){
-        accountManager?.loadLists()
     }
     
     //MARK: TableView
@@ -65,14 +59,12 @@ class UserListsTableController: UITableViewController, ListsDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentifier = "ListsTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ListsTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(ListsTableViewCell.identifier, forIndexPath: indexPath) as! ListsTableViewCell
+        let item = lists[indexPath.row]
         
-        let list = lists[indexPath.row]
-        
-        cell.listTitleLabel.text = list.listName
-        cell.listDescLabel.text = list.listDesc
-        cell.listCounterLabel.text = list.itemsCount
+        cell.listTitleLabel.text = item.listName
+        cell.listDescLabel.text = item.listDesc
+        cell.listCounterLabel.text = item.itemsCount
         
         return cell
     }
@@ -89,7 +81,7 @@ class UserListsTableController: UITableViewController, ListsDelegate {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MMM d, h:mm a"
         let title = "Last update: \(formatter.stringFromDate(NSDate()))"
-        refreshControl?.attributedTitle = NSAttributedString.init(string: title, attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+        refreshControl?.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
     }
     
     //MARK: Navigation
