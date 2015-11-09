@@ -35,7 +35,7 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
         let actionSheet = UIAlertController(title: "Pick an action", message: "What do you want to do with your list?", preferredStyle: .ActionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Share", style: .Default, handler: { action in
-            let shareController = UIActivityViewController.init(activityItems: [self.shareUrl], applicationActivities: nil)
+            let shareController = UIActivityViewController(activityItems: [self.shareUrl], applicationActivities: nil)
             self.presentViewController(shareController, animated: true, completion: nil)
         }))
         
@@ -44,7 +44,6 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
             deleteController.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
             deleteController.addAction(UIAlertAction(title: "Remove", style: .Destructive, handler:
                 { action in self.detailsManager?.listDelete(listId: self.argList.listId!) }))
-                
             self.presentViewController(deleteController, animated: true, completion: nil)
         }))
         

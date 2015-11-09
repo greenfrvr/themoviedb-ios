@@ -38,7 +38,7 @@ class AccountController: UIViewController, AccountDelegate {
         
         usernameLabel.text = account.username
         fullNameLabel.text = account.fullName
-        avatarImageView.sd_setImageWithURL(NSURL(string: account.gravatar), placeholderImage: UIImage.init(named: "defaultPhoto"))
+        avatarImageView.sd_setImageWithURL(NSURL(string: account.gravatar), placeholderImage: UIImage(named: "defaultPhoto"))
     }
     
     func userLoadingFailed(error: NSError) {

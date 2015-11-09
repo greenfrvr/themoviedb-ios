@@ -32,7 +32,6 @@ class Token: NSObject, NSCoding, Mappable {
         }
     }
     
-    //MARK: Mappable protocol
     required init?(_ map: Map) {
     }
 
@@ -71,7 +70,6 @@ class Session: NSObject, NSCoding, Mappable {
         }
     }
     
-    //MARK: Mappable protocol
     required init?(_ map: Map) {
     }
     
@@ -105,7 +103,6 @@ struct Account: Mappable {
         return "http://www.gravatar.com/avatar/\(gravatarHash!)?s=150"
     }
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -135,7 +132,6 @@ struct ListInfo: Mappable {
         return "\(count > 0 ? String(count) : "no") item\(count != 1 ? "s" : "")"
     }
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -158,7 +154,6 @@ struct ListInfoPages: Mappable {
     var resultsTotal: Int?
     var results: [ListInfo]?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -183,7 +178,6 @@ struct ListItem: Mappable {
     var posterPath: String?
     var adult: Bool?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -213,7 +207,6 @@ struct ListDetails: Mappable {
     var langCode: String?
     var items: [ListItem]?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -248,7 +241,6 @@ struct SearchMovieItem: Mappable, SearchViewRepresentation {
     var video: Bool?
     var adult: Bool?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -291,7 +283,6 @@ struct SearchMovieResults: Mappable, PaginationLoading {
     var totalPages: Int?
     var totalItems: Int?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -328,7 +319,6 @@ struct SearchTVItem: Mappable, SearchViewRepresentation {
     var originalLanguage: String?
     var originCountry: [String]?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -369,7 +359,6 @@ struct SearchTVResults: Mappable, PaginationLoading {
     var totalPages: Int?
     var totalItems: Int?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -398,7 +387,6 @@ struct SearchPersonItem: Mappable, SearchViewRepresentation {
     var popularity: Double?
     var adult: Bool?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -427,7 +415,6 @@ struct SearchPersonResults: Mappable, PaginationLoading {
     var totalPages: Int?
     var totalItems: Int?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -464,7 +451,6 @@ struct MovieInfo: Mappable {
     var revenue: Int?
     var posterPath: String?
     
-    //MARK: Mappable protocol
     init?(_ map: Map) {
     }
     
@@ -498,7 +484,82 @@ struct MovieInfo: Mappable {
     }
 }
 
+//____________________Movie status (rated, favorite, in watchlist, etc)___________________
+struct MovieState: Mappable {
+    var movieId: Int?
+    var favorite: Bool?
+    var watchlist: Bool?
+    var ratedValue: Double?
+    
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        movieId<-map["id"]
+        favorite<-map["favorite"]
+        watchlist<-map["watchlist"]
+        ratedValue<-map["rated.value"]
+    }
+}
+//____________________Favorite state change request body___________________
+struct FavoriteBody: Mappable {
+    var mediaId: Int?
+    var mediaType: String?
+    var favorite: Bool?
+    
+    init(id: Int?, type: String?, favorite: Bool?){
+        self.mediaId = id
+        self.mediaType = type
+        self.favorite = favorite
+    }
+    
+    init(movieId id: Int?, isFavorite: Bool?) {
+        self.init(id: id, type: "movie", favorite: isFavorite)
+    }
 
+    init(tvShowId id: Int?, isFavorite: Bool?) {
+        self.init(id: id, type: "tv", favorite: isFavorite)
+    }
+    
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        mediaId<-map["media_id"]
+        mediaType<-map["media_type"]
+        favorite<-map["favorite"]
+    }
+}
+
+//____________________Watchlist state change request body___________________
+struct WatchlistBody: Mappable {
+    var mediaId: Int?
+    var mediaType: String?
+    var watchlist: Bool?
+    
+    init(id: Int?, type: String?, watchlist: Bool?){
+        self.mediaId = id
+        self.mediaType = type
+        self.watchlist = watchlist
+    }
+    
+    init(movieId id: Int?, isInWatchlist: Bool?) {
+        self.init(id: id, type: "movie", watchlist: isInWatchlist)
+    }
+    
+    init(tvShowId id: Int?, isInWatchlist: Bool?) {
+        self.init(id: id, type: "tv", watchlist: isInWatchlist)
+    }
+    
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        mediaId<-map["media_id"]
+        mediaType<-map["media_type"]
+        watchlist<-map["watchlist"]
+    }
+}
 
 
 

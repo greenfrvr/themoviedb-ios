@@ -294,13 +294,19 @@ protocol SearchDelegate {
 
 class MovieDetailsManager {
     
+    let session: String
     let delegate: MovieDetailsDelegate?
     
-    init(delegate: MovieDetailsDelegate){
+    init?(sessionId: String, delegate: MovieDetailsDelegate){
+        self.session = sessionId
         self.delegate = delegate
+        
+        if sessionId.isEmpty {
+            return nil
+        }
     }
     
-    func loadDetails(id: String){
+    func loadDetails(id: String) {
         let params = [
             "api_key": ApiEndpoints.apiKey
         ]
@@ -308,22 +314,91 @@ class MovieDetailsManager {
         AFHTTPRequestOperationManager().GET(ApiEndpoints.movieDetails(id), parameters: params,
             success: { operation, response in
                 if let results = Mapper<MovieInfo>().map(response) {
-                    self.delegate?.detailsLoadedSuccessfully(results)
+                    self.delegate?.movieDetailsLoadedSuccessfully(results)
                 }
             },
-            failure: { operation, error in self.delegate?.detailsLoadingFailed(error)
+            failure: { operation, error in self.delegate?.movieDetailsLoadingFailed(error)
         })
-
     }
     
+    func loadState(id: String) {
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "session_id": session
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.movieState(id), parameters: params,
+            success: { operation, response in
+                if let results = Mapper<MovieState>().map(response) {
+                    self.delegate?.movieStateLoadedSuccessfully(results)
+                }
+            },
+            failure: { operation, error in self.delegate?.movieStateLoadingFailed(error)
+        })
+    }
+    
+    func changeFavoriteState(id: String, state: Bool){
+        let newState = !state
+        let body = Mapper<FavoriteBody>().toJSONString(FavoriteBody(movieId: Int(id), isFavorite: newState), prettyPrint: true)!
+        print(body)
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: ApiEndpoints.accountItemFavoriteState(id, session))!)
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.HTTPRequestOperationWithRequest(request,
+            success: { operation, response in
+                self.delegate?.movieFavoriteStateChangedSuccessfully(newState)
+            },
+            failure: { operation, error in
+                self.delegate?.movieFavoriteStateChangesFailed(error)
+        }).start()
+    }
+    
+    func changeWatchlistState(id: String, state: Bool){
+        let newState = !state
+        let body = Mapper<WatchlistBody>().toJSONString(WatchlistBody(movieId: Int(id), isInWatchlist: newState), prettyPrint: true)!
+        print(body)
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: ApiEndpoints.accountItemWatchlistState(id, session))!)
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.HTTPRequestOperationWithRequest(request,
+            success: { operation, response in
+                self.delegate?.movieWatchlistStateChangedSuccessfully(newState)
+            },
+            failure: { operation, error in
+                self.delegate?.movieWatchlistStateChangesFailed(error)
+        }).start()
+    }
 }
 
 protocol MovieDetailsDelegate {
     
-    func detailsLoadedSuccessfully(details: MovieInfo) -> Void
+    func movieDetailsLoadedSuccessfully(details: MovieInfo) -> Void
     
-    func detailsLoadingFailed(error: NSError) -> Void
+    func movieDetailsLoadingFailed(error: NSError) -> Void
     
+    func movieStateLoadedSuccessfully(state: MovieState) -> Void
+    
+    func movieStateLoadingFailed(error: NSError) -> Void
+    
+    func movieFavoriteStateChangedSuccessfully(isFavorite: Bool) -> Void
+    
+    func movieFavoriteStateChangesFailed(error: NSError) -> Void
+    
+    func movieWatchlistStateChangedSuccessfully(isInWatchlist: Bool) -> Void
+    
+    func movieWatchlistStateChangesFailed(error: NSError)
 }
 
 //______________API configuration______________
@@ -341,6 +416,9 @@ class ApiEndpoints {
     //account
     static let accountInfo = "\(baseApiUrl)/account"
     static let accountLists = { (id: Int) in "\(baseApiUrl)/account/\(id)/lists" }
+    static let accountItemFavoriteState = { (id: String, session: String) in "\(baseApiUrl)/account/\(id)/favorite?api_key=\(apiKey)&session_id=\(session)" }
+    static let accountItemWatchlistState = { (id: String, session: String) in "\(baseApiUrl)/account/\(id)/watchlist?api_key=\(apiKey)&session_id=\(session)" }
+    
     //list
     static let listDetails = { (id: String) in "\(baseApiUrl)/list/\(id)" }
     static let listShare = { (id: String) in "\(baseShareUrl)/list/\(id)"}
@@ -350,7 +428,8 @@ class ApiEndpoints {
     static let searchPerson = "\(baseApiUrl)/search/person"
     //details 
     static let movieDetails = { (id: String) in "\(baseApiUrl)/movie/\(id)" }
-    
+    static let movieState = { (id: String) in "\(baseApiUrl)/movie/\(id)/account_states" }
+    static let movieShare  = "\(baseShareUrl)/movie"
     //config
     static let posterSizes = [
         1 : "w92",

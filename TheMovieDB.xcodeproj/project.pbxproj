@@ -163,8 +163,8 @@
 				11FC7C791BE778C600838AA5 /* Api */,
 				11759AD71BE764FB00BE2B46 /* AppDelegate.swift */,
 				11759ADB1BE764FB00BE2B46 /* Main.storyboard */,
-				11759ADE1BE764FB00BE2B46 /* Assets.xcassets */,
 				11759AE01BE764FB00BE2B46 /* LaunchScreen.storyboard */,
+				11759ADE1BE764FB00BE2B46 /* Assets.xcassets */,
 				11759AE31BE764FB00BE2B46 /* Info.plist */,
 			);
 			path = TheMovieDB;

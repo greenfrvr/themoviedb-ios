@@ -20,6 +20,7 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     var resultsMovies = [SearchMovieItem]()
     var resultsTvShow = [SearchTVItem]()
     var resultsPerson = [SearchPersonItem]()
+    var totalItemsForType = [0, 0, 0]
     
     //MARK: Outlets
     @IBOutlet weak var searchTableView: UITableView!
@@ -99,16 +100,19 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     func searchMovieResuts(searchResults: SearchMovieResults) {
         receiveResults(self.resultsMovies += searchResults.results!, pages: searchResults)
         print("\(searchResults.results!.count) movies loaded out of \(searchResults.totalItems!)")
+        totalItemsForType[0] = searchResults.results?.count ?? 0
     }
     
     func searchTvShowResuts(searchResults: SearchTVResults) {
         receiveResults(self.resultsTvShow += searchResults.results!, pages: searchResults)
         print("\(searchResults.results!.count) tv shows loaded out of \(searchResults.totalItems!)")
+        totalItemsForType[1] = searchResults.results?.count ?? 0
     }
     
     func searchPersonResuts(searchResults: SearchPersonResults) {
         receiveResults(self.resultsPerson += searchResults.results!, pages: searchResults)
         print("\(searchResults.results!.count) psersons loaded out of \(searchResults.totalItems!)")
+        totalItemsForType[2] = searchResults.results?.count ?? 0
     }
     
     func searchNoMoviesFound(error: NSError) {
@@ -187,10 +191,11 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if (scopeIndex == 0 && indexPath.section == 0) || scopeIndex == 1 {
-            let controller = storyboard?.instantiateViewControllerWithIdentifier("MovieDetails") as! MovieDetailsController
+            let navigationController = storyboard?.instantiateViewControllerWithIdentifier("MovieNavigationController") as! UINavigationController
+            let controller = navigationController.topViewController as! MovieDetailsController
             let movie = resultsMovies[indexPath.row]
             controller.movieId = String(movie.movieId!)
-            presentViewController(controller, animated: true, completion: nil)
+            presentViewController(navigationController, animated: true, completion: nil)
         }
     }
     
