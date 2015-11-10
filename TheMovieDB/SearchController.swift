@@ -140,7 +140,7 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         let item = extractDataForRepresentation(row: indexPath.row, section: indexPath.section)
         
         cell.cellTitle.text = item?.representTitle
-        cell.cellDate.text = item?.representDate
+        cell.cellDate.text = item?.representDate?.stringByReplacingOccurrencesOfString("-", withString: "/")
         cell.cellDescription.text = item?.representDescription
         cell.cellImage.sd_setImageWithURL(NSURL(string: item?.representImage ?? ""), placeholderImage: UIImage(named: "defaultPhoto"))
         

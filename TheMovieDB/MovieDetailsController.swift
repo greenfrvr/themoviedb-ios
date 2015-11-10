@@ -48,7 +48,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
     }
     
     @IBAction func addToWatchlist(sender: AnyObject) {
-        print("WATCHLIST CLICKED")
         if let movie = movieState {
             detailsManager?.changeWatchlistState(movieId!, state: movie.watchlist ?? false)
         }
@@ -58,15 +57,13 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
         let actionSheet = UIAlertController(title: "Pick an action", message: "What do you want to do with this movie?", preferredStyle: .ActionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Share", style: .Default, handler: { action in
-            print("Share clicked")
             let shareController = UIActivityViewController(activityItems: [self.shareUrl], applicationActivities: nil)
             self.presentViewController(shareController, animated: true, completion: nil)
 
         }))
         
         if imdbId != nil {
-            actionSheet.addAction(UIAlertAction(title: "IMDB", style: .Default, handler: { action in
-                print("IMDB clicked")
+            actionSheet.addAction(UIAlertAction(title: "Open IMDB page", style: .Default, handler: { action in
                 let openUrl = NSURL(string: self.openIMDBUrl)
                 if let url = openUrl{
                     UIApplication.sharedApplication().openURL(url)
@@ -91,6 +88,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
         detailsManager = MovieDetailsManager(sessionId: session.sessionToken!, delegate: self)
         
         if let id = movieId {
+            print("LOADING ID \(id)")
             detailsManager?.loadDetails(id)
             detailsManager?.loadState(id)
         }
@@ -108,16 +106,16 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
     
     //MARK: MovieDetailsDelegate
     func movieDetailsLoadedSuccessfully(details: MovieInfo) {
-        print("details loaded: \(details.movieId!)")
+        print("Movie details loaded: \(details.movieId!)")
         imdbId = details.imdbId
         posterImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, details.posterPath ?? "")), placeholderImage: UIImage(named: "defaultPhoto"))
         titleLabel.text = details.title
         taglineLabel.text = details.tagline
-        averageVoteLabel.text = String(details.voteAverage!)
-        voteCountLabel.text = "(\(details.voteCount!))"
-        runtimeLabel.text = "\(details.runtime!) min"
-        budgetLabel.text = "\(details.budget!)$"
-        revenueLabel.text = "\(details.revenue!)$"
+        averageVoteLabel.text = String(details.voteAverage ?? 0.0)
+        voteCountLabel.text = "(\(details.voteCount ?? 0))"
+        runtimeLabel.text = "\(details.runtime ?? 0) min"
+        budgetLabel.text = "\(details.budget ?? 0)$"
+        revenueLabel.text = "\(details.revenue ?? 0)$"
         overviewLabel.text = details.overview
     }
     
@@ -157,7 +155,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
     func movieStateChangeNotifier(title: String, message: String){
         let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: nil)
         alert.show()
-        alert.performSelector(Selector("dismiss"), withObject: alert, afterDelay: 1.2)
+        alert.performSelector(Selector("dismiss"), withObject: alert, afterDelay: 1)
         
         func dismiss() {
             alert.dismissWithClickedButtonIndex(-1, animated: true)

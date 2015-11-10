@@ -147,6 +147,10 @@ struct ListInfo: Mappable, SegmentsRepresentation {
     }
     
     //MARK: SegementsRepresentation
+    var id: String? {
+        return listId
+    }
+    
     var representTitle: String? {
         return listName
     }
@@ -627,6 +631,14 @@ struct SegmentListItem: Mappable, SegmentsRepresentation {
     }
     
     //MARK: SegementsRepresentation
+    var id: String? {
+        if let id = itemId {
+            return String(id)
+        } else {
+            return ""
+        }
+    }
+    
     var representTitle: String? {
         return title
     }

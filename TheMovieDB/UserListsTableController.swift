@@ -38,16 +38,15 @@ class UserListsTableController: UITableViewController, ListsDelegate, UserSegmen
     
         setupPullToRefreshControl()
         tableView.tableFooterView?.hidden = true
+        refreshControl?.endRefreshing()
     }
     
     //MARK: ListsDelegate
     func userListsLoadedSuccessfully(results: ListInfoPages) {
-        print("Lists loaded")
         receiveResults(lists += results.resultsRepresentative!, pages: results)
     }
     
     func userSegmentLoadedSuccessfully(results: SegmentList) {
-        print("Segment loaded")
         receiveResults(lists += results.resultsRepresentative!, pages: results)
     }
     
@@ -127,6 +126,33 @@ class UserListsTableController: UITableViewController, ListsDelegate, UserSegmen
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let item = lists[indexPath.row]
+        
+        switch currentType {
+        case .List:
+            print("list clicked")
+            presentCollectionController(item.id)
+        default:
+            print("movie clicked")
+            presentMovieController(item.id)
+        }
+    }
+    
+    func presentCollectionController(id: String?) {
+        let navigationController = storyboard?.instantiateViewControllerWithIdentifier("CollectionNavigationController") as! UINavigationController
+        let controller = navigationController.topViewController as! ListDetailsController
+        controller.argListId = id
+        presentViewController(navigationController, animated: true, completion: nil)
+    }
+    
+    func presentMovieController(id: String?) {
+        let navigationController = storyboard?.instantiateViewControllerWithIdentifier("MovieNavigationController") as! UINavigationController
+        let controller = navigationController.topViewController as! MovieDetailsController
+        controller.movieId = id
+        presentViewController(navigationController, animated: true, completion: nil)
+    }
+    
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
@@ -170,18 +196,18 @@ class UserListsTableController: UITableViewController, ListsDelegate, UserSegmen
         let title = "Last update: \(formatter.stringFromDate(NSDate()))"
         refreshControl?.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
     }
-    
-    //MARK: Navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ListDetails" {
-            let navigationViewController = segue.destinationViewController as! UINavigationController
-            let destinationViewController = navigationViewController.topViewController as! ListDetailsController
-            
-            if let cellSender = sender as? ListsTableViewCell {
-                let index = tableView.indexPathForCell(cellSender)!
-                let selectedList = lists[index.row]
-                destinationViewController.argList = selectedList as! ListInfo
-            }
-        }
-    }
+//    
+//    //MARK: Navigation
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "ListDetails" {
+//            let navigationViewController = segue.destinationViewController as! UINavigationController
+//            let destinationViewController = navigationViewController.topViewController as! ListDetailsController
+//            
+//            if let cellSender = sender as? ListsTableViewCell {
+//                let index = tableView.indexPathForCell(cellSender)!
+//                let selectedList = lists[index.row]
+//                destinationViewController.argList = selectedList as! ListInfo
+//            }
+//        }
+//    }
 }

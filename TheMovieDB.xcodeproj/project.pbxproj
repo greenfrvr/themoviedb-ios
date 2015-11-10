@@ -158,11 +158,11 @@
 		11759AD61BE764FB00BE2B46 /* TheMovieDB */ = {
 			isa = PBXGroup;
 			children = (
-				118336A51BF213FD00D590AF /* Util */,
 				11FC7C791BE778C600838AA5 /* Api */,
 				1174C9651BE8C6DA00A0075B /* Controllers */,
-				11759AD71BE764FB00BE2B46 /* AppDelegate.swift */,
 				1174C9661BE8D3EB00A0075B /* Views */,
+				118336A51BF213FD00D590AF /* Util */,
+				11759AD71BE764FB00BE2B46 /* AppDelegate.swift */,
 				11759ADB1BE764FB00BE2B46 /* Main.storyboard */,
 				11759AE01BE764FB00BE2B46 /* LaunchScreen.storyboard */,
 				11759ADE1BE764FB00BE2B46 /* Assets.xcassets */,

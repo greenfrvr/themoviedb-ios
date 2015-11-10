@@ -393,7 +393,6 @@ class MovieDetailsManager {
     func changeFavoriteState(id: String, state: Bool){
         let newState = !state
         let body = Mapper<FavoriteBody>().toJSONString(FavoriteBody(movieId: Int(id), isFavorite: newState), prettyPrint: true)!
-        print(body)
         
         let request = NSMutableURLRequest(URL: NSURL(string: ApiEndpoints.accountItemFavoriteState(id, session))!)
         request.HTTPMethod = "POST"

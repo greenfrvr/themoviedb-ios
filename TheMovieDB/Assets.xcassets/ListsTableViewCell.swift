@@ -20,6 +20,7 @@ class ListsTableViewCell: UITableViewCell {
 }
 
 protocol SegmentsRepresentation {
+    var id: String? { get }
     var representImage: String? { get }
     var representTitle: String? { get }
     var representDescription: String? { get }

@@ -11,11 +11,11 @@ import UIKit
 class ListDetailsController: UIViewController, ListDetailsDelegate {
     
     //MARK: Properties
-    var argList: ListInfo!
+    var argListId: String?
     var detailsManager: ListDetailsManager?
     var collectionDelegate: ListItemsCollectionDelegate?
     var shareUrl: String {
-        return ApiEndpoints.listShare(self.argList.listId!)
+        return ApiEndpoints.listShare(self.argListId!)
     }
     
     //MARK: Outlets
@@ -43,7 +43,7 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
             let deleteController = UIAlertController(title: "List removing", message: "Are you sure you want to remove this list. (Can't be undone)", preferredStyle: .Alert)
             deleteController.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
             deleteController.addAction(UIAlertAction(title: "Remove", style: .Destructive, handler:
-                { action in self.detailsManager?.listDelete(listId: self.argList.listId!) }))
+                { action in self.detailsManager?.listDelete(listId: self.argListId!) }))
             self.presentViewController(deleteController, animated: true, completion: nil)
         }))
         
@@ -56,12 +56,12 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
     override func viewDidLoad() {
         let session = SessionCache.restoreSession()!
         detailsManager = ListDetailsManager(sessionId: session.sessionToken!, detailsDelegate: self)
-        detailsManager?.listDetails(listId: argList.listId!)
+        detailsManager?.listDetails(listId: argListId!)
     }
         
     override func viewDidAppear(animated: Bool) {
-        if let list = argList {
-            print("List loaded: \(list.listId!)")
+        if let list = argListId {
+            print("List loaded: \(list)")
         }
     }
     

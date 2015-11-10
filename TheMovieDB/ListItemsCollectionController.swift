@@ -13,8 +13,9 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
     
     var items = [ListItem]()
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let item = items[indexPath.row]
+        presentMovieController(item.itemId)
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -32,11 +33,21 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
         return items.count
     }
     
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionFetched(collection: [ListItem]) {
         items += collection
         collectionView?.reloadData()
     }
     
+    func presentMovieController(id: Int?) {
+        let navigationController = storyboard?.instantiateViewControllerWithIdentifier("MovieNavigationController") as! UINavigationController
+        let controller = navigationController.topViewController as! MovieDetailsController
+        controller.movieId = "\(id!)"
+        presentViewController(navigationController, animated: true, completion: nil)
+    }
 }
 
 protocol ListItemsCollectionDelegate {
