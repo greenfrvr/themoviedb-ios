@@ -88,7 +88,7 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
         print(error)
     }
     
-    //MARK: Navigation
+    //MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ListItemsCollectionSegue" {
             collectionDelegate = segue.destinationViewController as? ListItemsCollectionDelegate

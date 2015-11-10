@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class UserListsTableController: UITableViewController, ListsDelegate, UserSegmentsDelegate {
+class AccountTableController: UITableViewController, ListsDelegate, UserSegmentsDelegate {
 
     //MARK: Properties
     var nextPage: Int?

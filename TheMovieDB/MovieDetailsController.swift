@@ -13,15 +13,15 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
     
     //MARK: Properties
     var movieId: String?
+    var imdbId: String?
+    var movieState: MovieState?
+    var detailsManager: MovieDetailsManager?
     var shareUrl: String {
         return "\(ApiEndpoints.movieShare)/\(movieId!)"
     }
-    var imdbId: String?
     var openIMDBUrl: String {
         return "http://www.imdb.com/title/\(imdbId!)"
     }
-    var movieState: MovieState?
-    var detailsManager: MovieDetailsManager?
     
     //MARK: Outlets
     @IBOutlet weak var posterImageView: UIImageView!

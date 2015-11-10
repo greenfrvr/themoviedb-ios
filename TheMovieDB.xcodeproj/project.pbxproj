@@ -10,7 +10,7 @@
 		1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1164CF4F1BEB876000E3893F /* SearchViewCell.swift */; };
 		1174C9601BE895E400A0075B /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C95F1BE895E400A0075B /* SearchController.swift */; };
 		1174C9621BE8960D00A0075B /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9611BE8960D00A0075B /* FavoritesController.swift */; };
-		1174C9641BE8BF0600A0075B /* UserListsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9631BE8BF0600A0075B /* UserListsTableController.swift */; };
+		1174C9641BE8BF0600A0075B /* AccountTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9631BE8BF0600A0075B /* AccountTableController.swift */; };
 		1174C9681BE8D40C00A0075B /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9671BE8D40C00A0075B /* ListsTableViewCell.swift */; };
 		1174C96A1BE8E67900A0075B /* ListDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9691BE8E67900A0075B /* ListDetailsController.swift */; };
 		11759AD81BE764FB00BE2B46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AD71BE764FB00BE2B46 /* AppDelegate.swift */; };
@@ -53,7 +53,7 @@
 		1164CF4F1BEB876000E3893F /* SearchViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		1174C95F1BE895E400A0075B /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		1174C9611BE8960D00A0075B /* FavoritesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
-		1174C9631BE8BF0600A0075B /* UserListsTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListsTableController.swift; sourceTree = "<group>"; };
+		1174C9631BE8BF0600A0075B /* AccountTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableController.swift; sourceTree = "<group>"; };
 		1174C9671BE8D40C00A0075B /* ListsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListsTableViewCell.swift; path = Assets.xcassets/ListsTableViewCell.swift; sourceTree = "<group>"; };
 		1174C9691BE8E67900A0075B /* ListDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListDetailsController.swift; sourceTree = "<group>"; };
 		11759AD41BE764FB00BE2B46 /* TheMovieDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMovieDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,12 +114,12 @@
 			children = (
 				11759AD91BE764FB00BE2B46 /* SignInController.swift */,
 				11759B051BE76D5800BE2B46 /* AccountController.swift */,
-				1174C9631BE8BF0600A0075B /* UserListsTableController.swift */,
-				1174C95F1BE895E400A0075B /* SearchController.swift */,
-				1174C9611BE8960D00A0075B /* FavoritesController.swift */,
+				1174C9631BE8BF0600A0075B /* AccountTableController.swift */,
 				1174C9691BE8E67900A0075B /* ListDetailsController.swift */,
 				1180EFAC1BE9EAA900082B6E /* ListItemsCollectionController.swift */,
+				1174C95F1BE895E400A0075B /* SearchController.swift */,
 				117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */,
+				1174C9611BE8960D00A0075B /* FavoritesController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -423,7 +423,7 @@
 				117CF94F1BECD56E00BA2A3B /* MovieDetailsController.swift in Sources */,
 				1180EFAD1BE9EAA900082B6E /* ListItemsCollectionController.swift in Sources */,
 				1180EFB11BEA027500082B6E /* UILabelWithPadding.swift in Sources */,
-				1174C9641BE8BF0600A0075B /* UserListsTableController.swift in Sources */,
+				1174C9641BE8BF0600A0075B /* AccountTableController.swift in Sources */,
 				1174C9681BE8D40C00A0075B /* ListsTableViewCell.swift in Sources */,
 				11759B061BE76D5800BE2B46 /* AccountController.swift in Sources */,
 				11759ADA1BE764FB00BE2B46 /* SignInController.swift in Sources */,

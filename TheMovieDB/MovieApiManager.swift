@@ -126,24 +126,7 @@ class AccountManager {
             failure: { operation, error in self.accountDelegate?.userLoadingFailed(error)
         })
     }
-    
-//    func loadLists(page: Int = 1){
-//        let params = [
-//            "api_key": ApiEndpoints.apiKey,
-//            "session_id": session,
-//            "page": page
-//        ]
-//        
-//        AFHTTPRequestOperationManager().GET(ApiEndpoints.accountLists((self.account?.userId)!), parameters: params,
-//            success: { operation, response in
-//                if let lists = Mapper<ListInfoPages>().map(response) {
-//                    self.listsDelegate?.userListsLoadedSuccessfully(lists)
-//                }
-//            },
-//            failure: { operation, error in self.listsDelegate?.userListsLoadingFailed(error)
-//        })
-//    }
-    
+
     func loadSegment(type: SegmentType, page: Int = 1){
         let params = [
             "api_key": ApiEndpoints.apiKey,
@@ -278,56 +261,42 @@ class SearchManager {
         searchDelegate = delegate
     }
     
-    func queryMovies(query: String, page: Int = 1){
+    func query(scope: SearchController.ScopeType, query: String, page: Int = 1){
+        if scope == .ALL {
+            self.query(.MOVIE, query: query, page: page)
+            self.query(.TV, query: query, page: page)
+            self.query(.PEOPLE, query: query, page: page)
+            return
+        }
+        
         let params = [
             "api_key": ApiEndpoints.apiKey,
             "query": query,
             "page": page
         ]
         
-        AFHTTPRequestOperationManager().GET(ApiEndpoints.searchMovie, parameters: params,
+        AFHTTPRequestOperationManager().GET(scope.scopeRequestUrl(), parameters: params,
             success: { operation, response in
-                if let results = Mapper<SearchMovieResults>().map(response) {
-                    self.searchDelegate?.searchMovieResuts(results)
+                switch scope {
+                case .MOVIE:
+                    if let results = Mapper<SearchMovieResults>().map(response) {
+                        self.searchDelegate?.searchMovieResuts(results)
+                    }
+                case .TV:
+                    if let results = Mapper<SearchTVResults>().map(response) {
+                        self.searchDelegate?.searchTvShowResuts(results)
+                    }
+                case .PEOPLE:
+                    if let results = Mapper<SearchPersonResults>().map(response) {
+                        self.searchDelegate?.searchPersonResuts(results)
+                    }
+                case .ALL: break;
                 }
-            },
-            failure: { operation, error in self.searchDelegate?.searchNoMoviesFound(error)
-        })
-    }
-    
-    func queryTvShow(query: String, page: Int = 1){
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "query": query,
-            "page": page
-        ]
-        
-        AFHTTPRequestOperationManager().GET(ApiEndpoints.searchTvShow, parameters: params,
-            success: { operation, response in
-                if let results = Mapper<SearchTVResults>().map(response) {
-                    self.searchDelegate?.searchTvShowResuts(results)
-                }
-            },
-            failure: { operation, error in self.searchDelegate?.searchNoTvShowFound(error)
-        })
-    }
-    
-    func queryPerson(query: String, page: Int = 1){
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "query": query
-        ]
-        
-        AFHTTPRequestOperationManager().GET(ApiEndpoints.searchPerson, parameters: params,
-            success: { operation, response in
-                if let results = Mapper<SearchPersonResults>().map(response) {
-                    self.searchDelegate?.searchPersonResuts(results)
-                }
+
             },
             failure: { operation, error in self.searchDelegate?.searchNoPersonFound(error)
         })
     }
-    
 }
 
 protocol SearchDelegate {
