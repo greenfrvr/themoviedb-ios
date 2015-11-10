@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import SDWebImage
 
-class UserListsTableController: UITableViewController, ListsDelegate {
+class UserListsTableController: UITableViewController, ListsDelegate, UserSegmentsDelegate {
 
     //MARK: Properties
+    var nextPage: Int?
+    var hasMoreItems = false
+    var currentType = AccountManager.SegmentType.List
     var session: Session!
     var accountManager: AccountManager?
-    var lists: [ListInfo] = []
+    var lists = [SegmentsRepresentation]()
+    
+    //MARK: Outlets
+    @IBOutlet weak var paginationView: UIView!
     
     //MARK: Actions
     @IBAction func unwindItemRemoved(segue: UIStoryboardSegue){
@@ -30,23 +37,73 @@ class UserListsTableController: UITableViewController, ListsDelegate {
         accountManager?.loadAccountData()
     
         setupPullToRefreshControl()
+        tableView.tableFooterView?.hidden = true
     }
     
     //MARK: ListsDelegate
     func userListsLoadedSuccessfully(results: ListInfoPages) {
-        lists = results.results!
+        print("Lists loaded")
+        receiveResults(lists += results.resultsRepresentative!, pages: results)
+    }
+    
+    func userSegmentLoadedSuccessfully(results: SegmentList) {
+        print("Segment loaded")
+        receiveResults(lists += results.resultsRepresentative!, pages: results)
+    }
+    
+    func receiveResults(@autoclosure persistData: () -> Void, pages: PaginationLoading) {
+        persistData()
+        
+        hasMoreItems = pages.hasMorePages
+        nextPage = pages.nextPage
         
         tableView.reloadData()
-        refreshControl?.endRefreshing()
+        tableView.tableFooterView?.hidden = true
+        
+        stopRefreshing()
         updateRefreshingTitle()
     }
-   
+    
     func userFetched(){
-        accountManager?.loadLists()
+        accountManager?.loadSegment(currentType)
     }
     
     func userListsLoadingFailed(error: NSError) {
         print(error)
+    }
+    
+    func userSegmentLoadingFailed(error: NSError) {
+        print(error)
+    }
+    
+    //MARK: UserSegmentsDelegate
+    func loadLists() {
+        currentType = .List
+        loadData()
+        print("load lists")
+    }
+    
+    func loadFavorite() {
+        currentType = .Favorite
+        loadData()
+        print("load favorites")
+    }
+    
+    func loadRated() {
+        currentType = .Rated
+        loadData()
+        print("load rated")
+    }
+    
+    func loadWatchlist() {
+        currentType = .Watchlist
+        loadData()
+        print("load watchlist")
+    }
+    
+    func loadData(){
+        lists.removeAll()
+        accountManager?.loadSegment(currentType)
     }
     
     //MARK: TableView
@@ -62,11 +119,35 @@ class UserListsTableController: UITableViewController, ListsDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier(ListsTableViewCell.identifier, forIndexPath: indexPath) as! ListsTableViewCell
         let item = lists[indexPath.row]
         
-        cell.listTitleLabel.text = item.listName
-        cell.listDescLabel.text = item.listDesc
-        cell.listCounterLabel.text = item.itemsCount
+        cell.listTitleLabel.text = item.representTitle
+        cell.listDescLabel.text = item.representDescription
+        cell.listCounterLabel.text = item.representCounter
+        cell.listImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item.representImage ?? "")), placeholderImage: UIImage(named: "defaultPhoto"))
         
         return cell
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+        
+        if deltaOffset <= 0 && hasMoreItems {
+            loadPage()
+        }
+    }
+    
+    func loadPage() {
+        self.tableView.tableFooterView?.hidden = false
+        if let page = nextPage {
+            accountManager?.loadSegment(currentType, page: page)
+        }
+        hasMoreItems = false
+    }
+    
+    func loadInitPage(){
+        lists.removeAll()
+        accountManager?.loadSegment(currentType)
     }
     
     //MARK: Pull-to-refresh
@@ -74,7 +155,13 @@ class UserListsTableController: UITableViewController, ListsDelegate {
         refreshControl = UIRefreshControl()
         refreshControl?.backgroundColor = UIColor(colorLiteralRed: 22/255.0, green: 122/255.0, blue: 110/255.0, alpha: 1)
         refreshControl?.tintColor = UIColor.whiteColor()
-        refreshControl?.addTarget(self, action: Selector("userFetched"), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl?.addTarget(self, action: Selector("loadInitPage"), forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    func stopRefreshing() {
+        if let refresh = refreshControl where refresh.refreshing {
+            refresh.endRefreshing()
+        }
     }
     
     func updateRefreshingTitle() {
@@ -93,7 +180,7 @@ class UserListsTableController: UITableViewController, ListsDelegate {
             if let cellSender = sender as? ListsTableViewCell {
                 let index = tableView.indexPathForCell(cellSender)!
                 let selectedList = lists[index.row]
-                destinationViewController.argList = selectedList
+                destinationViewController.argList = selectedList as! ListInfo
             }
         }
     }

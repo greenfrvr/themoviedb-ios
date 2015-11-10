@@ -127,20 +127,69 @@ class AccountManager {
         })
     }
     
-    func loadLists(){
+//    func loadLists(page: Int = 1){
+//        let params = [
+//            "api_key": ApiEndpoints.apiKey,
+//            "session_id": session,
+//            "page": page
+//        ]
+//        
+//        AFHTTPRequestOperationManager().GET(ApiEndpoints.accountLists((self.account?.userId)!), parameters: params,
+//            success: { operation, response in
+//                if let lists = Mapper<ListInfoPages>().map(response) {
+//                    self.listsDelegate?.userListsLoadedSuccessfully(lists)
+//                }
+//            },
+//            failure: { operation, error in self.listsDelegate?.userListsLoadingFailed(error)
+//        })
+//    }
+    
+    func loadSegment(type: SegmentType, page: Int = 1){
         let params = [
             "api_key": ApiEndpoints.apiKey,
             "session_id": session,
+            "page": page
         ]
         
-        AFHTTPRequestOperationManager().GET(ApiEndpoints.accountLists((self.account?.userId)!), parameters: params,
-            success: { operation, response in
-                if let lists = Mapper<ListInfoPages>().map(response) {
-                    self.listsDelegate?.userListsLoadedSuccessfully(lists)
-                }
-            },
-            failure: { operation, error in self.listsDelegate?.userListsLoadingFailed(error)
-        })
+        func segment(requestUrl: String) {
+            AFHTTPRequestOperationManager().GET(requestUrl, parameters: params,
+                success: { operation, response in
+                    if let results = Mapper<SegmentList>().map(response) {
+                        self.listsDelegate?.userSegmentLoadedSuccessfully(results)
+                    }
+                },
+                failure: { operation, error in self.listsDelegate?.userSegmentLoadingFailed(error)
+            })
+        }
+        
+        func list() {
+            AFHTTPRequestOperationManager().GET(ApiEndpoints.accountLists((account?.userId)!), parameters: params,
+                success: { operation, response in
+                    if let lists = Mapper<ListInfoPages>().map(response) {
+                        self.listsDelegate?.userListsLoadedSuccessfully(lists)
+                    }
+                },
+                failure: { operation, error in self.listsDelegate?.userListsLoadingFailed(error)
+            })
+        }
+        
+        let url: String?
+        switch type {
+        case .Favorite: url = ApiEndpoints.accountFavoriteMovies((account?.userId)!)
+        case .Rated: url = ApiEndpoints.accountRatedMovies((account?.userId)!)
+        case .Watchlist: url = ApiEndpoints.accountWatchlistMovies((account?.userId)!)
+        case .List: url = nil
+        }
+    
+        if let requestUrl = url {
+            segment(requestUrl)
+        } else {
+            list()
+        }
+    }
+    
+    enum SegmentType: Int {
+        case List = 0, Favorite, Rated, Watchlist
     }
 }
 
@@ -156,6 +205,10 @@ protocol ListsDelegate {
     func userListsLoadedSuccessfully(pages: ListInfoPages) -> Void
     
     func userListsLoadingFailed(error: NSError) -> Void
+    
+    func userSegmentLoadedSuccessfully(results: SegmentList) -> Void
+    
+    func userSegmentLoadingFailed(error: NSError) -> Void
     
     func userFetched() -> Void
 }
@@ -416,6 +469,9 @@ class ApiEndpoints {
     //account
     static let accountInfo = "\(baseApiUrl)/account"
     static let accountLists = { (id: Int) in "\(baseApiUrl)/account/\(id)/lists" }
+    static let accountFavoriteMovies = { (id: Int) in "\(baseApiUrl)/account/\(id)/favorite/movies" }
+    static let accountRatedMovies = { (id: Int) in "\(baseApiUrl)/account/\(id)/rated/movies" }
+    static let accountWatchlistMovies = { (id: Int) in "\(baseApiUrl)/account/\(id)/watchlist/movies" }
     static let accountItemFavoriteState = { (id: String, session: String) in "\(baseApiUrl)/account/\(id)/favorite?api_key=\(apiKey)&session_id=\(session)" }
     static let accountItemWatchlistState = { (id: String, session: String) in "\(baseApiUrl)/account/\(id)/watchlist?api_key=\(apiKey)&session_id=\(session)" }
     

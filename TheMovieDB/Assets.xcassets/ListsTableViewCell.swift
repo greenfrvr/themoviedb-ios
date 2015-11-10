@@ -15,5 +15,13 @@ class ListsTableViewCell: UITableViewCell {
     @IBOutlet weak var listTitleLabel: UILabel!
     @IBOutlet weak var listDescLabel: UILabel!
     @IBOutlet weak var listCounterLabel: UILabel!
+    @IBOutlet weak var listImageView: UIImageView!
     
+}
+
+protocol SegmentsRepresentation {
+    var representImage: String? { get }
+    var representTitle: String? { get }
+    var representDescription: String? { get }
+    var representCounter: String? { get }
 }

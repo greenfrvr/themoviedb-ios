@@ -118,10 +118,10 @@ struct Account: Mappable {
 }
 
 //__________________User's lists single item__________________
-struct ListInfo: Mappable {
+struct ListInfo: Mappable, SegmentsRepresentation {
     var listId: String?
     var listName: String?
-    var poster: String?
+    var posterPath: String?
     var listDesc: String?
     var itemsInList: Int?
     var favoriteCount: Int?
@@ -138,30 +138,68 @@ struct ListInfo: Mappable {
     mutating func mapping(map: Map) {
         listId<-map["id"]
         listName<-map["name"]
-        poster<-map["poster_path"]
+        posterPath<-map["poster_path"]
         listDesc<-map["description"]
         itemsInList<-map["item_count"]
         favoriteCount<-map["favorite_count"]
         listType<-map["list_type"]
         langCode<-map["iso_639_1"]
     }
+    
+    //MARK: SegementsRepresentation
+    var representTitle: String? {
+        return listName
+    }
+    
+    var representDescription: String? {
+        return listDesc
+    }
+    
+    var representImage: String? {
+        return posterPath
+    }
+    
+    var representCounter: String? {
+        return itemsCount
+    }
 }
 
 //__________________User's lists__________________
-struct ListInfoPages: Mappable {
+struct ListInfoPages: Mappable, PaginationLoading {
     var page: Int?
-    var pagesTotal: Int?
-    var resultsTotal: Int?
+    var totalPages: Int?
+    var totalResults: Int?
     var results: [ListInfo]?
+    var resultsRepresentative: [SegmentsRepresentation]? {
+        get {
+            var array: [SegmentsRepresentation]!
+            if let res = results {
+                array = [SegmentsRepresentation]()
+                for info in res {
+                    array.append(info as SegmentsRepresentation)
+                }
+            }
+            return array
+        }
+    }
     
     init?(_ map: Map) {
     }
     
     mutating func mapping(map: Map) {
         page<-map["page"]
-        pagesTotal<-map["total_pages"]
-        resultsTotal<-map["total_results"]
+        totalPages<-map["total_pages"]
+        totalResults<-map["total_results"]
         results<-map["results"]
+    }
+    
+    //MARK: Pagintation
+    var hasMorePages: Bool {
+        return page < totalPages
+    }
+    
+    var nextPage: Int? {
+        return hasMorePages ? page! + 1 : nil
     }
 }
 
@@ -561,9 +599,87 @@ struct WatchlistBody: Mappable {
     }
 }
 
+//____________________User defined segment list single item___________________
+struct SegmentListItem: Mappable, SegmentsRepresentation {
+    var itemId: Int?
+    var title: String?
+    var titleOriginal: String?
+    var releaseDate: String?
+    var posterPath: String?
+    var backdropPath: String?
+    var voteAverage: Double?
+    var voteCount: Int?
+    var rating: Int?
+    
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        itemId<-map["id"]
+        title<-map["title"]
+        titleOriginal<-map["original_title"]
+        releaseDate<-map["release_date"]
+        posterPath<-map["poster_path"]
+        backdropPath<-map["backdrop_path"]
+        voteAverage<-map["vote_average"]
+        voteCount<-map["vote_count"]
+        rating<-map["rating"]
+    }
+    
+    //MARK: SegementsRepresentation
+    var representTitle: String? {
+        return title
+    }
+    
+    var representDescription: String? {
+        return releaseDate
+    }
+    
+    var representImage: String? {
+        return posterPath
+    }
+    
+    var representCounter: String? {
+        return "\(voteAverage!) (\(voteCount!))"
+    }
+}
 
-
-
-
+struct SegmentList: Mappable, PaginationLoading {
+    var page: Int?
+    var results: [SegmentListItem]?
+    var totalPages: Int?
+    var totalResults: Int?
+    var resultsRepresentative: [SegmentsRepresentation]? {
+        get {
+            var array: [SegmentsRepresentation]!
+            if let res = results {
+                array = [SegmentsRepresentation]()
+                for info in res {
+                    array.append(info as SegmentsRepresentation)
+                }
+            }
+            return array
+        }
+    }
+    
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        page<-map["page"]
+        results<-map["results"]
+        totalPages<-map["total_pages"]
+        totalResults<-map["total_results"]
+    }
+    
+    //MARK: Pagintation
+    var hasMorePages: Bool {
+        return page < totalPages
+    }
+    
+    var nextPage: Int? {
+        return hasMorePages ? page! + 1 : nil
+    }
+}
 
 
