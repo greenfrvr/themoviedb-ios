@@ -103,7 +103,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
         overviewLabel.numberOfLines = 0
         overviewLabel.sizeToFit()
         
-        watchlistButton.tintColor = UIColor(colorLiteralRed: 6/255.0, green: 117/255.0, blue: 255/255.0, alpha: 1)
+        watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
     }
     
     //MARK: MovieDetailsDelegate

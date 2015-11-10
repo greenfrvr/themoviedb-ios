@@ -153,7 +153,7 @@ class UserListsTableController: UITableViewController, ListsDelegate, UserSegmen
     //MARK: Pull-to-refresh
     func setupPullToRefreshControl() {
         refreshControl = UIRefreshControl()
-        refreshControl?.backgroundColor = UIColor(colorLiteralRed: 22/255.0, green: 122/255.0, blue: 110/255.0, alpha: 1)
+        refreshControl?.backgroundColor = UIColor.rgb(22, 122, 110)
         refreshControl?.tintColor = UIColor.whiteColor()
         refreshControl?.addTarget(self, action: Selector("loadInitPage"), forControlEvents: UIControlEvents.ValueChanged)
     }
