@@ -525,6 +525,43 @@ struct MovieInfo: Mappable {
         }
     }
 }
+//____________________Movie image info___________________
+struct ImageInfo: Mappable {
+    var filePath: String?
+    var height: Int?
+    var width: Int?
+    var aspectRatio: Double?
+    var voteAverage: Double?
+    var voteCount: Int?
+    
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        filePath<-map["file_path"]
+        width<-map["width"]
+        height<-map["height"]
+        aspectRatio<-map["aspect_ratio"]
+        voteAverage<-map["vote_average"]
+        voteCount<-map["vote_count"]
+    }
+}
+
+//____________________Movie images list (including both backdrops and posters)___________________
+struct MovieImagesList: Mappable {
+    var id: Int?
+    var backdrops: [ImageInfo]?
+    var posters: [ImageInfo]?
+    
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        id<-map["id"]
+        backdrops<-map["backdrops"]
+        posters<-map["posters"]
+    }
+}
 
 //____________________Movie status (rated, favorite, in watchlist, etc)___________________
 struct MovieState: Mappable {
@@ -644,7 +681,7 @@ struct SegmentListItem: Mappable, SegmentsRepresentation {
     }
     
     var representDescription: String? {
-        return releaseDate
+        return releaseDate?.stringByReplacingOccurrencesOfString("-", withString: "/")
     }
     
     var representImage: String? {

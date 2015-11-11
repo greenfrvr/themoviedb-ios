@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		114EB53E1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */; };
+		114EB5421BF338D30091F49B /* BackdropsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB5411BF338D30091F49B /* BackdropsController.swift */; };
 		1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1164CF4F1BEB876000E3893F /* SearchViewCell.swift */; };
 		1174C9601BE895E400A0075B /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C95F1BE895E400A0075B /* SearchController.swift */; };
 		1174C9621BE8960D00A0075B /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9611BE8960D00A0075B /* FavoritesController.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBackdropsHorizontalView.swift; sourceTree = "<group>"; };
+		114EB5411BF338D30091F49B /* BackdropsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackdropsController.swift; sourceTree = "<group>"; };
 		1164CF4F1BEB876000E3893F /* SearchViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		1174C95F1BE895E400A0075B /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		1174C9611BE8960D00A0075B /* FavoritesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				1174C95F1BE895E400A0075B /* SearchController.swift */,
 				117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */,
 				1174C9611BE8960D00A0075B /* FavoritesController.swift */,
+				114EB5411BF338D30091F49B /* BackdropsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -129,6 +134,7 @@
 			children = (
 				118336A41BF1E64B00D590AF /* Cell */,
 				1180EFB01BEA027500082B6E /* UILabelWithPadding.swift */,
+				114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -431,9 +437,11 @@
 				1174C9621BE8960D00A0075B /* FavoritesController.swift in Sources */,
 				1174C9601BE895E400A0075B /* SearchController.swift in Sources */,
 				11759AD81BE764FB00BE2B46 /* AppDelegate.swift in Sources */,
+				114EB53E1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift in Sources */,
 				11FC7C811BE7906300838AA5 /* Cache.swift in Sources */,
 				11FC7C7F1BE78E4E00838AA5 /* Models.swift in Sources */,
 				1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */,
+				114EB5421BF338D30091F49B /* BackdropsController.swift in Sources */,
 				1174C96A1BE8E67900A0075B /* ListDetailsController.swift in Sources */,
 				118336A71BF2145700D590AF /* UtilExtensions.swift in Sources */,
 			);

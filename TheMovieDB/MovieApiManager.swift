@@ -315,17 +315,26 @@ protocol SearchDelegate {
 }
 
 class MovieDetailsManager {
-    
     let session: String
-    let delegate: MovieDetailsDelegate?
+    let detailsDelegate: MovieDetailsDelegate?
+    let stateDelegate: MovieStateChangeDelegate?
     
-    init?(sessionId: String, delegate: MovieDetailsDelegate){
+    init?(sessionId: String, detailsDelegate: MovieDetailsDelegate?, stateDelegate: MovieStateChangeDelegate?){
         self.session = sessionId
-        self.delegate = delegate
+        self.detailsDelegate = detailsDelegate
+        self.stateDelegate = stateDelegate
         
         if sessionId.isEmpty {
             return nil
         }
+    }
+    
+    convenience init?(sessionId: String, detailsDelegate: MovieDetailsDelegate){
+        self.init(sessionId: sessionId, detailsDelegate: detailsDelegate, stateDelegate: nil)
+    }
+    
+    convenience init?(sessionId: String, stateDelegate: MovieStateChangeDelegate){
+        self.init(sessionId: sessionId, detailsDelegate: nil, stateDelegate: stateDelegate)
     }
     
     func loadDetails(id: String) {
@@ -336,10 +345,10 @@ class MovieDetailsManager {
         AFHTTPRequestOperationManager().GET(ApiEndpoints.movieDetails(id), parameters: params,
             success: { operation, response in
                 if let results = Mapper<MovieInfo>().map(response) {
-                    self.delegate?.movieDetailsLoadedSuccessfully(results)
+                    self.detailsDelegate?.movieDetailsLoadedSuccessfully(results)
                 }
             },
-            failure: { operation, error in self.delegate?.movieDetailsLoadingFailed(error)
+            failure: { operation, error in self.detailsDelegate?.movieDetailsLoadingFailed(error)
         })
     }
     
@@ -352,10 +361,10 @@ class MovieDetailsManager {
         AFHTTPRequestOperationManager().GET(ApiEndpoints.movieState(id), parameters: params,
             success: { operation, response in
                 if let results = Mapper<MovieState>().map(response) {
-                    self.delegate?.movieStateLoadedSuccessfully(results)
+                    self.detailsDelegate?.movieStateLoadedSuccessfully(results)
                 }
             },
-            failure: { operation, error in self.delegate?.movieStateLoadingFailed(error)
+            failure: { operation, error in self.detailsDelegate?.movieStateLoadingFailed(error)
         })
     }
     
@@ -373,10 +382,10 @@ class MovieDetailsManager {
         manager.requestSerializer = AFJSONRequestSerializer()
         manager.HTTPRequestOperationWithRequest(request,
             success: { operation, response in
-                self.delegate?.movieFavoriteStateChangedSuccessfully(newState)
+                self.stateDelegate?.movieFavoriteStateChangedSuccessfully(newState)
             },
             failure: { operation, error in
-                self.delegate?.movieFavoriteStateChangesFailed(error)
+                self.stateDelegate?.movieFavoriteStateChangesFailed(error)
         }).start()
     }
     
@@ -395,11 +404,27 @@ class MovieDetailsManager {
         manager.requestSerializer = AFJSONRequestSerializer()
         manager.HTTPRequestOperationWithRequest(request,
             success: { operation, response in
-                self.delegate?.movieWatchlistStateChangedSuccessfully(newState)
+                self.stateDelegate?.movieWatchlistStateChangedSuccessfully(newState)
             },
             failure: { operation, error in
-                self.delegate?.movieWatchlistStateChangesFailed(error)
+                self.stateDelegate?.movieWatchlistStateChangesFailed(error)
         }).start()
+    }
+    
+    func loadImages(id: String){
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "session_id": session
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.movieImages(id), parameters: params,
+            success: { operation, response in
+                if let results = Mapper<MovieImagesList>().map(response) {
+                    self.detailsDelegate?.movieImagesLoadedSuccessully(results)
+                }
+            },
+            failure: { operation, error in self.detailsDelegate?.movieImagesLoadingFailed(error)
+        })
     }
 }
 
@@ -412,6 +437,13 @@ protocol MovieDetailsDelegate {
     func movieStateLoadedSuccessfully(state: MovieState) -> Void
     
     func movieStateLoadingFailed(error: NSError) -> Void
+    
+    func movieImagesLoadedSuccessully(images: MovieImagesList) -> Void
+    
+    func movieImagesLoadingFailed(error: NSError) -> Void
+}
+
+protocol MovieStateChangeDelegate {
     
     func movieFavoriteStateChangedSuccessfully(isFavorite: Bool) -> Void
     
@@ -452,6 +484,7 @@ class ApiEndpoints {
     static let searchPerson = "\(baseApiUrl)/search/person"
     //details 
     static let movieDetails = { (id: String) in "\(baseApiUrl)/movie/\(id)" }
+    static let movieImages = { (id: String) in "\(baseApiUrl)/movie/\(id)/images"}
     static let movieState = { (id: String) in "\(baseApiUrl)/movie/\(id)/account_states" }
     static let movieShare  = "\(baseShareUrl)/movie"
     //config
@@ -470,6 +503,6 @@ class ApiEndpoints {
         0 : "original"
     ]
     //images
-    static let poster = { (size: Int, path: String) in "\(baseImageUrl)/\(posterSizes[size]!)/\(path)?api_key=\(apiKey)"}
+    static let poster = { (size: Int, path: String) in "\(baseImageUrl)/\(posterSizes[size]!)\(path)?api_key=\(apiKey)"}
     
 }

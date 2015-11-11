@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class MovieDetailsController: UIViewController, MovieDetailsDelegate {
+class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieStateChangeDelegate, UIBackdropsDelegat {
     
     //MARK: Properties
     var movieId: String?
@@ -35,6 +35,9 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var navFavoriteButton: UIBarButtonItem!
     @IBOutlet weak var watchlistButton: UIImageView!
+    @IBOutlet weak var descriptionLabel: UILabelWithPadding!
+    @IBOutlet weak var backdropsLabel: UILabelWithPadding!
+    @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView!
     
     //MARK: Action
     @IBAction func unwindMovieDetails(sender: UIBarButtonItem) {
@@ -85,12 +88,13 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let session = SessionCache.restoreSession()!
-        detailsManager = MovieDetailsManager(sessionId: session.sessionToken!, delegate: self)
+        detailsManager = MovieDetailsManager(sessionId: session.sessionToken!, detailsDelegate: self, stateDelegate: self)
         
         if let id = movieId {
             print("LOADING ID \(id)")
             detailsManager?.loadDetails(id)
             detailsManager?.loadState(id)
+            detailsManager?.loadImages(id)
         }
     }
     
@@ -101,7 +105,12 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
         overviewLabel.numberOfLines = 0
         overviewLabel.sizeToFit()
         
+        descriptionLabel.padding = 10
+        backdropsLabel.padding = 10
+        
         watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
+        
+        imagesScrollView.backdropsDelegate = self
     }
     
     //MARK: MovieDetailsDelegate
@@ -124,6 +133,26 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
         updateStateIndicators()
     }
     
+    func movieImagesLoadedSuccessully(images: MovieImagesList) {
+        print("images loaded")
+        if let backrops = images.backdrops {
+            imagesScrollView.backdropsDisplay(backrops)
+        }
+    }
+    
+    func movieDetailsLoadingFailed(error: NSError) {
+        print(error)
+    }
+    
+    func movieStateLoadingFailed(error: NSError) {
+        print(error)
+    }
+    
+    func movieImagesLoadingFailed(error: NSError) {
+        print(error)
+    }
+    
+    //MARK: MovieStateChangeDelegate
     func movieFavoriteStateChangedSuccessfully(isFavorite: Bool) {
         movieState?.favorite = isFavorite
         updateStateIndicators()
@@ -136,14 +165,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
         movieStateChangeNotifier("Watchlist", message: "This movie was \(isInWatchlist ? "added to" : "removed from") your watchlist")
     }
     
-    func movieDetailsLoadingFailed(error: NSError) {
-        print(error)
-    }
-    
-    func movieStateLoadingFailed(error: NSError) {
-        print(error)
-    }
-    
     func movieFavoriteStateChangesFailed(error: NSError) {
         print(error)
     }
@@ -152,6 +173,12 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate {
         print(error)
     }
     
+    //MARK: UIBackdropsDelegate
+    func backdropTapped(image: UIImage?, imageUrl: String) {
+        print("Backdrop tapped - \(imageUrl)" )
+    }
+    
+    //MARK: UI
     func movieStateChangeNotifier(title: String, message: String){
         let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: nil)
         alert.show()
