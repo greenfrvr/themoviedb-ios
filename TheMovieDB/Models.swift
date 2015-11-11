@@ -547,6 +547,10 @@ struct ImageInfo: Mappable {
     }
 }
 
+func == (lhs: ImageInfo, rhs: ImageInfo) -> Bool{
+    return lhs.filePath == rhs.filePath
+}
+
 //____________________Movie images list (including both backdrops and posters)___________________
 struct MovieImagesList: Mappable {
     var id: Int?

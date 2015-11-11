@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		114EB53E1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */; };
 		114EB5421BF338D30091F49B /* BackdropsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB5411BF338D30091F49B /* BackdropsController.swift */; };
+		114EB5441BF346370091F49B /* BackdropItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB5431BF346370091F49B /* BackdropItemController.swift */; };
 		1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1164CF4F1BEB876000E3893F /* SearchViewCell.swift */; };
 		1174C9601BE895E400A0075B /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C95F1BE895E400A0075B /* SearchController.swift */; };
 		1174C9621BE8960D00A0075B /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9611BE8960D00A0075B /* FavoritesController.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBackdropsHorizontalView.swift; sourceTree = "<group>"; };
 		114EB5411BF338D30091F49B /* BackdropsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackdropsController.swift; sourceTree = "<group>"; };
+		114EB5431BF346370091F49B /* BackdropItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackdropItemController.swift; sourceTree = "<group>"; };
 		1164CF4F1BEB876000E3893F /* SearchViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		1174C95F1BE895E400A0075B /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		1174C9611BE8960D00A0075B /* FavoritesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */,
 				1174C9611BE8960D00A0075B /* FavoritesController.swift */,
 				114EB5411BF338D30091F49B /* BackdropsController.swift */,
+				114EB5431BF346370091F49B /* BackdropItemController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				117CF94F1BECD56E00BA2A3B /* MovieDetailsController.swift in Sources */,
 				1180EFAD1BE9EAA900082B6E /* ListItemsCollectionController.swift in Sources */,
 				1180EFB11BEA027500082B6E /* UILabelWithPadding.swift in Sources */,
+				114EB5441BF346370091F49B /* BackdropItemController.swift in Sources */,
 				1174C9641BE8BF0600A0075B /* AccountTableController.swift in Sources */,
 				1174C9681BE8D40C00A0075B /* ListsTableViewCell.swift in Sources */,
 				11759B061BE76D5800BE2B46 /* AccountController.swift in Sources */,

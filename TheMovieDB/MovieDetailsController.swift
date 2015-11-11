@@ -16,6 +16,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     var imdbId: String?
     var movieState: MovieState?
     var detailsManager: MovieDetailsManager?
+    var backdropImages = [ImageInfo]()
     var shareUrl: String {
         return "\(ApiEndpoints.movieShare)/\(movieId!)"
     }
@@ -134,9 +135,9 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     func movieImagesLoadedSuccessully(images: MovieImagesList) {
-        print("images loaded")
-        if let backrops = images.backdrops {
-            imagesScrollView.backdropsDisplay(backrops)
+        if let backdrops = images.backdrops {
+            backdropImages = backdrops
+            imagesScrollView.backdropsDisplay(backdrops)
         }
     }
     
@@ -175,7 +176,9 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     //MARK: UIBackdropsDelegate
     func backdropTapped(image: UIImage?, imageUrl: String) {
-        print("Backdrop tapped - \(imageUrl)" )
+        let controller = self.storyboard?.instantiateViewControllerWithIdentifier("BackdropPages") as! BackdropsController
+        controller.content = backdropImages
+        showDetailViewController(controller, sender: self)
     }
     
     //MARK: UI

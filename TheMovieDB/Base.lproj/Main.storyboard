@@ -705,7 +705,7 @@
         <!--Details-->
         <scene sceneID="GwJ-cS-JPW">
             <objects>
-                <viewController storyboardIdentifier="MovieDetails" id="0Jj-bf-DEJ" customClass="MovieDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetails" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="0Jj-bf-DEJ" customClass="MovieDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yng-t7-MFh"/>
                         <viewControllerLayoutGuide type="bottom" id="as8-SY-YaG"/>
@@ -984,6 +984,52 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1056.5" y="341.5"/>
+        </scene>
+        <!--Backdrops Controller-->
+        <scene sceneID="nxx-n8-DHT">
+            <objects>
+                <pageViewController storyboardIdentifier="BackdropPages" autoresizesArchivedViewToFullSize="NO" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" transitionStyle="scroll" pageSpacing="2" navigationOrientation="horizontal" spineLocation="none" id="hAI-T1-JJx" customClass="BackdropsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wKB-tm-wqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1056.5" y="1058.5"/>
+        </scene>
+        <!--Backdrop Item Controller-->
+        <scene sceneID="UGk-uR-9LR">
+            <objects>
+                <viewController storyboardIdentifier="BackdropItem" id="Faz-TW-ddb" customClass="BackdropItemController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iX1-kt-aoK"/>
+                        <viewControllerLayoutGuide type="bottom" id="1kM-DQ-ab2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1kO-cb-cVp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="339" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="tbj-aJ-1Qe">
+                                <rect key="frame" x="16" y="270" width="343" height="128"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="tbj-aJ-1Qe" firstAttribute="leading" secondItem="1kO-cb-cVp" secondAttribute="leadingMargin" id="Hc6-WL-M63"/>
+                            <constraint firstItem="tbj-aJ-1Qe" firstAttribute="centerY" secondItem="1kO-cb-cVp" secondAttribute="centerY" id="ZiJ-KA-Wnn"/>
+                            <constraint firstItem="tbj-aJ-1Qe" firstAttribute="centerX" secondItem="1kO-cb-cVp" secondAttribute="centerX" id="fCa-to-faI"/>
+                            <constraint firstItem="tbj-aJ-1Qe" firstAttribute="trailing" secondItem="1kO-cb-cVp" secondAttribute="trailingMargin" id="gvz-VQ-1W1"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="backdropImage" destination="tbj-aJ-1Qe" id="SUB-aM-V3V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7sZ-n1-8Vq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1466.5" y="1058.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SY4-qa-9p7">
