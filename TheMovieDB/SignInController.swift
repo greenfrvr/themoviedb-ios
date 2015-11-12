@@ -51,10 +51,6 @@ class SignInController: UIViewController, AuthenticationDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if session == nil {
-            authManager.loadRequestToken()
-        }
-        
         appNameLabel.transform = CGAffineTransformMakeScale(0, 0)
     }
     
