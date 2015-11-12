@@ -8,6 +8,6 @@
 
 import UIKit
 
-class FavoritesController: UIViewController {
-
+class TrendsController: UIViewController{
+    
 }

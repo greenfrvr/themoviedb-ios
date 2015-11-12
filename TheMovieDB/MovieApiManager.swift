@@ -454,6 +454,38 @@ protocol MovieStateChangeDelegate {
     func movieWatchlistStateChangesFailed(error: NSError)
 }
 
+class TrendsManager {
+    
+    let delegate: TrendsDelegate?
+    
+    init(delegate: TrendsDelegate?){
+        self.delegate = delegate
+    }
+    
+    func loadPopular(type: TrendsType, page: Int = 1){
+        let params = [
+            "api_key": ApiEndpoints.apiKey,
+            "page": page
+        ]
+        
+        AFHTTPRequestOperationManager().GET(type.url(), parameters: params,
+            success: { operation, response in
+                if let results = Mapper<SegmentList>().map(response) {
+                    self.delegate?.trendsLoadedSuccessfully(results)
+                }
+            },
+            failure: { operation, error in self.delegate?.trendsLoadingFailed(error)
+        })
+    }
+}
+
+protocol TrendsDelegate {
+
+    func trendsLoadedSuccessfully(results: SegmentList) -> Void
+    
+    func trendsLoadingFailed(error: NSError) -> Void
+}
+
 //______________API configuration______________
 class ApiEndpoints {
     
@@ -461,7 +493,6 @@ class ApiEndpoints {
     static let baseApiUrl = "http://api.themoviedb.org/3"
     static let baseShareUrl = "https://www.themoviedb.org"
     static let baseImageUrl = "http://image.tmdb.org/t/p"
-    
     //auth
     static let newToken = "\(baseApiUrl)/authentication/token/new"
     static let validateToken = "\(baseApiUrl)/authentication/token/validate_with_login"
@@ -474,7 +505,6 @@ class ApiEndpoints {
     static let accountWatchlistMovies = { (id: Int) in "\(baseApiUrl)/account/\(id)/watchlist/movies" }
     static let accountItemFavoriteState = { (id: String, session: String) in "\(baseApiUrl)/account/\(id)/favorite?api_key=\(apiKey)&session_id=\(session)" }
     static let accountItemWatchlistState = { (id: String, session: String) in "\(baseApiUrl)/account/\(id)/watchlist?api_key=\(apiKey)&session_id=\(session)" }
-    
     //list
     static let listDetails = { (id: String) in "\(baseApiUrl)/list/\(id)" }
     static let listShare = { (id: String) in "\(baseShareUrl)/list/\(id)"}
@@ -487,6 +517,9 @@ class ApiEndpoints {
     static let movieImages = { (id: String) in "\(baseApiUrl)/movie/\(id)/images"}
     static let movieState = { (id: String) in "\(baseApiUrl)/movie/\(id)/account_states" }
     static let movieShare  = "\(baseShareUrl)/movie"
+    //trends
+    static let popularMovies = "\(baseApiUrl)/movie/popular"
+    static let popularTvShow = "\(baseApiUrl)/tv/popular"
     //config
     static let posterSizes = [
         1 : "w92",

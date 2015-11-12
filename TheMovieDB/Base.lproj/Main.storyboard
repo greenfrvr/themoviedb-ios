@@ -550,10 +550,10 @@
             </objects>
             <point key="canvasLocation" x="117.5" y="341.5"/>
         </scene>
-        <!--Favorites Controller-->
+        <!--Trends-->
         <scene sceneID="WBg-XT-ov8">
             <objects>
-                <viewController id="Z0A-Rk-FyL" customClass="FavoritesController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Z0A-Rk-FyL" customClass="TrendsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="shS-0k-hfi"/>
                         <viewControllerLayoutGuide type="bottom" id="IJ4-sB-Ezh"/>
@@ -562,22 +562,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Favoites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSe-l1-7Bw">
-                                <rect key="frame" x="279" y="323" width="42" height="21"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZZ-FB-HAC">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <connections>
+                                    <segue destination="bVV-r1-n5I" kind="embed" id="sOI-Bd-TwX"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="NSe-l1-7Bw" firstAttribute="centerY" secondItem="vjX-IF-9Lm" secondAttribute="centerY" id="1Mr-Lh-qRK"/>
-                            <constraint firstItem="NSe-l1-7Bw" firstAttribute="centerX" secondItem="vjX-IF-9Lm" secondAttribute="centerX" id="sxg-pd-Mck"/>
+                            <constraint firstItem="hZZ-FB-HAC" firstAttribute="leading" secondItem="vjX-IF-9Lm" secondAttribute="leading" id="0MT-bs-X30"/>
+                            <constraint firstAttribute="trailing" secondItem="hZZ-FB-HAC" secondAttribute="trailing" id="2em-6S-Cxw"/>
+                            <constraint firstItem="hZZ-FB-HAC" firstAttribute="bottom" secondItem="IJ4-sB-Ezh" secondAttribute="top" id="AIQ-uj-hNL"/>
+                            <constraint firstItem="hZZ-FB-HAC" firstAttribute="top" secondItem="vjX-IF-9Lm" secondAttribute="top" constant="20" id="ebS-ay-sF2"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="1En-un-Rrl"/>
+                    <tabBarItem key="tabBarItem" title="Trends" image="Star" selectedImage="Star Filled" id="1En-un-Rrl"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7vH-AE-dj0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -985,6 +987,147 @@
             </objects>
             <point key="canvasLocation" x="1056.5" y="341.5"/>
         </scene>
+        <!--Trends Table Controller-->
+        <scene sceneID="dtb-tx-2x0">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="be9-Hw-SlS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="bVV-r1-n5I" customClass="TrendsTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="128" sectionHeaderHeight="28" sectionFooterHeight="28" id="m0Q-vL-lCK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="rN5-Q8-s4S">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="k0a-lp-N3k">
+                                    <rect key="frame" x="8" y="20" width="153" height="29"/>
+                                    <animations/>
+                                    <segments>
+                                        <segment title="Popular"/>
+                                        <segment title="Top Rated"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="criteriaChanged:" destination="bVV-r1-n5I" eventType="valueChanged" id="XVx-qP-NkT"/>
+                                    </connections>
+                                </segmentedControl>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="z1w-6O-h0Z">
+                                    <rect key="frame" x="247" y="20" width="120" height="29"/>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="120" id="Mqg-zZ-ceq"/>
+                                    </constraints>
+                                    <segments>
+                                        <segment title="" image="Film Reel"/>
+                                        <segment title="" image="Retro TV"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="typeChanged:" destination="bVV-r1-n5I" eventType="valueChanged" id="h5V-xb-aj9"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                            <animations/>
+                            <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="k0a-lp-N3k" secondAttribute="bottom" constant="8" id="AzA-tO-tQo"/>
+                                <constraint firstAttribute="trailing" secondItem="z1w-6O-h0Z" secondAttribute="trailing" constant="8" id="Rhb-px-eEZ"/>
+                                <constraint firstItem="k0a-lp-N3k" firstAttribute="leading" secondItem="rN5-Q8-s4S" secondAttribute="leading" constant="8" id="pPR-MH-NPt"/>
+                                <constraint firstAttribute="bottom" secondItem="z1w-6O-h0Z" secondAttribute="bottom" constant="8" id="ubV-YW-4WZ"/>
+                            </constraints>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="bQe-Gf-uxk">
+                            <rect key="frame" x="0.0" y="212" width="375" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pF-dk-46F">
+                                    <rect key="frame" x="157" y="18" width="61" height="21"/>
+                                    <animations/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1qt-b1-DCq">
+                                    <rect key="frame" x="129" y="18" width="20" height="20"/>
+                                    <animations/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <animations/>
+                            <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="1qt-b1-DCq" firstAttribute="centerY" secondItem="bQe-Gf-uxk" secondAttribute="centerY" id="2Fw-vO-HRQ"/>
+                                <constraint firstItem="5pF-dk-46F" firstAttribute="centerX" secondItem="bQe-Gf-uxk" secondAttribute="centerX" id="E2t-AB-zok"/>
+                                <constraint firstItem="5pF-dk-46F" firstAttribute="centerY" secondItem="bQe-Gf-uxk" secondAttribute="centerY" id="Euk-8z-XgJ"/>
+                                <constraint firstItem="5pF-dk-46F" firstAttribute="leading" secondItem="1qt-b1-DCq" secondAttribute="trailing" constant="8" id="lB1-zu-KlK"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrendsTableViewCell" rowHeight="128" id="N1e-NA-1VM" customClass="TrendsTableViewCell" customModule="TheMovieDB" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="84" width="375" height="128"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N1e-NA-1VM" id="0jh-l8-gcS">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="WPJ-bb-WZj">
+                                            <rect key="frame" x="0.0" y="0.0" width="85" height="128"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="128" id="4vD-Yn-Q30"/>
+                                                <constraint firstAttribute="width" secondItem="WPJ-bb-WZj" secondAttribute="height" multiplier="2:3" id="kwU-0P-8WF"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="vvD-P1-idD">
+                                            <rect key="frame" x="170" y="-1" width="205" height="128"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="128" id="mIu-Ik-hKh"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="qrZ-Pg-Xb0">
+                                            <rect key="frame" x="85" y="-1" width="85" height="128"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="128" id="ENR-Di-Be6"/>
+                                                <constraint firstAttribute="width" secondItem="qrZ-Pg-Xb0" secondAttribute="height" multiplier="2:3" id="tXk-I2-bFU"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstItem="qrZ-Pg-Xb0" firstAttribute="centerY" secondItem="0jh-l8-gcS" secondAttribute="centerY" id="01n-vc-X2q"/>
+                                        <constraint firstItem="WPJ-bb-WZj" firstAttribute="centerY" secondItem="0jh-l8-gcS" secondAttribute="centerY" id="CeM-M5-o8Z"/>
+                                        <constraint firstItem="vvD-P1-idD" firstAttribute="leading" secondItem="qrZ-Pg-Xb0" secondAttribute="trailing" id="fLj-xT-4No"/>
+                                        <constraint firstAttribute="trailing" secondItem="vvD-P1-idD" secondAttribute="trailing" id="mdN-v6-moi"/>
+                                        <constraint firstItem="vvD-P1-idD" firstAttribute="centerY" secondItem="0jh-l8-gcS" secondAttribute="centerY" id="n62-Dc-kUd"/>
+                                        <constraint firstItem="qrZ-Pg-Xb0" firstAttribute="leading" secondItem="WPJ-bb-WZj" secondAttribute="trailing" id="ncc-FH-7GW"/>
+                                        <constraint firstItem="vvD-P1-idD" firstAttribute="leading" secondItem="qrZ-Pg-Xb0" secondAttribute="trailing" id="pQJ-n8-pCS"/>
+                                        <constraint firstItem="WPJ-bb-WZj" firstAttribute="leading" secondItem="0jh-l8-gcS" secondAttribute="leading" id="xpQ-Yy-Ztu"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <outlet property="leftPoster" destination="WPJ-bb-WZj" id="OfC-3g-QSs"/>
+                                    <outlet property="middlePoster" destination="qrZ-Pg-Xb0" id="eiz-RB-ftF"/>
+                                    <outlet property="rightPoster" destination="vvD-P1-idD" id="FB5-Is-O22"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bVV-r1-n5I" id="CWK-wj-LKa"/>
+                            <outlet property="delegate" destination="bVV-r1-n5I" id="IXY-BQ-n7P"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="pagintationIndicator" destination="bQe-Gf-uxk" id="byd-yj-Tlx"/>
+                        <outlet property="typeSegmentControl" destination="z1w-6O-h0Z" id="Ufy-p9-AN4"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="344.5" y="1185.5"/>
+        </scene>
         <!--Backdrops Controller-->
         <scene sceneID="nxx-n8-DHT">
             <objects>
@@ -1056,9 +1199,13 @@
         <image name="Account-male" width="25" height="25"/>
         <image name="Account-male-filled" width="25" height="25"/>
         <image name="Clapperboard" width="33" height="33"/>
+        <image name="Film Reel" width="25" height="25"/>
         <image name="Hearts" width="33" height="33"/>
+        <image name="Retro TV" width="25" height="25"/>
         <image name="Search" width="25" height="25"/>
         <image name="Search-filled" width="25" height="25"/>
+        <image name="Star" width="25" height="25"/>
+        <image name="Star Filled" width="25" height="25"/>
         <image name="defaultPhoto" width="540" height="540"/>
         <image name="heart" width="25" height="25"/>
         <image name="rating" width="25" height="25"/>
