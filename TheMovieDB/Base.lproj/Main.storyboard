@@ -705,7 +705,7 @@
         <!--Details-->
         <scene sceneID="GwJ-cS-JPW">
             <objects>
-                <viewController storyboardIdentifier="MovieDetails" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="0Jj-bf-DEJ" customClass="MovieDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetails" providesPresentationContextTransitionStyle="YES" id="0Jj-bf-DEJ" customClass="MovieDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yng-t7-MFh"/>
                         <viewControllerLayoutGuide type="bottom" id="as8-SY-YaG"/>
@@ -988,7 +988,7 @@
         <!--Backdrops Controller-->
         <scene sceneID="nxx-n8-DHT">
             <objects>
-                <pageViewController storyboardIdentifier="BackdropPages" autoresizesArchivedViewToFullSize="NO" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" transitionStyle="scroll" pageSpacing="2" navigationOrientation="horizontal" spineLocation="none" id="hAI-T1-JJx" customClass="BackdropsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="BackdropPages" autoresizesArchivedViewToFullSize="NO" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" transitionStyle="scroll" pageSpacing="2" navigationOrientation="horizontal" spineLocation="none" id="hAI-T1-JJx" customClass="BackdropsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wKB-tm-wqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -998,7 +998,7 @@
         <!--Backdrop Item Controller-->
         <scene sceneID="UGk-uR-9LR">
             <objects>
-                <viewController storyboardIdentifier="BackdropItem" id="Faz-TW-ddb" customClass="BackdropItemController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BackdropItem" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="Faz-TW-ddb" customClass="BackdropItemController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iX1-kt-aoK"/>
                         <viewControllerLayoutGuide type="bottom" id="1kM-DQ-ab2"/>

@@ -9,9 +9,12 @@
 import UIKit
 
 class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
-
+    
+    //MARK: Properties
+    var initialUrl: String!
     var content = [ImageInfo]()
     
+    //MARK: Lifecycle
     override func viewDidLoad() {
         self.delegate = self
         self.dataSource = self
@@ -19,30 +22,19 @@ class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, U
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        setViewControllers([viewControllerAtIndex(0)!], direction: .Forward, animated: true, completion: nil)
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
+        setViewControllers([viewControllerAtIndex(inititalIndex())!], direction: .Forward, animated: true, completion: nil)
+        setupBackground()
     }
     
+    //MARK: PageViewController
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        var index = indexOfViewController(viewController as! BackdropItemController)
-
-        index++
-        if index == content.count {
-            return nil
-        }
-        
-        return viewControllerAtIndex(index)
+        let index = indexOfViewController(viewController as! BackdropItemController) + 1
+        return index == content.count ? nil : viewControllerAtIndex(index)
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        var index = indexOfViewController(viewController as! BackdropItemController)
-
-        if (index == 0) {
-            return nil
-        }
-
-        index--
-        return viewControllerAtIndex(index)
+        let index = indexOfViewController(viewController as! BackdropItemController)
+        return index == 0 ? nil : viewControllerAtIndex(index - 1)
     }
     
     func viewControllerAtIndex(index: Int) -> BackdropItemController? {
@@ -60,5 +52,30 @@ class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, U
             return content.indexOf { $0 == data }!
         }
         return -1
+    }
+    
+    func inititalIndex() -> Int {
+        for (i, info) in content.enumerate() {
+            if initialUrl.containsString(info.filePath!) {
+                return i
+            }
+        }
+        return 0
+    }
+    
+    //MARK: UI
+    func setupBackground(){
+        if !UIAccessibilityIsReduceTransparencyEnabled() {
+            view.backgroundColor = UIColor.clearColor()
+            
+            let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
+            blurEffectView.frame = view.bounds
+            blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            
+            view.insertSubview(blurEffectView, atIndex: 0)
+        }
+        else {
+            view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
+        }
     }
 }

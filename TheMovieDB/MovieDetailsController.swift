@@ -176,9 +176,10 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     //MARK: UIBackdropsDelegate
     func backdropTapped(image: UIImage?, imageUrl: String) {
-        let controller = self.storyboard?.instantiateViewControllerWithIdentifier("BackdropPages") as! BackdropsController
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("BackdropPages") as! BackdropsController
         controller.content = backdropImages
-        showDetailViewController(controller, sender: self)
+        controller.initialUrl = imageUrl
+        presentViewController(controller, animated: true, completion: nil)
     }
     
     //MARK: UI

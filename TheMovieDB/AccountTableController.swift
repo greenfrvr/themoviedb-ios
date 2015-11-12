@@ -42,14 +42,6 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     }
     
     //MARK: ListsDelegate
-    func userListsLoadedSuccessfully(results: ListInfoPages) {
-        receiveResults(lists += results.resultsRepresentative!, pages: results)
-    }
-    
-    func userSegmentLoadedSuccessfully(results: SegmentList) {
-        receiveResults(lists += results.resultsRepresentative!, pages: results)
-    }
-    
     func receiveResults(@autoclosure persistData: () -> Void, pages: PaginationLoading) {
         persistData()
         
@@ -61,6 +53,14 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         
         stopRefreshing()
         updateRefreshingTitle()
+    }
+    
+    func userListsLoadedSuccessfully(results: ListInfoPages) {
+        receiveResults(lists += results.resultsRepresentative!, pages: results)
+    }
+    
+    func userSegmentLoadedSuccessfully(results: SegmentList) {
+        receiveResults(lists += results.resultsRepresentative!, pages: results)
     }
     
     func userFetched(){
@@ -102,6 +102,7 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     
     func loadData(){
         lists.removeAll()
+        tableView.reloadData()
         accountManager?.loadSegment(currentType)
     }
     
@@ -131,10 +132,8 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         
         switch currentType {
         case .List:
-            print("list clicked")
             presentCollectionController(item.id)
         default:
-            print("movie clicked")
             presentMovieController(item.id)
         }
     }
@@ -196,18 +195,4 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         let title = "Last update: \(formatter.stringFromDate(NSDate()))"
         refreshControl?.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
     }
-//    
-//    //MARK: Navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "ListDetails" {
-//            let navigationViewController = segue.destinationViewController as! UINavigationController
-//            let destinationViewController = navigationViewController.topViewController as! ListDetailsController
-//            
-//            if let cellSender = sender as? ListsTableViewCell {
-//                let index = tableView.indexPathForCell(cellSender)!
-//                let selectedList = lists[index.row]
-//                destinationViewController.argList = selectedList as! ListInfo
-//            }
-//        }
-//    }
 }
