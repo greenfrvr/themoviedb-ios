@@ -95,6 +95,7 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
         case .MOVIE:
             MovieDetailsController.performMovieController(self, id: String(itemId!))
         case .TV: print("TV show details not ready")
+            TvShowDetailsController.performTvController(self, id: String(itemId!))
         }
     }
     
