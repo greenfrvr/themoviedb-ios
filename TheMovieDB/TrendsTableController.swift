@@ -18,7 +18,7 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
     var totalItems = 0
     var trendsType = TrendsType.MOVIE
     var trendsManager: TrendsManager?
-    var items = [[SegmentListItem]]()
+    var items = [[TrendsRepresentation]]()
     
     //MARK: Outlets
     @IBOutlet weak var typeSegmentControl: UISegmentedControl!
@@ -46,8 +46,9 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
     }
     
     //MARK: TrendsDelegate
-    func trendsLoadedSuccessfully(results: SegmentList) {
-        if var results = results.results {
+    func trendsLoadedSuccessfully(trends: TrendsList) {
+        var results = trends.results
+        if  !results.isEmpty {
             var r = (3 - totalItems % 3) % 3
             totalItems += results.count
             
@@ -61,8 +62,8 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
             }
         }
         
-        hasMoreItems = results.hasMorePages
-        nextPage = results.nextPage
+        hasMoreItems = trends.hasMorePages
+        nextPage = trends.nextPage
         
         tableView.tableFooterView?.hidden = true
         tableView.reloadData()
@@ -104,19 +105,19 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
         
         cell.setupDelegate(self)
         
-        cell.leftPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[0].posterPath ?? "")))
-        cell.leftPoster.itemId = item[0].itemId
+        cell.leftPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[0].poster ?? "")))
+        cell.leftPoster.itemId = item[0].id
         
-        cell.middlePoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[1].posterPath ?? "")))
-        cell.middlePoster.itemId = item[1].itemId
+        cell.middlePoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[1].poster ?? "")))
+        cell.middlePoster.itemId = item[1].id
         
-        cell.rightPoster.itemId = item[2].itemId
-        cell.rightPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(5, item[2].backdropPath ?? ""))) { (image, error, cacheType, url) -> Void in
+        cell.rightPoster.itemId = item[2].id
+        cell.rightPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(5, item[2].backdrop ?? ""))) { (image, error, cacheType, url) -> Void in
             cell.detailsBackground.image = cell.rightPoster.image
         }
-        cell.titleLabel.text = item[2].representTitle
-        cell.rateLabel.text = String(item[2].representCounter!)
-        cell.descriptionLabel.text = item[2].representDescription
+        cell.titleLabel.text = item[2].title
+        cell.rateLabel.text = item[2].rate
+        cell.descriptionLabel.text = item[2].desc
         
         return cell
     }
@@ -138,6 +139,15 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
             loadNextPage()
         }
     }
+}
+
+protocol TrendsRepresentation {
+    var id: Int? { get }
+    var title: String? { get }
+    var poster: String? { get }
+    var backdrop: String? { get }
+    var desc: String? { get }
+    var rate: String? { get }
 }
 
 enum TrendsType: Int {

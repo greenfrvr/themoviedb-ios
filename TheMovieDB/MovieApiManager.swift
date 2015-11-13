@@ -137,7 +137,6 @@ class AccountManager {
         func segment(requestUrl: String) {
             AFHTTPRequestOperationManager().GET(requestUrl, parameters: params,
                 success: { operation, response in
-                    
                     if let results = Mapper<SegmentList>().map(response) {
                         self.listsDelegate?.userSegmentLoadedSuccessfully(results)
                     }
@@ -467,9 +466,20 @@ class TrendsManager {
         
         AFHTTPRequestOperationManager().GET(type.url(), parameters: params,
             success: { operation, response in
-                if let results = Mapper<SegmentList>().map(response) {
-                    self.delegate?.trendsLoadedSuccessfully(results)
-                }
+                switch type {
+                case .MOVIE:
+                    if let movies = Mapper<MovieTrendsList>().map(response) {
+                        if let result = TrendsList(fromMovieList: movies) {
+                            self.delegate?.trendsLoadedSuccessfully(result)
+                        }
+                    }
+                case .TV:
+                    if let tvshows = Mapper<TvTrendsList>().map(response) {
+                        if let result = TrendsList(fromTvList: tvshows) {
+                            self.delegate?.trendsLoadedSuccessfully(result)
+                        }
+                    }
+                }  
             },
             failure: { operation, error in self.delegate?.trendsLoadingFailed(error)
         })
@@ -478,7 +488,7 @@ class TrendsManager {
 
 protocol TrendsDelegate {
 
-    func trendsLoadedSuccessfully(results: SegmentList) -> Void
+    func trendsLoadedSuccessfully(trends: TrendsList) -> Void
     
     func trendsLoadingFailed(error: NSError) -> Void
 }
