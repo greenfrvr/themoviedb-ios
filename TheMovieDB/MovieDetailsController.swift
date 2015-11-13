@@ -24,6 +24,13 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         return "http://www.imdb.com/title/\(imdbId!)"
     }
     
+    static func performMovieController(performer: UIViewController, id: String?){
+        let navigationController = performer.storyboard?.instantiateViewControllerWithIdentifier("MovieNavigationController") as! UINavigationController
+        let controller = navigationController.topViewController as! MovieDetailsController
+        controller.movieId = id
+        performer.presentViewController(navigationController, animated: true, completion: nil)
+    }
+    
     //MARK: Outlets
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -80,7 +87,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Back", style: .Cancel, handler: nil))
-        
         presentViewController(actionSheet, animated: true, completion: nil)
     }
     

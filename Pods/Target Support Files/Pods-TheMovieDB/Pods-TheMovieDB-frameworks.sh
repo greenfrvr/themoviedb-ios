@@ -85,11 +85,13 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-TheMovieDB/AFNetworking.framework"
+  install_framework "Pods-TheMovieDB/Dollar.framework"
   install_framework "Pods-TheMovieDB/ObjectMapper.framework"
   install_framework "Pods-TheMovieDB/SDWebImage.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-TheMovieDB/AFNetworking.framework"
+  install_framework "Pods-TheMovieDB/Dollar.framework"
   install_framework "Pods-TheMovieDB/ObjectMapper.framework"
   install_framework "Pods-TheMovieDB/SDWebImage.framework"
 fi

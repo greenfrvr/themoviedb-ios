@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		113F96BB1BF4AE6B006551BD /* TrendsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F96BA1BF4AE6B006551BD /* TrendsTableController.swift */; };
 		113F96BD1BF4BD51006551BD /* TrendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F96BC1BF4BD51006551BD /* TrendsTableViewCell.swift */; };
+		113F96BF1BF4D557006551BD /* UIPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F96BE1BF4D557006551BD /* UIPosterView.swift */; };
 		114EB53E1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */; };
 		114EB5421BF338D30091F49B /* BackdropsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB5411BF338D30091F49B /* BackdropsController.swift */; };
 		114EB5441BF346370091F49B /* BackdropItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB5431BF346370091F49B /* BackdropItemController.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		113F96BA1BF4AE6B006551BD /* TrendsTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsTableController.swift; sourceTree = "<group>"; };
 		113F96BC1BF4BD51006551BD /* TrendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsTableViewCell.swift; sourceTree = "<group>"; };
+		113F96BE1BF4D557006551BD /* UIPosterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPosterView.swift; sourceTree = "<group>"; };
 		114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBackdropsHorizontalView.swift; sourceTree = "<group>"; };
 		114EB5411BF338D30091F49B /* BackdropsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackdropsController.swift; sourceTree = "<group>"; };
 		114EB5431BF346370091F49B /* BackdropItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackdropItemController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				118336A41BF1E64B00D590AF /* Cell */,
 				1180EFB01BEA027500082B6E /* UILabelWithPadding.swift */,
 				114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */,
+				113F96BE1BF4D557006551BD /* UIPosterView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				1174C9601BE895E400A0075B /* SearchController.swift in Sources */,
 				11759AD81BE764FB00BE2B46 /* AppDelegate.swift in Sources */,
 				114EB53E1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift in Sources */,
+				113F96BF1BF4D557006551BD /* UIPosterView.swift in Sources */,
 				11FC7C811BE7906300838AA5 /* Cache.swift in Sources */,
 				11FC7C7F1BE78E4E00838AA5 /* Models.swift in Sources */,
 				1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */,

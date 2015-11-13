@@ -17,7 +17,7 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
     //MARK: Collection
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
-        presentMovieController(item.itemId)
+        MovieDetailsController.performMovieController(self, id: String(item.itemId!))
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -26,7 +26,7 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
         
         cell.movieNameLabel.padding = 10
         cell.movieNameLabel.text = item.title
-        cell.posterImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(2, item.posterPath!)), placeholderImage: UIImage(named: "defaultPhoto"))
+        cell.posterImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item.posterPath!)), placeholderImage: UIImage(named: "defaultPhoto"))
         
         return cell
     }
@@ -43,13 +43,6 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
     func collectionFetched(collection: [ListItem]) {
         items += collection
         collectionView?.reloadData()
-    }
-    
-    func presentMovieController(id: Int?) {
-        let navigationController = storyboard?.instantiateViewControllerWithIdentifier("MovieNavigationController") as! UINavigationController
-        let controller = navigationController.topViewController as! MovieDetailsController
-        controller.movieId = "\(id!)"
-        presentViewController(navigationController, animated: true, completion: nil)
     }
 }
 

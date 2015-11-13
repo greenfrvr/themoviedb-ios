@@ -14,7 +14,7 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     //MARK: Properties
     var nextPage: Int?
     var hasMoreItems = false
-    var currentType = AccountManager.SegmentType.List
+    var currentType = AccountSegmentType.List
     var session: Session!
     var accountManager: AccountManager?
     var lists = [SegmentsRepresentation]()
@@ -76,28 +76,9 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     }
     
     //MARK: UserSegmentsDelegate
-    func loadLists() {
-        currentType = .List
+    func loadSelectedSegment(segment: AccountSegmentType) {
+        currentType = segment
         loadData()
-        print("load lists")
-    }
-    
-    func loadFavorite() {
-        currentType = .Favorite
-        loadData()
-        print("load favorites")
-    }
-    
-    func loadRated() {
-        currentType = .Rated
-        loadData()
-        print("load rated")
-    }
-    
-    func loadWatchlist() {
-        currentType = .Watchlist
-        loadData()
-        print("load watchlist")
     }
     
     func loadData(){
@@ -131,25 +112,9 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         let item = lists[indexPath.row]
         
         switch currentType {
-        case .List:
-            presentCollectionController(item.id)
-        default:
-            presentMovieController(item.id)
+        case .List: ListDetailsController.performListController(self, id: item.id)
+        default: MovieDetailsController.performMovieController(self, id: item.id)
         }
-    }
-    
-    func presentCollectionController(id: String?) {
-        let navigationController = storyboard?.instantiateViewControllerWithIdentifier("CollectionNavigationController") as! UINavigationController
-        let controller = navigationController.topViewController as! ListDetailsController
-        controller.argListId = id
-        presentViewController(navigationController, animated: true, completion: nil)
-    }
-    
-    func presentMovieController(id: String?) {
-        let navigationController = storyboard?.instantiateViewControllerWithIdentifier("MovieNavigationController") as! UINavigationController
-        let controller = navigationController.topViewController as! MovieDetailsController
-        controller.movieId = id
-        presentViewController(navigationController, animated: true, completion: nil)
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {

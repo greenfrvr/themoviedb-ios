@@ -7,6 +7,7 @@ target 'TheMovieDB' do
 pod 'AFNetworking', '~> 2.6.1'
 pod 'ObjectMapper', '~> 1.0.0'
 pod 'SDWebImage', '~> 3.7'
+pod 'Dollar'
 end
 
 target 'TheMovieDBTests' do

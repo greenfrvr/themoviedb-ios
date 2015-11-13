@@ -18,6 +18,13 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
         return ApiEndpoints.listShare(self.argListId!)
     }
     
+    static func performListController(performer: UIViewController, id: String?){
+        let navigationController = performer.storyboard?.instantiateViewControllerWithIdentifier("CollectionNavigationController") as! UINavigationController
+        let controller = navigationController.topViewController as! ListDetailsController
+        controller.argListId = id
+        performer.presentViewController(navigationController, animated: true, completion: nil)
+    }
+    
     //MARK: Outlets
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!

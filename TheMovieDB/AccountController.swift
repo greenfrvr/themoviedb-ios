@@ -24,14 +24,9 @@ class AccountController: UIViewController, AccountDelegate {
     
     //MARK: Actions
     @IBAction func usersSetChanged(sender: UISegmentedControl, forEvent event: UIEvent) {
-        let type = AccountManager.SegmentType(rawValue: sender.selectedSegmentIndex)
+        let type = AccountSegmentType(rawValue: sender.selectedSegmentIndex)
         if let segmentType = type {
-            switch segmentType {
-            case .List: segmentsLoader?.loadLists()
-            case .Favorite: segmentsLoader?.loadFavorite()
-            case .Rated: segmentsLoader?.loadRated()
-            case .Watchlist: segmentsLoader?.loadWatchlist()
-            }
+            segmentsLoader?.loadSelectedSegment(segmentType)
         }
     }
     
@@ -68,11 +63,12 @@ class AccountController: UIViewController, AccountDelegate {
     }
 }
 
+enum AccountSegmentType: Int {
+    case List = 0, Favorite, Rated, Watchlist
+}
+
 protocol UserSegmentsDelegate {
-    func loadLists()
-    func loadFavorite()
-    func loadRated()
-    func loadWatchlist()
+    func loadSelectedSegment(segment: AccountSegmentType)
 }
 
 

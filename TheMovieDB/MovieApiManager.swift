@@ -127,7 +127,7 @@ class AccountManager {
         })
     }
 
-    func loadSegment(type: SegmentType, page: Int = 1){
+    func loadSegment(type: AccountSegmentType, page: Int = 1){
         let params = [
             "api_key": ApiEndpoints.apiKey,
             "session_id": session,
@@ -137,6 +137,7 @@ class AccountManager {
         func segment(requestUrl: String) {
             AFHTTPRequestOperationManager().GET(requestUrl, parameters: params,
                 success: { operation, response in
+                    
                     if let results = Mapper<SegmentList>().map(response) {
                         self.listsDelegate?.userSegmentLoadedSuccessfully(results)
                     }
@@ -169,10 +170,6 @@ class AccountManager {
         } else {
             list()
         }
-    }
-    
-    enum SegmentType: Int {
-        case List = 0, Favorite, Rated, Watchlist
     }
 }
 

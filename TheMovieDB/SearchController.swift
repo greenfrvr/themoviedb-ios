@@ -156,12 +156,13 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (scopeIndex == 0 && indexPath.section == 0) || scopeIndex == 1 {
-            let navigationController = storyboard?.instantiateViewControllerWithIdentifier("MovieNavigationController") as! UINavigationController
-            let controller = navigationController.topViewController as! MovieDetailsController
+        switch ScopeType(scopeIndex, indexPath.section) {
+        case .MOVIE:
             let movie = resultsMovies[indexPath.row]
-            controller.movieId = String(movie.movieId!)
-            presentViewController(navigationController, animated: true, completion: nil)
+            MovieDetailsController.performMovieController(self, id: String(movie.movieId!))
+        case .TV: print("TV Show clicked")
+        case .PEOPLE: print("Person clicked")
+        case .ALL: return
         }
     }
     

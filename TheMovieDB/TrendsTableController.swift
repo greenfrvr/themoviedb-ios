@@ -8,8 +8,9 @@
 
 import UIKit
 import SDWebImage
+import Dollar
 
-class TrendsTableController: UITableViewController, TrendsDelegate {
+class TrendsTableController: UITableViewController, UIPosterViewDelegate, TrendsDelegate {
     
     //MARK: Properties
     var hasMoreItems = false
@@ -51,10 +52,10 @@ class TrendsTableController: UITableViewController, TrendsDelegate {
             totalItems += results.count
             
             while r-- > 0 {
-                items[items.indices.endIndex.predecessor()].append(results.removeFirst())
+                items[items.endIndex.predecessor()].append(results.removeFirst())
             }
             
-            let sets = chunk(results, size: 3)
+            let sets = $.chunk(results, size: 3)
             for chunk in sets {
                 items.append(chunk)
             }
@@ -86,14 +87,36 @@ class TrendsTableController: UITableViewController, TrendsDelegate {
         print(error)
     }
     
+    //MARK: PosterDelegate
+    func posterTapped(itemId: Int?) {
+        print("Item with id \(itemId!) was tapped")
+        switch trendsType {
+        case .MOVIE:
+            MovieDetailsController.performMovieController(self, id: String(itemId!))
+        case .TV: print("TV show details not ready")
+        }
+    }
+    
     //MARK: TableView
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(TrendsTableViewCell.identifier, forIndexPath: indexPath) as! TrendsTableViewCell
-        let item = items[indexPath.row]
+        let item = $.shuffle(items[indexPath.row])
+        
+        cell.setupDelegate(self)
         
         cell.leftPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[0].posterPath ?? "")))
+        cell.leftPoster.itemId = item[0].itemId
+        
         cell.middlePoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[1].posterPath ?? "")))
-        cell.rightPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(4, item[2].backdropPath ?? "")))
+        cell.middlePoster.itemId = item[1].itemId
+        
+        cell.rightPoster.itemId = item[2].itemId
+        cell.rightPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(5, item[2].backdropPath ?? ""))) { (image, error, cacheType, url) -> Void in
+            cell.detailsBackground.image = cell.rightPoster.image
+        }
+        cell.titleLabel.text = item[2].representTitle
+        cell.rateLabel.text = String(item[2].representCounter!)
+        cell.descriptionLabel.text = item[2].representDescription
         
         return cell
     }
@@ -114,19 +137,6 @@ class TrendsTableController: UITableViewController, TrendsDelegate {
         if deltaOffset <= 0 && hasMoreItems {
             loadNextPage()
         }
-    }
-    
-    func chunk<T>(array: [T], size: Int = 1) -> [[T]] {
-        var result = [[T]]()
-        var chunk = -1
-        for (index, elem) in array.enumerate() {
-            if index % size == 0 {
-                result.append([T]())
-                chunk += 1
-            }
-            result[chunk].append(elem)
-        }
-        return result
     }
 }
 
