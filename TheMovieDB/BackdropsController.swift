@@ -39,9 +39,7 @@ class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, U
     }
     
     func viewControllerAtIndex(index: Int) -> BackdropItemController? {
-        if content.count == 0 || index >= content.count {
-                return nil
-        }
+        if content.count == 0 || index >= content.count { return nil }
         
         let dataViewController = self.storyboard?.instantiateViewControllerWithIdentifier("BackdropItem") as! BackdropItemController
         dataViewController.backdropData = content[index]
@@ -49,9 +47,7 @@ class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, U
     }
     
     func indexOfViewController(viewController: BackdropItemController) -> Int {
-        if let data = viewController.backdropData {
-            return content.indexOf { $0 == data }!
-        }
+        if let data = viewController.backdropData { return content.indexOf { $0 == data }! }
         return -1
     }
     

@@ -71,31 +71,9 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     @IBAction func actionButtonClicked(sender: AnyObject) {
-        let actionSheet = UIAlertController(title: "Pick an action", message: "What do you want to do with this movie?", preferredStyle: .ActionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "Share", style: .Default, handler: { action in
-            let shareController = UIActivityViewController(activityItems: [self.shareUrl], applicationActivities: nil)
-            self.presentViewController(shareController, animated: true, completion: nil)
-
-        }))
-        
-        if imdbId != nil {
-            actionSheet.addAction(UIAlertAction(title: "Open IMDB page", style: .Default, handler: { action in
-                let openUrl = NSURL(string: self.openIMDBUrl)
-                if let url = openUrl{
-                    UIApplication.sharedApplication().openURL(url)
-                }
-            }))
-        }
-        
-        actionSheet.addAction(UIAlertAction(title: "Add to my list", style: .Default, handler: { action in
-            print("add to my list")
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Back", style: .Cancel, handler: nil))
-        presentViewController(actionSheet, animated: true, completion: nil)
+        let alert = MovieDetailsActionAlert(presenter: self, imdb: openIMDBUrl, url: shareUrl)
+        alert.present()
     }
-    
     
     //MARK: Lifecycle
     override func viewDidLoad() {
@@ -131,7 +109,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     //MARK: MovieDetailsDelegate
     func movieDetailsLoadedSuccessfully(details: MovieInfo) {
-        print("Movie details loaded: \(details.movieId!)")
         imdbId = details.imdbId
         posterImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, details.posterPath ?? "")), placeholderImage: UIImage(named: "defaultPhoto"))
         titleLabel.text = details.title
@@ -157,7 +134,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     func movieCreditsLoadedSuccessfully(credits: Credits) {
-        print("Credits loaded: \(credits.casts?.count)")
         if let cast = credits.casts {
             castScrollView.castDisplay(cast)
         }

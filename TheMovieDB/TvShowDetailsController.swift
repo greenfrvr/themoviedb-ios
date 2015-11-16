@@ -12,8 +12,8 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
 
     //MARK: Properties
     var tvShowId: String?
-    var tvShowHomepage: String?
-    var tvShowState: AccountState?
+    var homepage: String?
+    var showState: AccountState?
     var detailsManager: TvShowDetailsManager?
     var backdropImages = [ImageInfo]()
     var shareUrl: String {
@@ -55,41 +55,20 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     @IBAction func addToFavorite(sender: UIBarButtonItem) {
-        if let show = tvShowState {
+        if let show = showState {
             detailsManager?.changeFavoriteState(tvShowId!, state: show.favorite ?? false)
         }
     }
     
     @IBAction func addToWatchlist(sender: AnyObject) {
-        if let show = tvShowState {
+        if let show = showState {
             detailsManager?.changeWatchlistState(tvShowId!, state: show.watchlist ?? false)
         }
     }
     
     @IBAction func actionButtonClicked(sender: AnyObject) {
-        let actionSheet = UIAlertController(title: "Pick an action", message: "What do you want to do with this show?", preferredStyle: .ActionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "Share", style: .Default, handler: { action in
-            let shareController = UIActivityViewController(activityItems: [self.shareUrl], applicationActivities: nil)
-            self.presentViewController(shareController, animated: true, completion: nil)
-            
-        }))
-        
-        if let homepage = tvShowHomepage {
-            actionSheet.addAction(UIAlertAction(title: "Open home page", style: .Default, handler: { action in
-                let openUrl = NSURL(string: homepage)
-                if let url = openUrl{
-                    UIApplication.sharedApplication().openURL(url)
-                }
-            }))
-        }
-        
-        actionSheet.addAction(UIAlertAction(title: "Add to my list", style: .Default, handler: { action in
-            print("add to my list")
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Back", style: .Cancel, handler: nil))
-        presentViewController(actionSheet, animated: true, completion: nil)
+        let alert = TvShowDetailsActionAlert(presenter: self, homepage: homepage, url: shareUrl)
+        alert.present()
     }
     
     //MARK: Lifecycle
@@ -122,8 +101,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     
     //MARK: TvShowDetailsDelegate
     func tvshowDetailsLoadedSuccessfully(details: TvShowInfo) {
-        print("TvShow details loaded: \(details.tvShowId)")
-        tvShowHomepage = details.homepage
+        homepage = details.homepage
         posterImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, details.posterPath ?? "")), placeholderImage: UIImage(named: "defaultPhoto"))
         titleLabel.text = details.name
         averageVoteLabel.text = String(details.voteAverage ?? 0.0)
@@ -143,12 +121,11 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     func tvshowStateLoadedSuccessfully(state: AccountState) {
-        tvShowState = state
+        showState = state
         updateStateIndicators()
     }
     
     func tvshowCreditsLoadedSuccessfully(credits: Credits) {
-        print("Credits loaded: \(credits.casts?.count)")
         if let cast = credits.casts {
             castScrollView.castDisplay(cast)
         }
@@ -172,13 +149,13 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     
     //MARK: TvShowStateChangeDelegate
     func tvshowFavoriteStateChangedSuccessfully(isFavorite: Bool) {
-        tvShowState?.favorite = isFavorite
+        showState?.favorite = isFavorite
         updateStateIndicators()
         movieStateChangeNotifier("Favorite list", message: "This show was \(isFavorite ? "added to" : "removed from") your favorites list")
     }
     
     func tvshowWatchlistStateChangedSuccessfully(isInWatchlist: Bool) {
-        tvShowState?.watchlist = isInWatchlist
+        showState?.watchlist = isInWatchlist
         updateStateIndicators()
         movieStateChangeNotifier("Watchlist", message: "This show was \(isInWatchlist ? "added to" : "removed from") your watchlist")
     }
@@ -218,8 +195,8 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     func updateStateIndicators(){
-        navFavoriteButton.image = UIImage(named: tvShowState?.favorite ?? false ? "Like Filled" : "Hearts")
-        watchlistButton.image = UIImage(named: tvShowState?.watchlist ?? false ? "Movie Filled" : "Movie")
+        navFavoriteButton.image = UIImage(named: showState?.favorite ?? false ? "Like Filled" : "Hearts")
+        watchlistButton.image = UIImage(named: showState?.watchlist ?? false ? "Movie Filled" : "Movie")
     }
 
 }

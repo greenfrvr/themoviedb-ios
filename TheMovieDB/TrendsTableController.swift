@@ -106,16 +106,16 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
         
         cell.setupDelegate(self)
         
-        cell.leftPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[0].poster ?? "")))
         cell.leftPoster.itemId = item[0].id
+        cell.leftPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[0].poster ?? "")))
         
-        cell.middlePoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[1].poster ?? "")))
         cell.middlePoster.itemId = item[1].id
+        cell.middlePoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item[1].poster ?? "")))
         
         cell.rightPoster.itemId = item[2].id
-        cell.rightPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(5, item[2].backdrop ?? ""))) { (image, error, cacheType, url) -> Void in
-            cell.detailsBackground.image = cell.rightPoster.image
-        }
+        cell.rightPoster.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(5, item[2].backdrop ?? "")))
+            { (image, error, cacheType, url) -> Void in cell.detailsBackground.image = cell.rightPoster.image }
+        
         cell.titleLabel.text = item[2].title
         cell.rateLabel.text = item[2].rate
         cell.descriptionLabel.text = item[2].desc
