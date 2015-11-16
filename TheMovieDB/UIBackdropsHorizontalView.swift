@@ -14,7 +14,7 @@ class UIBackdropsHorizontalView: UIScrollView {
     var padding: Int = 8
     var itemsMargin: Int = 8
     var itemHeight: Int = 128
-    var backdropsDelegate:UIBackdropsDelegat?
+    var backdropsDelegate: UIBackdropsDelegat?
     
     func backdropsDisplay(backdrops: [ImageInfo]){
         var x = padding
@@ -46,5 +46,6 @@ class UIBackdropsHorizontalView: UIScrollView {
 }
 
 protocol UIBackdropsDelegat {
+    
     func backdropTapped(image: UIImage?, imageUrl: String)
 }

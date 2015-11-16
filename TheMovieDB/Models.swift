@@ -526,13 +526,50 @@ struct MovieInfo: Mappable {
     }
 }
 
+struct Credits: Mappable {
+    var id: Int?
+    var casts: [Cast]?
+    
+    init?(_ map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        id<-map["id"]
+        casts<-map["cast"]
+    }
+    
+    struct Cast: Mappable {
+        var id: Int?
+        var castId: Int?
+        var creditId: String?
+        var name: String?
+        var character: String?
+        var profilePath: String?
+        var order: Int?
+        
+        init?(_ map: Map) {
+        }
+        
+        mutating func mapping(map: Map) {
+            id<-map["id"]
+            castId<-map["cast_id"]
+            creditId<-map["credit_id"]
+            name<-map["name"]
+            character<-map["character"]
+            profilePath<-map["profile_path"]
+            order<-map["order"]
+        }
+    }
+}
+
 struct TvShowInfo: Mappable {
     var tvShowId: Int?
     var name: String?
     var homepage: String?
     var overview: String?
     var numberOfSeasons: Int?
-    var numberOfEpisodes: Int? 
+    var numberOfEpisodes: Int?
+    var lastAirDate: String?
     var posterPath: String?
     var voteAverage: Double?
     var voteCount: Int?
@@ -549,6 +586,7 @@ struct TvShowInfo: Mappable {
         overview<-map["overview"]
         numberOfSeasons<-map["number_of_seasons"]
         numberOfEpisodes<-map["number_of_episodes"]
+        lastAirDate<-map["last_air_date"]
         posterPath<-map["poster_path"]
         voteAverage<-map["vote_average"]
         voteCount<-map["vote_count"]

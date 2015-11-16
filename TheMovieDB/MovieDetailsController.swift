@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieStateChangeDelegate, UIBackdropsDelegat {
+class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieStateChangeDelegate, UIBackdropsDelegat, UICastDelegate {
     
     //MARK: Properties
     var movieId: String?
@@ -40,12 +40,18 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     @IBOutlet weak var runtimeLabel: UILabel!
     @IBOutlet weak var budgetLabel: UILabel!
     @IBOutlet weak var revenueLabel: UILabel!
-    @IBOutlet weak var overviewLabel: UILabel!
+    
     @IBOutlet weak var navFavoriteButton: UIBarButtonItem!
     @IBOutlet weak var watchlistButton: UIImageView!
+    
     @IBOutlet weak var descriptionLabel: UILabelWithPadding!
+    @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var backdropsLabel: UILabelWithPadding!
+    @IBOutlet weak var castLabel: UILabelWithPadding!
+    
+    @IBOutlet weak var detailsScrollContainer: UIScrollView!
     @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView!
+    @IBOutlet weak var castScrollView: UICastHorizontalView!
     
     //MARK: Action
     @IBAction func unwindMovieDetails(sender: UIBarButtonItem) {
@@ -98,10 +104,10 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         detailsManager = MovieDetailsManager(sessionId: session.sessionToken!, detailsDelegate: self, stateDelegate: self)
         
         if let id = movieId {
-            print("LOADING ID \(id)")
             detailsManager?.loadDetails(id)
             detailsManager?.loadState(id)
             detailsManager?.loadImages(id)
+            detailsManager?.loadCredits(id)
         }
     }
     
@@ -114,10 +120,13 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         
         descriptionLabel.padding = 10
         backdropsLabel.padding = 10
+        castLabel.padding = 10
         
         watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
         
+        detailsScrollContainer.contentInset = UIEdgeInsetsMake(56.0, 0, 128.0, 0)
         imagesScrollView.backdropsDelegate = self
+        castScrollView.castDelegate = self
     }
     
     //MARK: MovieDetailsDelegate
@@ -147,6 +156,13 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         }
     }
     
+    func movieCreditsLoadedSuccessfully(credits: Credits) {
+        print("Credits loaded: \(credits.casts?.count)")
+        if let cast = credits.casts {
+            castScrollView.castDisplay(cast)
+        }
+    }
+    
     func movieDetailsLoadingFailed(error: NSError) {
         print(error)
     }
@@ -156,6 +172,10 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     func movieImagesLoadingFailed(error: NSError) {
+        print(error)
+    }
+    
+    func movieCreditsLoadingFailed(error: NSError) {
         print(error)
     }
     
@@ -187,6 +207,14 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         controller.initialUrl = imageUrl
         presentViewController(controller, animated: true, completion: nil)
     }
+    
+    //MARK: CastDelegate
+    func castTapped(id: Int?) {
+        if let castId = id {
+            print("Cast item with id \(castId) was tapped!")
+        }
+    }
+
     
     //MARK: UI
     func movieStateChangeNotifier(title: String, message: String){

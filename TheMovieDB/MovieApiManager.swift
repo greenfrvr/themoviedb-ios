@@ -422,6 +422,21 @@ class MovieDetailsManager {
             failure: { operation, error in self.detailsDelegate?.movieImagesLoadingFailed(error)
         })
     }
+    
+    func loadCredits(id: String) {
+        let params = [
+            "api_key": ApiEndpoints.apiKey
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.movieCredits(id), parameters: params,
+            success: { operation, response in
+                if let results = Mapper<Credits>().map(response) {
+                    self.detailsDelegate?.movieCreditsLoadedSuccessfully(results)
+                }
+            },
+            failure: { operation, error in self.detailsDelegate?.movieCreditsLoadingFailed(error)
+        })
+    }
 }
 
 protocol MovieDetailsDelegate {
@@ -437,6 +452,10 @@ protocol MovieDetailsDelegate {
     func movieImagesLoadedSuccessully(images: ImageInfoList) -> Void
     
     func movieImagesLoadingFailed(error: NSError) -> Void
+    
+    func movieCreditsLoadedSuccessfully(credits: Credits) -> Void
+    
+    func movieCreditsLoadingFailed(error: NSError) -> Void
 }
 
 protocol MovieStateChangeDelegate {
@@ -450,8 +469,6 @@ protocol MovieStateChangeDelegate {
     func movieWatchlistStateChangesFailed(error: NSError)
 }
 
-/*==============================================================================
-==============================================================================*/
 class TvShowDetailsManager {
     let session: String
     let detailsDelegate: TvShowDetailsDelegate?
@@ -508,7 +525,7 @@ class TvShowDetailsManager {
     
     func changeFavoriteState(id: String, state: Bool){
         let newState = !state
-        let body = Mapper<FavoriteBody>().toJSONString(FavoriteBody(movieId: Int(id), isFavorite: newState), prettyPrint: true)!
+        let body = Mapper<FavoriteBody>().toJSONString(FavoriteBody(tvShowId: Int(id), isFavorite: newState), prettyPrint: true)!
         
         let request = NSMutableURLRequest(URL: NSURL(string: ApiEndpoints.accountItemFavoriteState(id, session))!)
         request.HTTPMethod = "POST"
@@ -529,7 +546,7 @@ class TvShowDetailsManager {
     
     func changeWatchlistState(id: String, state: Bool){
         let newState = !state
-        let body = Mapper<WatchlistBody>().toJSONString(WatchlistBody(movieId: Int(id), isInWatchlist: newState), prettyPrint: true)!
+        let body = Mapper<WatchlistBody>().toJSONString(WatchlistBody(tvShowId: Int(id), isInWatchlist: newState), prettyPrint: true)!
         print(body)
         
         let request = NSMutableURLRequest(URL: NSURL(string: ApiEndpoints.accountItemWatchlistState(id, session))!)
@@ -549,7 +566,7 @@ class TvShowDetailsManager {
         }).start()
     }
     
-    func loadImages(id: String){
+    func loadImages(id: String) {
         let params = [
             "api_key": ApiEndpoints.apiKey,
             "session_id": session
@@ -562,6 +579,21 @@ class TvShowDetailsManager {
                 }
             },
             failure: { operation, error in self.detailsDelegate?.tvshowImagesLoadingFailed(error)
+        })
+    }
+    
+    func loadCredits(id: String) {
+        let params = [
+            "api_key": ApiEndpoints.apiKey
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.tvCredits(id), parameters: params,
+            success: { operation, response in
+                if let results = Mapper<Credits>().map(response) {
+                    self.detailsDelegate?.tvshowCreditsLoadedSuccessfully(results)
+                }
+            },
+            failure: { operation, error in self.detailsDelegate?.tvshowCreditsLoadingFailed(error)
         })
     }
 }
@@ -579,6 +611,10 @@ protocol TvShowDetailsDelegate {
     func tvshowImagesLoadedSuccessully(images: ImageInfoList) -> Void
     
     func tvshowImagesLoadingFailed(error: NSError) -> Void
+    
+    func tvshowCreditsLoadedSuccessfully(credits: Credits) -> Void
+    
+    func tvshowCreditsLoadingFailed(error: NSError) -> Void
 }
 
 protocol TvShowStateChangeDelegate {
@@ -591,8 +627,6 @@ protocol TvShowStateChangeDelegate {
     
     func tvshowWatchlistStateChangesFailed(error: NSError)
 }
-/*==============================================================================
-==============================================================================*/
 
 class TrendsManager {
     
@@ -666,10 +700,12 @@ class ApiEndpoints {
     //details 
     static let movieDetails = { (id: String) in "\(baseApiUrl)/movie/\(id)" }
     static let movieImages = { (id: String) in "\(baseApiUrl)/movie/\(id)/images"}
+    static let movieCredits = { (id: String) in "\(baseApiUrl)/movie/\(id)/credits"}
     static let movieState = { (id: String) in "\(baseApiUrl)/movie/\(id)/account_states" }
     static let movieShare  = "\(baseShareUrl)/movie"
     static let tvDetails = { (id: String) in "\(baseApiUrl)/tv/\(id)" }
     static let tvImages = { (id: String) in "\(baseApiUrl)/tv/\(id)/images"}
+    static let tvCredits = { (id: String) in "\(baseApiUrl)/tv/\(id)/credits"}
     static let tvState = { (id: String) in "\(baseApiUrl)/tv/\(id)/account_states" }
     static let tvShare  = "\(baseShareUrl)/tv"
     //trends

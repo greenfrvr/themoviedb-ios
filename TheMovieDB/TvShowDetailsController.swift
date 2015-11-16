@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowStateChangeDelegate, UIBackdropsDelegat {
+class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowStateChangeDelegate, UIBackdropsDelegat, UICastDelegate {
 
     //MARK: Properties
     var tvShowId: String?
@@ -34,14 +34,22 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var runtimeLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var numberOfSeasonsLabel: UILabel!
+    @IBOutlet weak var numberOfEpisodesLabel: UILabel!
+    @IBOutlet weak var lastAirLabel: UILabel!
+    
     @IBOutlet weak var navFavoriteButton: UIBarButtonItem!
     @IBOutlet weak var watchlistButton: UIImageView!
+    
     @IBOutlet weak var descriptionLabel: UILabelWithPadding!
     @IBOutlet weak var backdropsLabel: UILabelWithPadding!
+    @IBOutlet weak var castLabel: UILabelWithPadding!
+    
+    @IBOutlet weak var detailsScrollContainer: UIScrollView!
     @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView!
+    @IBOutlet weak var castScrollView: UICastHorizontalView!
     
     //MARK: Actions
-    
     @IBAction func unwindTvShowDetails(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -90,10 +98,10 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         detailsManager = TvShowDetailsManager(sessionId: session.sessionToken!, detailsDelegate: self, stateDelegate: self)
         
         if let id = tvShowId {
-            print("LOADING ID \(id)")
             detailsManager?.loadDetails(id)
             detailsManager?.loadState(id)
             detailsManager?.loadImages(id)
+            detailsManager?.loadCredits(id)
         }
     }
     
@@ -103,11 +111,13 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         
         descriptionLabel.padding = 10
         backdropsLabel.padding = 10
+        castLabel.padding = 10
         
         watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
         
+        detailsScrollContainer.contentInset = UIEdgeInsetsMake(56.0, 0, 128.0, 0)
         imagesScrollView.backdropsDelegate = self
-
+        castScrollView.castDelegate = self
     }
     
     //MARK: TvShowDetailsDelegate
@@ -119,6 +129,9 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         averageVoteLabel.text = String(details.voteAverage ?? 0.0)
         voteCountLabel.text = "(\(details.voteCount ?? 0))"
 //        runtimeLabel.text = "\(details.runtime ?? 0) min"
+        numberOfSeasonsLabel.text = String(details.numberOfSeasons!)
+        numberOfEpisodesLabel.text = String(details.numberOfEpisodes!)
+        lastAirLabel.text = details.lastAirDate?.stringByReplacingOccurrencesOfString("-", withString: "/")
         overviewLabel.text = details.overview
     }
     
@@ -134,6 +147,13 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         updateStateIndicators()
     }
     
+    func tvshowCreditsLoadedSuccessfully(credits: Credits) {
+        print("Credits loaded: \(credits.casts?.count)")
+        if let cast = credits.casts {
+            castScrollView.castDisplay(cast)
+        }
+    }
+    
     func tvshowDetailsLoadingFailed(error: NSError) {
         print(error)
     }
@@ -143,6 +163,10 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     func tvshowStateLoadingFailed(error: NSError) {
+        print(error)
+    }
+    
+    func tvshowCreditsLoadingFailed(error: NSError) {
         print(error)
     }
     
@@ -173,6 +197,13 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         controller.content = backdropImages
         controller.initialUrl = imageUrl
         presentViewController(controller, animated: true, completion: nil)
+    }
+    
+    //MARK: CastDelegate 
+    func castTapped(id: Int?) {
+        if let castId = id {
+            print("Cast item with id \(castId) was tapped!")
+        }
     }
     
     //MARK: UI

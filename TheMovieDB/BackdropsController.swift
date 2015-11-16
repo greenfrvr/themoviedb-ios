@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Dollar
 
 class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
@@ -55,12 +56,7 @@ class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, U
     }
     
     func inititalIndex() -> Int {
-        for (i, info) in content.enumerate() {
-            if initialUrl.containsString(info.filePath!) {
-                return i
-            }
-        }
-        return 0
+        return $.findIndex(content, callback: { self.initialUrl.containsString($0.filePath!) }) ?? 0
     }
     
     //MARK: UI
