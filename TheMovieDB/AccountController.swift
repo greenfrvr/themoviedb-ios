@@ -37,10 +37,6 @@ class AccountController: UIViewController, AccountDelegate {
         accountManager?.loadAccountData()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        avatarImageView.layer.cornerRadius = 20
-    }
-    
     //MARK: AccountDelegate
     func userLoadedSuccessfully(account: Account) {
         if loadingIndicator.isAnimating() {
@@ -49,7 +45,7 @@ class AccountController: UIViewController, AccountDelegate {
         
         usernameLabel.text = account.username
         fullNameLabel.text = account.fullName
-        avatarImageView.sd_setImageWithURL(NSURL(string: account.gravatar), placeholderImage: UIImage(named: "defaultPhoto"))
+        avatarImageView.sd_setImageWithURL(NSURL(string: account.gravatar), placeholderImage: UIImage.placeholder())
     }
     
     func userLoadingFailed(error: NSError) {

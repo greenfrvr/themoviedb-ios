@@ -94,7 +94,6 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         
         watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
         
-        detailsScrollContainer.contentInset = UIEdgeInsetsMake(56.0, 0, 128.0, 0)
         imagesScrollView.backdropsDelegate = self
         castScrollView.castDelegate = self
     }
@@ -102,11 +101,10 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     //MARK: TvShowDetailsDelegate
     func tvshowDetailsLoadedSuccessfully(details: TvShowInfo) {
         homepage = details.homepage
-        posterImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, details.posterPath ?? "")), placeholderImage: UIImage(named: "defaultPhoto"))
+        posterImageView.sd_setImageWithURL(NSURL(imagePath: details.posterPath), placeholderImage: UIImage.placeholder())
         titleLabel.text = details.name
         averageVoteLabel.text = String(details.voteAverage ?? 0.0)
         voteCountLabel.text = "(\(details.voteCount ?? 0))"
-//        runtimeLabel.text = "\(details.runtime ?? 0) min"
         numberOfSeasonsLabel.text = String(details.numberOfSeasons!)
         numberOfEpisodesLabel.text = String(details.numberOfEpisodes!)
         lastAirLabel.text = details.lastAirDate?.stringByReplacingOccurrencesOfString("-", withString: "/")
@@ -180,14 +178,15 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     func castTapped(id: Int?) {
         if let castId = id {
             print("Cast item with id \(castId) was tapped!")
-        }
+            PersonDetailsController.performPersonDetails(self, id: String(castId))
+         }
     }
     
     //MARK: UI
     func movieStateChangeNotifier(title: String, message: String){
         let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: nil)
         alert.show()
-        alert.performSelector(Selector("dismiss"), withObject: alert, afterDelay: 1)
+        alert.performSelector("dismiss", withObject: alert, afterDelay: 1)
         
         func dismiss() {
             alert.dismissWithClickedButtonIndex(-1, animated: true)

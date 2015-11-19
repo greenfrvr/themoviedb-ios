@@ -160,8 +160,12 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         case .MOVIE:
             let movie = resultsMovies[indexPath.row]
             MovieDetailsController.performMovieController(self, id: String(movie.movieId!))
-        case .TV: print("TV Show clicked")
-        case .PEOPLE: print("Person clicked")
+        case .TV:
+            let tvshow = resultsTvShow[indexPath.row]
+            TvShowDetailsController.performTvController(self, id: String(tvshow.showId!))
+        case .PEOPLE:
+            let person = resultsPerson[indexPath.row]
+            PersonDetailsController.performPersonDetails(self, id: String(person.personId!))
         case .ALL: return
         }
     }

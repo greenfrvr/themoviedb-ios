@@ -10,7 +10,7 @@ import UIKit
 
 class DetailsActionAlert {
     
-    weak var controller: UIViewController?
+    private(set) weak var controller: UIViewController?
     
     init(controller: UIViewController?){
         self.controller = controller

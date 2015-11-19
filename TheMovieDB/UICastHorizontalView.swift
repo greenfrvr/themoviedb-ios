@@ -11,26 +11,30 @@ import Dollar
 
 class UICastHorizontalView: UIScrollView, UIScrollViewDelegate, UIPosterViewDelegate {
 
-    var itemHeight: Int = 116
-    var itemWidth: Int = 77
+    var itemHeight = CGFloat(116)
+    var itemWidth = CGFloat(77)
     let offset = CGFloat(38.5)
     var currentItem: Int = 0
     var items: [Credits.Cast]!
     var castDelegate: UICastDelegate? {
         didSet {
             self.delegate = self
-            self.contentInset = UIEdgeInsetsMake(0, (frame.size.width - CGFloat(itemWidth)) / 2.0, 0, (frame.size.width - CGFloat(itemWidth)) / 2.0)
+            self.contentInset = UIEdgeInsetsMake(0, (frame.size.width - itemWidth) / 2.0, 0, (frame.size.width - itemWidth) / 2.0)
         }
     }
     
     func castDisplay(cast: [Credits.Cast]){
         items = cast
-        setupCastLabel()
-        setupPhotos()
+        if !cast.isEmpty {
+            setupCastLabel()
+            setupPhotos()
+        } else {
+            contentSize.height = 0.0
+        }
     }
     
     func setupCastLabel(){
-        let castLabel = UILabel(frame: CGRect(x: center.x, y: bounds.height - 18, width: CGFloat(itemWidth), height: CGFloat(10)))
+        let castLabel = UILabel(frame: CGRect(x: center.x, y: bounds.height - 18, width: itemWidth, height: 10.0))
         castLabel.text = "\(items[currentItem].name!) as \(items[currentItem].character!)"
         castLabel.font = castLabel.font.fontWithSize(12)
         castLabel.textColor = UIColor.rgb(37, 37, 37)
@@ -39,7 +43,7 @@ class UICastHorizontalView: UIScrollView, UIScrollViewDelegate, UIPosterViewDele
     }
     
     func setupPhotos(){
-        var x = 0
+        var x = CGFloat(0.0)
         for item in items {
             let imageView = UIPosterView(frame: CGRect(x: x, y: 0, width: itemWidth, height: itemHeight))
             imageView.itemId = item.id
@@ -49,7 +53,7 @@ class UICastHorizontalView: UIScrollView, UIScrollViewDelegate, UIPosterViewDele
             x += itemWidth
             addSubview(imageView)
         }
-        contentSize = CGSizeMake(CGFloat(x), CGFloat(itemHeight))
+        contentSize = CGSizeMake(x, itemHeight)
         contentOffset = CGPointMake(-contentInset.left + 1, 0)
     }
     
@@ -70,17 +74,20 @@ class UICastHorizontalView: UIScrollView, UIScrollViewDelegate, UIPosterViewDele
     }
     
     func updatePhoto(image: UIPosterView, delta: CGFloat){
+        let (scale, alpha): (CGFloat, CGFloat)
+        
         if abs(delta) < offset {
             currentItem = $.findIndex(items) { $0.id == image.itemId } ?? 0
             bringSubviewToFront(image)
-            animatePhoto(image, scale: 1.1, alpha: 1)
+            (scale, alpha) = (1.1, 1)
         }
         else if abs(delta) < offset * 3 {
-            animatePhoto(image, scale: 0.9, alpha: 0.7)
+            (scale, alpha) = (0.9, 0.7)
         }
         else {
-            animatePhoto(image, scale: 0.7, alpha: 0.5)
+            (scale, alpha) = (0.7, 0.5)
         }
+        animatePhoto(image, params: (scale, alpha))
     }
     
     func updateLabel(label: UILabel){
@@ -91,7 +98,8 @@ class UICastHorizontalView: UIScrollView, UIScrollViewDelegate, UIPosterViewDele
         }
     }
     
-    func animatePhoto(view: UIView, scale: CGFloat, alpha: CGFloat){
+    func animatePhoto(view: UIView, params : (CGFloat, CGFloat)){
+        let (scale, alpha) = params
         UIView.animateWithDuration(0.2,
             delay: 0,
             options: [UIViewAnimationOptions.CurveEaseInOut, .AllowUserInteraction],
@@ -104,6 +112,5 @@ class UICastHorizontalView: UIScrollView, UIScrollViewDelegate, UIPosterViewDele
 }
 
 protocol UICastDelegate {
-    
     func castTapped(id: Int?)
 }

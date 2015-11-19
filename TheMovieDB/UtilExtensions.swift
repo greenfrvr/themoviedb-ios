@@ -15,3 +15,56 @@ extension UIColor {
     }
     
 }
+
+extension NSURL {
+    
+    convenience init?(imagePath: String?, size: Int = 3) {
+        if let path = imagePath {
+            self.init(string: ApiEndpoints.poster(size, path))
+        } else {
+            return nil
+        }
+    }
+}
+
+extension UIImage {
+    
+    static func placeholder() -> UIImage? {
+        return UIImage(named: "defaultPhoto")
+    }
+}
+
+extension UIImageView {
+    
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
+}
+
+extension UIScrollView {
+    
+    @IBInspectable var topInset: CGFloat {
+        get {
+            return self.topInset
+        }
+        set {
+            self.contentInset.top = newValue
+        }
+    }
+    
+    @IBInspectable var bottomInset: CGFloat {
+        get {
+            return self.topInset
+        }
+        set {
+            self.contentInset.bottom = newValue
+        }
+    }
+    
+}

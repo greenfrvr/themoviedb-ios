@@ -102,7 +102,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         
         watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
         
-        detailsScrollContainer.contentInset = UIEdgeInsetsMake(56.0, 0, 128.0, 0)
         imagesScrollView.backdropsDelegate = self
         castScrollView.castDelegate = self
     }
@@ -110,7 +109,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     //MARK: MovieDetailsDelegate
     func movieDetailsLoadedSuccessfully(details: MovieInfo) {
         imdbId = details.imdbId
-        posterImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, details.posterPath ?? "")), placeholderImage: UIImage(named: "defaultPhoto"))
+        posterImageView.sd_setImageWithURL(NSURL(imagePath: details.posterPath), placeholderImage: UIImage.placeholder())
         titleLabel.text = details.title
         taglineLabel.text = details.tagline
         averageVoteLabel.text = String(details.voteAverage ?? 0.0)
@@ -188,6 +187,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     func castTapped(id: Int?) {
         if let castId = id {
             print("Cast item with id \(castId) was tapped!")
+            PersonDetailsController.performPersonDetails(self, id: String(castId))
         }
     }
 

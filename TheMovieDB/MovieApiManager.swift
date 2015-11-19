@@ -593,8 +593,8 @@ class TvShowDetailsManager {
                     self.detailsDelegate?.tvshowCreditsLoadedSuccessfully(results)
                 }
             },
-            failure: { operation, error in self.detailsDelegate?.tvshowCreditsLoadingFailed(error)
-        })
+            failure: { operation, error in self.detailsDelegate?.tvshowCreditsLoadingFailed(error) }
+        )
     }
 }
 
@@ -626,6 +626,56 @@ protocol TvShowStateChangeDelegate {
     func tvshowWatchlistStateChangedSuccessfully(isInWatchlist: Bool) -> Void
     
     func tvshowWatchlistStateChangesFailed(error: NSError)
+}
+
+class PersonDetailsManager {
+    
+    var detailsDelegate: PersonDetailsDelegate?
+    
+    init(detailsDelegate: PersonDetailsDelegate?){
+        self.detailsDelegate = detailsDelegate
+    }
+    
+    func loadDetails(id: String) {
+        let params = [
+            "api_key" : ApiEndpoints.apiKey
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.personDetails(id), parameters: params,
+            success: { operation, response in
+                if let results = Mapper<PersonInfo>().map(response) {
+                    self.detailsDelegate?.personDetailsLoadedSuccessfully(results)
+                }
+            },
+            failure: { operation, error in self.detailsDelegate?.personDetailsLoadingFailed(error) }
+        )
+    }
+    
+    func loadCredits(id: String) {
+        let params = [
+            "api_key" : ApiEndpoints.apiKey
+        ]
+        
+        AFHTTPRequestOperationManager().GET(ApiEndpoints.personCredits(id), parameters: params,
+            success: { operation, response in
+                if let results = Mapper<PersonCredits>().map(response) {
+                    self.detailsDelegate?.personCreditsLoadedScuccessfully(results)
+                }
+            },
+            failure: { operation, error in self.detailsDelegate?.personCreditsLoadingFailed(error) }
+        )
+    }
+}
+
+protocol PersonDetailsDelegate {
+
+    func personDetailsLoadedSuccessfully(details: PersonInfo) -> Void
+    
+    func personDetailsLoadingFailed(error: NSError) -> Void
+    
+    func personCreditsLoadedScuccessfully(credits: PersonCredits) -> Void
+    
+    func personCreditsLoadingFailed(error: NSError) -> Void
 }
 
 class TrendsManager {
@@ -708,6 +758,12 @@ class ApiEndpoints {
     static let tvCredits = { (id: String) in "\(baseApiUrl)/tv/\(id)/credits"}
     static let tvState = { (id: String) in "\(baseApiUrl)/tv/\(id)/account_states" }
     static let tvShare  = "\(baseShareUrl)/tv"
+    
+    static let personDetails = { (id: String) in "\(baseApiUrl)/person/\(id)" }
+    static let personImages = { (id: String) in "\(baseApiUrl)/person/\(id)/images"}
+    static let personCredits = { (id: String) in "\(baseApiUrl)/person/\(id)/combined_credits"}
+    static let personState = { (id: String) in "\(baseApiUrl)/movie/\(id)/account_states" }
+    static let personShare  = "\(baseShareUrl)/person"
     //trends
     static let popularMovies = "\(baseApiUrl)/movie/popular"
     static let popularTvShow = "\(baseApiUrl)/tv/popular"

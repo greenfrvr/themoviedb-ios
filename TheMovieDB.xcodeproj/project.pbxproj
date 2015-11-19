@@ -13,7 +13,11 @@
 		114EB53E1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */; };
 		114EB5421BF338D30091F49B /* BackdropsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB5411BF338D30091F49B /* BackdropsController.swift */; };
 		114EB5441BF346370091F49B /* BackdropItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB5431BF346370091F49B /* BackdropItemController.swift */; };
+		1159831C1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159831B1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift */; };
 		1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1164CF4F1BEB876000E3893F /* SearchViewCell.swift */; };
+		116D4A021BFB0C3000AB44F1 /* PersonDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116D4A011BFB0C3000AB44F1 /* PersonDetailsController.swift */; };
+		116D4A041BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116D4A031BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift */; };
+		116D4A061BFB229E00AB44F1 /* UIPersonCreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116D4A051BFB229E00AB44F1 /* UIPersonCreditsView.swift */; };
 		1174C9601BE895E400A0075B /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C95F1BE895E400A0075B /* SearchController.swift */; };
 		1174C9621BE8960D00A0075B /* TrendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9611BE8960D00A0075B /* TrendsController.swift */; };
 		1174C9641BE8BF0600A0075B /* AccountTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174C9631BE8BF0600A0075B /* AccountTableController.swift */; };
@@ -67,7 +71,11 @@
 		114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBackdropsHorizontalView.swift; sourceTree = "<group>"; };
 		114EB5411BF338D30091F49B /* BackdropsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackdropsController.swift; sourceTree = "<group>"; };
 		114EB5431BF346370091F49B /* BackdropItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackdropItemController.swift; sourceTree = "<group>"; };
+		1159831B1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetailsActionAlert.swift; sourceTree = "<group>"; };
 		1164CF4F1BEB876000E3893F /* SearchViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
+		116D4A011BFB0C3000AB44F1 /* PersonDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetailsController.swift; sourceTree = "<group>"; };
+		116D4A031BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollCollectionWithLabel.swift; sourceTree = "<group>"; };
+		116D4A051BFB229E00AB44F1 /* UIPersonCreditsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPersonCreditsView.swift; sourceTree = "<group>"; };
 		1174C95F1BE895E400A0075B /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		1174C9611BE8960D00A0075B /* TrendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsController.swift; sourceTree = "<group>"; };
 		1174C9631BE8BF0600A0075B /* AccountTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableController.swift; sourceTree = "<group>"; };
@@ -142,6 +150,7 @@
 				1174C95F1BE895E400A0075B /* SearchController.swift */,
 				117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */,
 				11A3DC4F1BF60C6900F7F2B1 /* TvShowDetailsController.swift */,
+				116D4A011BFB0C3000AB44F1 /* PersonDetailsController.swift */,
 				1174C9611BE8960D00A0075B /* TrendsController.swift */,
 				113F96BA1BF4AE6B006551BD /* TrendsTableController.swift */,
 				114EB5411BF338D30091F49B /* BackdropsController.swift */,
@@ -158,6 +167,8 @@
 				1180EFB01BEA027500082B6E /* UILabelWithPadding.swift */,
 				114EB53D1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift */,
 				118B115A1BF9B9BA001DDC80 /* UICastHorizontalView.swift */,
+				116D4A051BFB229E00AB44F1 /* UIPersonCreditsView.swift */,
+				116D4A031BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift */,
 				113F96BE1BF4D557006551BD /* UIPosterView.swift */,
 			);
 			name = Views;
@@ -241,9 +252,10 @@
 		118B115C1BFA0F3E001DDC80 /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
+				118B11611BFA1587001DDC80 /* DetailsActionAlert.swift */,
 				118B115D1BFA0F69001DDC80 /* TvShowDetailsActionAlert.swift */,
 				118B115F1BFA12F3001DDC80 /* MovieDetailsActionAlert.swift */,
-				118B11611BFA1587001DDC80 /* DetailsActionAlert.swift */,
+				1159831B1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift */,
 			);
 			name = Alerts;
 			sourceTree = "<group>";
@@ -468,16 +480,20 @@
 				114EB5441BF346370091F49B /* BackdropItemController.swift in Sources */,
 				1174C9641BE8BF0600A0075B /* AccountTableController.swift in Sources */,
 				118B11601BFA12F3001DDC80 /* MovieDetailsActionAlert.swift in Sources */,
+				116D4A021BFB0C3000AB44F1 /* PersonDetailsController.swift in Sources */,
 				1174C9681BE8D40C00A0075B /* ListsTableViewCell.swift in Sources */,
 				11759B061BE76D5800BE2B46 /* AccountController.swift in Sources */,
 				11A3DC501BF60C6900F7F2B1 /* TvShowDetailsController.swift in Sources */,
+				1159831C1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift in Sources */,
 				11759ADA1BE764FB00BE2B46 /* SignInController.swift in Sources */,
+				116D4A061BFB229E00AB44F1 /* UIPersonCreditsView.swift in Sources */,
 				11FC7C7D1BE779F600838AA5 /* MovieApiManager.swift in Sources */,
 				118B115B1BF9B9BA001DDC80 /* UICastHorizontalView.swift in Sources */,
 				118B115E1BFA0F69001DDC80 /* TvShowDetailsActionAlert.swift in Sources */,
 				1174C9621BE8960D00A0075B /* TrendsController.swift in Sources */,
 				1174C9601BE895E400A0075B /* SearchController.swift in Sources */,
 				11759AD81BE764FB00BE2B46 /* AppDelegate.swift in Sources */,
+				116D4A041BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift in Sources */,
 				114EB53E1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift in Sources */,
 				113F96BF1BF4D557006551BD /* UIPosterView.swift in Sources */,
 				11FC7C811BE7906300838AA5 /* Cache.swift in Sources */,

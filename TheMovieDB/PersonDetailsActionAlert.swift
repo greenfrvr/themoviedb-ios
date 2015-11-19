@@ -1,29 +1,29 @@
 //
-//  MovieDetailsActionAlert.swift
+//  PersonDetailsActionAlert.swift
 //  TheMovieDB
 //
-//  Created by Artsiom Grintsevich on 11/16/15.
+//  Created by Artsiom Grintsevich on 11/18/15.
 //  Copyright © 2015 Artsiom Grintsevich. All rights reserved.
 //
 
 import UIKit
 
-class MovieDetailsActionAlert: DetailsActionAlert {
+class PersonDetailsActionAlert: DetailsActionAlert {
     
-    var imdbPage: String?
     var shareUrl: String?
+    var homepage: String?
     
-    init(presenter controller: UIViewController?, imdb: String?, url: String?){
-        self.imdbPage = imdb
+    init(presenter controller: UIViewController?, homepage: String?, url: String?) {
+        self.homepage = homepage
         self.shareUrl = url
         
         super.init(controller: controller)
     }
     
-    override internal func alertData() -> (String, String) {
-        return (title: "Pick an action", message: "What do you want to do with this movie?")
+    override func alertData() -> (String, String) {
+        return (title: "Pick an action", message: "What do you want to do with this person?")
     }
-    
+ 
     override func defineActions() -> [UIAlertAction] {
         var actions = [UIAlertAction]()
         
@@ -37,12 +37,11 @@ class MovieDetailsActionAlert: DetailsActionAlert {
             ]
         }
         
-        if let imdb = imdbPage, url = NSURL(string: imdb) {
-            actions += [UIAlertAction(title: "Open IMDB page", style: .Default, handler: { action in UIApplication.sharedApplication().openURL(url) })]
+        if let home = homepage, url = NSURL(string: home) {
+            actions += [UIAlertAction(title: "Open home page", style: .Default, handler: { action in UIApplication.sharedApplication().openURL(url) })]
         }
-        
-        actions += [UIAlertAction(title: "Add to my list", style: .Default, handler: { action in print("add to my list") })]
         
         return actions
     }
+    
 }
