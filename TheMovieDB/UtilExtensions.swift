@@ -14,6 +14,9 @@ extension UIColor {
         return UIColor(colorLiteralRed: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1)
     }
     
+    static func transparent() -> UIColor {
+        return UIColor.whiteColor().colorWithAlphaComponent(0)
+    }
 }
 
 extension NSURL {
@@ -67,4 +70,21 @@ extension UIScrollView {
         }
     }
     
+    @IBInspectable var leftInset: CGFloat {
+        get {
+            return self.leftInset
+        }
+        set {
+            self.contentInset.left = newValue
+        }
+    }
+    
+    @IBInspectable var rightInset: CGFloat {
+        get {
+            return self.rightInset
+        }
+        set {
+            self.contentInset.right = newValue
+        }
+    }
 }

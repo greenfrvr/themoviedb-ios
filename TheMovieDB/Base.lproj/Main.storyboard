@@ -13,7 +13,7 @@
         <!--My lists-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="AccountController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="AccountController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XfZ-YK-Nb2"/>
                         <viewControllerLayoutGuide type="bottom" id="G6r-f3-x3d"/>
@@ -50,7 +50,7 @@
                                 <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pzP-Y4-Znz">
+                            <containerView opaque="NO" contentMode="scaleToFill" restorationIdentifier="UserTableContainerID" translatesAutoresizingMaskIntoConstraints="NO" id="pzP-Y4-Znz">
                                 <rect key="frame" x="8" y="140" width="359" height="478"/>
                                 <animations/>
                                 <connections>
@@ -113,7 +113,7 @@
         <!--Account Table Controller-->
         <scene sceneID="acz-28-Ay1">
             <objects>
-                <tableViewController id="mja-0v-7y3" customClass="AccountTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UserTableControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mja-0v-7y3" customClass="AccountTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" id="H2U-ut-bcA">
                         <rect key="frame" x="0.0" y="0.0" width="359" height="478"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -403,7 +403,7 @@
         <!--Search-->
         <scene sceneID="qLq-Ef-MSF">
             <objects>
-                <viewController id="N7Q-yb-0fq" customClass="SearchController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="N7Q-yb-0fq" customClass="SearchController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IWR-1S-lKr"/>
                         <viewControllerLayoutGuide type="bottom" id="SGF-kU-blB"/>
@@ -430,7 +430,7 @@
                                     <outlet property="delegate" destination="N7Q-yb-0fq" id="E6t-WT-VYu"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TuP-ki-0zJ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="SearchTableControllerID" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TuP-ki-0zJ">
                                 <rect key="frame" x="0.0" y="106" width="375" height="512"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -560,7 +560,7 @@
         <!--Trends-->
         <scene sceneID="WBg-XT-ov8">
             <objects>
-                <viewController id="Z0A-Rk-FyL" customClass="TrendsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TrendsControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Z0A-Rk-FyL" customClass="TrendsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="shS-0k-hfi"/>
                         <viewControllerLayoutGuide type="bottom" id="IJ4-sB-Ezh"/>
@@ -569,7 +569,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZZ-FB-HAC">
+                            <containerView opaque="NO" contentMode="scaleToFill" restorationIdentifier="TrendsTableContainerID" translatesAutoresizingMaskIntoConstraints="NO" id="hZZ-FB-HAC">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <animations/>
                                 <connections>
@@ -600,7 +600,7 @@
                         <viewControllerLayoutGuide type="top" id="TXT-JF-d4H"/>
                         <viewControllerLayoutGuide type="bottom" id="cCL-Sn-e2g"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="z6F-9v-QrX">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="LoginController" id="z6F-9v-QrX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -673,7 +673,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="3Ez-w8-8gS">
             <objects>
-                <tabBarController storyboardIdentifier="MainContentController" automaticallyAdjustsScrollViewInsets="NO" id="lNe-ed-atc" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainContentControllerID" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lNe-ed-atc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="99Q-gK-hUh">
@@ -851,45 +851,87 @@
                                             <outletCollection property="gestureRecognizers" destination="Q3x-lA-pyE" appends="YES" id="VhG-JQ-lNi"/>
                                         </connections>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opP-P7-JT3" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="397" width="359" height="21"/>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opP-P7-JT3" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="404" width="375" height="28"/>
                                         <animations/>
+                                        <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="Iud-OF-Ggm"/>
+                                            <constraint firstAttribute="height" constant="28" id="Iud-OF-Ggm"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="0.40191271551724139" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.70153556034482756" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableGradientBackground" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="gradientCenter">
+                                                <real key="value" value="0.75"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="cKh-Uk-MPe" appends="YES" id="yrM-fZ-t8Q"/>
+                                        </connections>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efA-4y-e3b">
-                                        <rect key="frame" x="16" y="422" width="343" height="60"/>
+                                        <rect key="frame" x="16" y="436" width="343" height="46"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backdrops" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyK-a1-Uq5" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="490" width="359" height="21"/>
+                                        <rect key="frame" x="0.0" y="483" width="375" height="28"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="3ZZ-M7-3tI"/>
+                                            <constraint firstAttribute="height" constant="28" id="3ZZ-M7-3tI"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableGradientBackground" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="0.40191271550000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.70153556029999997" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="gradientCenter">
+                                                <real key="value" value="0.75"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2t-H8-U1j" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="216" width="359" height="21"/>
-                                        <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="aHV-a0-2fE"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idV-IZ-9na" customClass="UICastHorizontalView" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="241" width="375" height="148"/>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idV-IZ-9na">
+                                        <rect key="frame" x="0.0" y="248" width="375" height="148"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="148" id="18m-Xp-ZVF"/>
@@ -902,6 +944,52 @@
                                             <constraint firstAttribute="height" constant="128" id="OjA-CC-VHf"/>
                                         </constraints>
                                     </scrollView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2t-H8-U1j" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="216" width="375" height="28"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="j0d-0t-IS2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableGradientBackground" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.70153556029999997" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="0.40191271550000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="gradientCenter">
+                                                <real key="value" value="0.75"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="more..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yH-kR-L9Q">
+                                        <rect key="frame" x="334" y="404" width="35" height="27"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -909,13 +997,14 @@
                                     <constraint firstItem="bw3-QZ-asn" firstAttribute="leading" secondItem="kX0-tY-zj6" secondAttribute="trailing" constant="8" id="3lY-dW-9Rn"/>
                                     <constraint firstItem="gw5-kz-ycu" firstAttribute="leading" secondItem="z8x-yv-dVW" secondAttribute="trailing" constant="4" id="3yh-fW-lgw"/>
                                     <constraint firstItem="Mb6-eJ-UY5" firstAttribute="leading" secondItem="orF-Dm-KxG" secondAttribute="trailing" constant="4" id="4cg-Ws-1pJ"/>
-                                    <constraint firstItem="zyK-a1-Uq5" firstAttribute="leading" secondItem="FJI-Nh-Vsb" secondAttribute="leading" constant="8" id="6Wy-Qi-sjb"/>
-                                    <constraint firstAttribute="trailing" secondItem="opP-P7-JT3" secondAttribute="trailing" constant="8" id="72q-u4-CbI"/>
+                                    <constraint firstItem="zyK-a1-Uq5" firstAttribute="leading" secondItem="FJI-Nh-Vsb" secondAttribute="leading" id="6Wy-Qi-sjb"/>
+                                    <constraint firstAttribute="trailing" secondItem="opP-P7-JT3" secondAttribute="trailing" id="72q-u4-CbI"/>
                                     <constraint firstItem="bw3-QZ-asn" firstAttribute="top" secondItem="gw5-kz-ycu" secondAttribute="bottom" constant="4" id="7qN-wX-88u"/>
                                     <constraint firstAttribute="bottom" secondItem="uGg-WY-egQ" secondAttribute="bottom" constant="610" id="AQi-Cm-jay"/>
+                                    <constraint firstAttribute="trailing" secondItem="7yH-kR-L9Q" secondAttribute="trailing" constant="6" id="ASb-f7-myW"/>
                                     <constraint firstItem="efA-4y-e3b" firstAttribute="centerX" secondItem="FJI-Nh-Vsb" secondAttribute="centerX" id="Alb-k5-o9C"/>
                                     <constraint firstItem="uGg-WY-egQ" firstAttribute="top" secondItem="kX0-tY-zj6" secondAttribute="top" id="B5H-Y6-uQB"/>
-                                    <constraint firstItem="f2t-H8-U1j" firstAttribute="leading" secondItem="FJI-Nh-Vsb" secondAttribute="leading" constant="8" id="BlJ-P4-rbD"/>
+                                    <constraint firstItem="f2t-H8-U1j" firstAttribute="leading" secondItem="FJI-Nh-Vsb" secondAttribute="leading" id="BlJ-P4-rbD"/>
                                     <constraint firstItem="fbQ-6L-Rje" firstAttribute="leading" secondItem="z8x-yv-dVW" secondAttribute="leading" id="E6g-I0-FWz"/>
                                     <constraint firstItem="fav-Hk-Ged" firstAttribute="leading" secondItem="bbu-yt-eE7" secondAttribute="leading" id="EyA-oz-YR9"/>
                                     <constraint firstItem="fbQ-6L-Rje" firstAttribute="leading" secondItem="uGg-WY-egQ" secondAttribute="leading" id="HrD-N6-M48"/>
@@ -934,14 +1023,12 @@
                                     <constraint firstItem="kX0-tY-zj6" firstAttribute="top" secondItem="FJI-Nh-Vsb" secondAttribute="top" constant="16" id="W1A-Gg-PTg"/>
                                     <constraint firstItem="fbQ-6L-Rje" firstAttribute="top" secondItem="uGg-WY-egQ" secondAttribute="bottom" constant="4" id="XIG-oe-Ilx"/>
                                     <constraint firstItem="idV-IZ-9na" firstAttribute="leading" secondItem="FJI-Nh-Vsb" secondAttribute="leading" id="Xad-Mw-6PI"/>
-                                    <constraint firstItem="opP-P7-JT3" firstAttribute="centerX" secondItem="FJI-Nh-Vsb" secondAttribute="centerX" id="bo3-R7-kgE"/>
                                     <constraint firstItem="SdP-0r-YQn" firstAttribute="baseline" secondItem="bw3-QZ-asn" secondAttribute="baseline" id="bqC-Dk-84L"/>
                                     <constraint firstAttribute="trailing" secondItem="uGg-WY-egQ" secondAttribute="trailing" constant="16" id="c0i-sc-YrS"/>
-                                    <constraint firstAttribute="trailing" secondItem="f2t-H8-U1j" secondAttribute="trailing" constant="8" id="cOm-Mm-LHm"/>
+                                    <constraint firstAttribute="trailing" secondItem="f2t-H8-U1j" secondAttribute="trailing" id="cOm-Mm-LHm"/>
                                     <constraint firstItem="SdP-0r-YQn" firstAttribute="leading" secondItem="bw3-QZ-asn" secondAttribute="trailing" constant="4" id="ciA-1V-Iid"/>
-                                    <constraint firstItem="zyK-a1-Uq5" firstAttribute="centerX" secondItem="FJI-Nh-Vsb" secondAttribute="centerX" id="eT4-PM-RWa"/>
                                     <constraint firstItem="f2t-H8-U1j" firstAttribute="top" secondItem="kX0-tY-zj6" secondAttribute="bottom" constant="8" id="edV-Ii-dOu"/>
-                                    <constraint firstItem="zyK-a1-Uq5" firstAttribute="top" secondItem="efA-4y-e3b" secondAttribute="bottom" constant="8" id="ev7-xw-zxX"/>
+                                    <constraint firstItem="zyK-a1-Uq5" firstAttribute="top" secondItem="efA-4y-e3b" secondAttribute="bottom" constant="1" id="ev7-xw-zxX"/>
                                     <constraint firstItem="SdP-0r-YQn" firstAttribute="top" secondItem="FJI-Nh-Vsb" secondAttribute="top" constant="91" id="fHm-bX-4mf"/>
                                     <constraint firstItem="fav-Hk-Ged" firstAttribute="bottom" secondItem="kX0-tY-zj6" secondAttribute="bottom" id="fp9-2d-ahE"/>
                                     <constraint firstItem="Nwl-yy-gTP" firstAttribute="top" secondItem="fbQ-6L-Rje" secondAttribute="bottom" constant="4" id="gG5-9J-b0g"/>
@@ -950,14 +1037,15 @@
                                     <constraint firstItem="bbu-yt-eE7" firstAttribute="top" secondItem="bw3-QZ-asn" secondAttribute="bottom" constant="4" id="mfW-D9-FTV"/>
                                     <constraint firstAttribute="trailing" secondItem="efA-4y-e3b" secondAttribute="trailing" constant="16" id="mzc-f1-lDZ"/>
                                     <constraint firstItem="bbu-yt-eE7" firstAttribute="leading" secondItem="kX0-tY-zj6" secondAttribute="trailing" constant="8" id="nqd-QH-RWy"/>
-                                    <constraint firstAttribute="trailing" secondItem="zyK-a1-Uq5" secondAttribute="trailing" constant="8" id="oLk-eh-aIP"/>
+                                    <constraint firstAttribute="trailing" secondItem="zyK-a1-Uq5" secondAttribute="trailing" id="oLk-eh-aIP"/>
                                     <constraint firstAttribute="trailing" secondItem="idV-IZ-9na" secondAttribute="trailing" id="pZn-aZ-LZ3"/>
                                     <constraint firstItem="z8x-yv-dVW" firstAttribute="top" secondItem="fbQ-6L-Rje" secondAttribute="bottom" constant="4" id="pcq-hm-TSH"/>
+                                    <constraint firstItem="7yH-kR-L9Q" firstAttribute="baseline" secondItem="opP-P7-JT3" secondAttribute="baseline" id="peM-tj-AEI"/>
                                     <constraint firstItem="kX0-tY-zj6" firstAttribute="leading" secondItem="FJI-Nh-Vsb" secondAttribute="leading" constant="12" id="pgu-RH-gzy"/>
                                     <constraint firstItem="orF-Dm-KxG" firstAttribute="leading" secondItem="Nwl-yy-gTP" secondAttribute="trailing" constant="8" id="plz-nJ-wag"/>
-                                    <constraint firstItem="f2t-H8-U1j" firstAttribute="centerX" secondItem="FJI-Nh-Vsb" secondAttribute="centerX" id="umc-g3-6CB"/>
+                                    <constraint firstItem="7yH-kR-L9Q" firstAttribute="top" secondItem="opP-P7-JT3" secondAttribute="top" id="toJ-0U-94H"/>
                                     <constraint firstItem="ILc-fD-uM8" firstAttribute="top" secondItem="zyK-a1-Uq5" secondAttribute="bottom" constant="8" id="wTQ-1i-nD7"/>
-                                    <constraint firstItem="opP-P7-JT3" firstAttribute="leading" secondItem="FJI-Nh-Vsb" secondAttribute="leading" constant="8" id="xPM-bQ-Iet"/>
+                                    <constraint firstItem="opP-P7-JT3" firstAttribute="leading" secondItem="FJI-Nh-Vsb" secondAttribute="leading" id="xPM-bQ-Iet"/>
                                     <constraint firstItem="SdP-0r-YQn" firstAttribute="trailing" secondItem="fbQ-6L-Rje" secondAttribute="trailing" id="y7o-5B-UUS"/>
                                     <constraint firstItem="z8x-yv-dVW" firstAttribute="leading" secondItem="kX0-tY-zj6" secondAttribute="trailing" constant="8" id="yfR-a7-2M1"/>
                                 </constraints>
@@ -1024,13 +1112,18 @@
                         <action selector="addToWatchlist:" destination="0Jj-bf-DEJ" id="Dvq-DR-Xep"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="cKh-Uk-MPe">
+                    <connections>
+                        <action selector="overviewSectionClicked:" destination="0Jj-bf-DEJ" id="TdO-GP-9mr"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1170.5" y="287.5"/>
         </scene>
         <!--Trends Table Controller-->
         <scene sceneID="dtb-tx-2x0">
             <objects>
-                <tableViewController id="bVV-r1-n5I" customClass="TrendsTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TrendsTableControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bVV-r1-n5I" customClass="TrendsTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" id="m0Q-vL-lCK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1468,51 +1561,114 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vov-9T-VYH" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="216" width="351" height="21"/>
+                                        <rect key="frame" x="0.0" y="216" width="375" height="28"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="ipy-EL-VMf"/>
+                                            <constraint firstAttribute="height" constant="28" id="ipy-EL-VMf"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="0.40191271550000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableGradientBackground" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.70153556029999997" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEs-bX-sLz" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="397" width="355" height="21"/>
+                                        <rect key="frame" x="0.0" y="404" width="375" height="28"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="Dp5-Zd-S3e"/>
+                                            <constraint firstAttribute="height" constant="28" id="Dp5-Zd-S3e"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableGradientBackground" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="0.40191271550000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.70153556029999997" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jhd-Qh-Lz2">
-                                        <rect key="frame" x="16" y="422" width="343" height="60"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jhd-Qh-Lz2">
+                                        <rect key="frame" x="16" y="436" width="343" height="16"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Backdrops" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xV-s6-hKd" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="490" width="355" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backdrops" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xV-s6-hKd" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="460" width="375" height="28"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="5Dj-MQ-32p"/>
+                                            <constraint firstAttribute="height" constant="28" id="5Dj-MQ-32p"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableGradientBackground" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="0.40191271550000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.70153556029999997" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="Yz1-eu-G1K" customClass="UIBackdropsHorizontalView" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="519" width="375" height="128"/>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="Yz1-eu-G1K" customClass="UIBackdropsHorizontalView" customModule="TheMovieDB" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="496" width="375" height="128"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="rlt-QB-hyT"/>
                                         </constraints>
                                     </scrollView>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="ZUE-A7-yOe" customClass="UICastHorizontalView" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="241" width="373" height="148"/>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="ZUE-A7-yOe">
+                                        <rect key="frame" x="0.0" y="248" width="375" height="148"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="148" id="10j-g3-QQv"/>
@@ -1529,10 +1685,8 @@
                                     <constraint firstItem="ZUE-A7-yOe" firstAttribute="top" secondItem="vov-9T-VYH" secondAttribute="bottom" constant="4" id="1TB-2h-cG9"/>
                                     <constraint firstItem="o2s-QS-bPP" firstAttribute="leading" secondItem="1LD-h5-OEZ" secondAttribute="trailing" constant="8" id="21K-lm-Weu"/>
                                     <constraint firstItem="uvS-NP-xCI" firstAttribute="top" secondItem="KUG-UV-YKG" secondAttribute="bottom" constant="4" id="4Q9-QY-n73"/>
-                                    <constraint firstItem="vov-9T-VYH" firstAttribute="centerX" secondItem="T5U-V9-E4p" secondAttribute="centerX" id="5AH-Hy-DhO"/>
                                     <constraint firstItem="5wo-rE-E4o" firstAttribute="leading" secondItem="gz2-fO-RA1" secondAttribute="leading" id="5Pf-fW-8jH"/>
                                     <constraint firstItem="2sv-cX-f1N" firstAttribute="baseline" secondItem="o2s-QS-bPP" secondAttribute="baseline" id="7V5-SY-WdN"/>
-                                    <constraint firstItem="vov-9T-VYH" firstAttribute="leading" secondItem="1LD-h5-OEZ" secondAttribute="leading" id="8X1-F5-J7y"/>
                                     <constraint firstItem="jEs-bX-sLz" firstAttribute="top" secondItem="ZUE-A7-yOe" secondAttribute="bottom" constant="8" id="94Y-xX-Ybf"/>
                                     <constraint firstItem="1LD-h5-OEZ" firstAttribute="top" secondItem="T5U-V9-E4p" secondAttribute="top" constant="16" id="D7T-9k-hsz"/>
                                     <constraint firstItem="jfC-Nk-iXi" firstAttribute="leading" secondItem="1LD-h5-OEZ" secondAttribute="trailing" constant="8" id="Gfw-WI-KdI"/>
@@ -1547,11 +1701,11 @@
                                     <constraint firstItem="9HS-CX-au7" firstAttribute="leading" secondItem="gz2-fO-RA1" secondAttribute="trailing" constant="4" id="TWN-8z-cbJ"/>
                                     <constraint firstItem="vov-9T-VYH" firstAttribute="top" secondItem="1LD-h5-OEZ" secondAttribute="bottom" constant="8" symbolic="YES" id="UIm-lu-Dk7"/>
                                     <constraint firstItem="KUG-UV-YKG" firstAttribute="leading" secondItem="1LD-h5-OEZ" secondAttribute="trailing" constant="8" id="UQE-6G-QM0"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZUE-A7-yOe" secondAttribute="trailing" constant="-2" id="V7n-E4-3cM"/>
-                                    <constraint firstAttribute="trailing" secondItem="6xV-s6-hKd" secondAttribute="trailing" constant="8" id="ViB-Hl-OdS"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZUE-A7-yOe" secondAttribute="trailing" constant="-4" id="V7n-E4-3cM"/>
+                                    <constraint firstAttribute="trailing" secondItem="6xV-s6-hKd" secondAttribute="trailing" constant="-4" id="ViB-Hl-OdS"/>
                                     <constraint firstItem="ZUE-A7-yOe" firstAttribute="leading" secondItem="T5U-V9-E4p" secondAttribute="leading" id="YpK-1v-1tM"/>
                                     <constraint firstItem="Yz1-eu-G1K" firstAttribute="leading" secondItem="T5U-V9-E4p" secondAttribute="leading" id="Zcc-wn-lvp"/>
-                                    <constraint firstItem="jEs-bX-sLz" firstAttribute="leading" secondItem="T5U-V9-E4p" secondAttribute="leading" constant="8" id="a7h-Kk-hzv"/>
+                                    <constraint firstItem="jEs-bX-sLz" firstAttribute="leading" secondItem="T5U-V9-E4p" secondAttribute="leading" id="a7h-Kk-hzv"/>
                                     <constraint firstAttribute="trailing" secondItem="Jhd-Qh-Lz2" secondAttribute="trailing" constant="12" id="b6z-6u-cjg"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Yz1-eu-G1K" secondAttribute="bottom" id="csy-aG-g0P"/>
                                     <constraint firstItem="WlK-M1-PqI" firstAttribute="leading" secondItem="1LD-h5-OEZ" secondAttribute="trailing" constant="8" id="exp-rM-11Y"/>
@@ -1559,12 +1713,13 @@
                                     <constraint firstItem="mM6-UD-IK1" firstAttribute="leading" secondItem="9HS-CX-au7" secondAttribute="trailing" constant="4" id="ggj-U6-hnH"/>
                                     <constraint firstItem="mM6-UD-IK1" firstAttribute="top" secondItem="KUG-UV-YKG" secondAttribute="bottom" constant="4" id="h7R-rW-tqb"/>
                                     <constraint firstItem="Jhd-Qh-Lz2" firstAttribute="top" secondItem="jEs-bX-sLz" secondAttribute="bottom" constant="4" id="iIN-ip-OeN"/>
-                                    <constraint firstItem="6xV-s6-hKd" firstAttribute="leading" secondItem="T5U-V9-E4p" secondAttribute="leading" constant="8" id="ieE-E5-SvV"/>
-                                    <constraint firstAttribute="trailing" secondItem="vov-9T-VYH" secondAttribute="trailing" constant="8" id="jmX-eS-zPh"/>
-                                    <constraint firstAttribute="trailing" secondItem="jEs-bX-sLz" secondAttribute="trailing" constant="8" id="jrF-XR-A1V"/>
+                                    <constraint firstItem="6xV-s6-hKd" firstAttribute="leading" secondItem="T5U-V9-E4p" secondAttribute="leading" id="ieE-E5-SvV"/>
+                                    <constraint firstAttribute="trailing" secondItem="vov-9T-VYH" secondAttribute="trailing" constant="-4" id="jmX-eS-zPh"/>
+                                    <constraint firstAttribute="trailing" secondItem="jEs-bX-sLz" secondAttribute="trailing" constant="-4" id="jrF-XR-A1V"/>
                                     <constraint firstItem="uvS-NP-xCI" firstAttribute="leading" secondItem="hmg-Gt-cok" secondAttribute="trailing" constant="4" id="khH-Cl-udm"/>
                                     <constraint firstItem="Jhd-Qh-Lz2" firstAttribute="leading" secondItem="T5U-V9-E4p" secondAttribute="leading" constant="16" id="oOP-Va-rfc"/>
                                     <constraint firstItem="KUG-UV-YKG" firstAttribute="top" secondItem="1LD-h5-OEZ" secondAttribute="top" id="qDl-2K-rOC"/>
+                                    <constraint firstItem="vov-9T-VYH" firstAttribute="leading" secondItem="T5U-V9-E4p" secondAttribute="leading" id="qHj-gJ-Z6K"/>
                                     <constraint firstItem="WlK-M1-PqI" firstAttribute="top" secondItem="jfC-Nk-iXi" secondAttribute="bottom" constant="2" id="qop-HN-1ab"/>
                                     <constraint firstItem="1LD-h5-OEZ" firstAttribute="leading" secondItem="T5U-V9-E4p" secondAttribute="leading" constant="12" id="qpb-FT-o3M"/>
                                     <constraint firstItem="5wo-rE-E4o" firstAttribute="bottom" secondItem="1LD-h5-OEZ" secondAttribute="bottom" id="t0C-MU-m8u"/>
@@ -1671,7 +1826,7 @@
                                             <constraint firstAttribute="width" constant="219" id="ZdY-MA-G4m"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Birth date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciZ-FV-G1o">
@@ -1681,25 +1836,25 @@
                                             <constraint firstAttribute="width" constant="80" id="xRE-ce-62U"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ee2-zc-ARE">
                                         <rect key="frame" x="232" y="41" width="135" height="21"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9X-BK-SeC">
                                         <rect key="frame" x="148" y="66" width="219" height="21"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Works" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dN1-bI-1cQ" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="216" width="355" height="21"/>
+                                        <rect key="frame" x="0.0" y="216" width="375" height="21"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Ggl-gC-Xqn"/>
@@ -1734,7 +1889,7 @@
                                         <rect key="frame" x="16" y="426" width="347" height="16"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -1744,9 +1899,9 @@
                                     <constraint firstAttribute="trailing" secondItem="Nik-d3-uA1" secondAttribute="trailing" constant="12" id="0tx-XS-Gja"/>
                                     <constraint firstAttribute="trailing" secondItem="ee2-zc-ARE" secondAttribute="trailing" constant="8" id="4ai-nQ-qaj"/>
                                     <constraint firstItem="Ba1-ZJ-p4c" firstAttribute="leading" secondItem="iXV-1m-XhM" secondAttribute="trailing" constant="8" symbolic="YES" id="5cg-N1-1mk"/>
-                                    <constraint firstItem="dN1-bI-1cQ" firstAttribute="trailing" secondItem="ee2-zc-ARE" secondAttribute="trailing" id="AYJ-uH-DV3"/>
                                     <constraint firstItem="ee2-zc-ARE" firstAttribute="firstBaseline" secondItem="ciZ-FV-G1o" secondAttribute="firstBaseline" id="JRh-If-rxv"/>
                                     <constraint firstItem="Nik-d3-uA1" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="sd3-ru-pHK" secondAttribute="bottom" id="NQJ-1w-flP"/>
+                                    <constraint firstAttribute="trailing" secondItem="dN1-bI-1cQ" secondAttribute="trailing" id="NTb-uW-9jz"/>
                                     <constraint firstItem="ciZ-FV-G1o" firstAttribute="top" secondItem="Ba1-ZJ-p4c" secondAttribute="bottom" constant="4" id="Olz-tv-vah"/>
                                     <constraint firstItem="iXV-1m-XhM" firstAttribute="top" secondItem="sd3-ru-pHK" secondAttribute="top" constant="16" id="VRQ-Lh-i5A"/>
                                     <constraint firstItem="pqz-Aa-k9k" firstAttribute="top" secondItem="ujb-3o-7m7" secondAttribute="bottom" constant="8" id="Vbr-e8-sBj"/>
@@ -1760,6 +1915,7 @@
                                     <constraint firstItem="ujb-3o-7m7" firstAttribute="top" secondItem="dN1-bI-1cQ" secondAttribute="bottom" constant="8" id="dFW-o2-SeQ"/>
                                     <constraint firstItem="Nik-d3-uA1" firstAttribute="leading" secondItem="sd3-ru-pHK" secondAttribute="leading" constant="16" id="eEf-5d-fx5"/>
                                     <constraint firstItem="Nik-d3-uA1" firstAttribute="top" secondItem="pqz-Aa-k9k" secondAttribute="bottom" constant="4" id="fNh-6e-Vwg"/>
+                                    <constraint firstItem="dN1-bI-1cQ" firstAttribute="leading" secondItem="sd3-ru-pHK" secondAttribute="leading" id="geL-U5-7JL"/>
                                     <constraint firstAttribute="bottom" secondItem="Ba1-ZJ-p4c" secondAttribute="bottom" constant="502" id="grh-tX-w7f"/>
                                     <constraint firstItem="s9X-BK-SeC" firstAttribute="leading" secondItem="ciZ-FV-G1o" secondAttribute="leading" id="hvW-Nl-cob"/>
                                     <constraint firstItem="pqz-Aa-k9k" firstAttribute="leading" secondItem="sd3-ru-pHK" secondAttribute="leading" constant="16" id="lHw-OV-fqS"/>
@@ -1767,7 +1923,6 @@
                                     <constraint firstItem="Ba1-ZJ-p4c" firstAttribute="top" secondItem="iXV-1m-XhM" secondAttribute="top" id="nAI-vd-A7m"/>
                                     <constraint firstItem="ciZ-FV-G1o" firstAttribute="leading" secondItem="Ba1-ZJ-p4c" secondAttribute="leading" id="neH-nF-h9S"/>
                                     <constraint firstItem="ujb-3o-7m7" firstAttribute="leading" secondItem="sd3-ru-pHK" secondAttribute="leading" id="rhr-H2-CH4"/>
-                                    <constraint firstItem="dN1-bI-1cQ" firstAttribute="leading" secondItem="iXV-1m-XhM" secondAttribute="leading" id="vNQ-bt-2cd"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="bottomInset">

@@ -23,6 +23,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     var openIMDBUrl: String {
         return "http://www.imdb.com/title/\(imdbId!)"
     }
+    lazy var castView = UICastHorizontalView()
     
     static func performMovieController(performer: UIViewController, id: String?){
         let navigationController = performer.storyboard?.instantiateViewControllerWithIdentifier("MovieNavigationController") as! UINavigationController
@@ -51,11 +52,19 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     @IBOutlet weak var detailsScrollContainer: UIScrollView!
     @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView!
-    @IBOutlet weak var castScrollView: UICastHorizontalView!
+    @IBOutlet weak var castScrollView: UIScrollView! {
+        didSet {
+            castView.scrollView = castScrollView
+        }
+    }
     
     //MARK: Action
     @IBAction func unwindMovieDetails(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func overviewSectionClicked(sender: AnyObject) {
+        print("Overview clicked")
     }
     
     @IBAction func addToFavorite(sender: UIBarButtonItem) {
@@ -89,6 +98,11 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         }
     }
     
+    override func accessibilityPerformEscape() -> Bool {
+        print("Escape performed")
+        return super.accessibilityPerformEscape()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         taglineLabel.numberOfLines = 2
         taglineLabel.sizeToFit()
@@ -96,16 +110,12 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         overviewLabel.numberOfLines = 0
         overviewLabel.sizeToFit()
         
-        descriptionLabel.padding = 10
-        backdropsLabel.padding = 10
-        castLabel.padding = 10
-        
         watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
         
         imagesScrollView.backdropsDelegate = self
-        castScrollView.castDelegate = self
+        castView.castDelegate = self
     }
-    
+
     //MARK: MovieDetailsDelegate
     func movieDetailsLoadedSuccessfully(details: MovieInfo) {
         imdbId = details.imdbId
@@ -134,7 +144,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     func movieCreditsLoadedSuccessfully(credits: Credits) {
         if let cast = credits.casts {
-            castScrollView.castDisplay(cast)
+            castView.castDisplay(cast)
         }
     }
     
@@ -184,7 +194,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     //MARK: CastDelegate
-    func castTapped(id: Int?) {
+    func castSelected(id: Int?) {
         if let castId = id {
             print("Cast item with id \(castId) was tapped!")
             PersonDetailsController.performPersonDetails(self, id: String(castId))

@@ -19,6 +19,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     var shareUrl: String {
         return "\(ApiEndpoints.tvShare)/\(tvShowId!)"
     }
+    lazy var castView = UICastHorizontalView()
     
     static func performTvController(performer: UIViewController, id: String){
         let navigationController = performer.storyboard?.instantiateViewControllerWithIdentifier("TvNavigationController") as! UINavigationController
@@ -47,7 +48,11 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     
     @IBOutlet weak var detailsScrollContainer: UIScrollView!
     @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView!
-    @IBOutlet weak var castScrollView: UICastHorizontalView!
+    @IBOutlet weak var castScrollView: UIScrollView! {
+        didSet {
+            castView.scrollView = castScrollView
+        }
+    }
     
     //MARK: Actions
     @IBAction func unwindTvShowDetails(sender: UIBarButtonItem) {
@@ -95,7 +100,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
         
         imagesScrollView.backdropsDelegate = self
-        castScrollView.castDelegate = self
+        castView.castDelegate = self
     }
     
     //MARK: TvShowDetailsDelegate
@@ -125,7 +130,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     
     func tvshowCreditsLoadedSuccessfully(credits: Credits) {
         if let cast = credits.casts {
-            castScrollView.castDisplay(cast)
+            castView.castDisplay(cast)
         }
     }
     
@@ -175,9 +180,8 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     //MARK: CastDelegate 
-    func castTapped(id: Int?) {
+    func castSelected(id: Int?) {
         if let castId = id {
-            print("Cast item with id \(castId) was tapped!")
             PersonDetailsController.performPersonDetails(self, id: String(castId))
          }
     }

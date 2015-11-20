@@ -123,7 +123,7 @@ class SignInController: UIViewController, AuthenticationDelegate {
     }
     
     func moveToMainController() {
-        let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainContentController") as! UITabBarController
+        let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainContentControllerID") as! UITabBarController
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.window?.rootViewController = mainController
     }

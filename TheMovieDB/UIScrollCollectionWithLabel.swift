@@ -27,45 +27,29 @@ class UIScrollCollectionWithLabel<C>: NSObject, UIScrollViewDelegate, UIPosterVi
     func castDisplay(cast: [C]){
         items = cast
         if !cast.isEmpty {
-            setupScrollView()
             setupLabel()
             setupCollection()
         }
-    }
-    
-    func setupScrollView() {
-//        delegate = self
     }
     
     func prepareLabel() -> UILabel {
         assert(false, "Must be overriden")
     }
     
-    func setupLabel(){
-        scrollView.addSubview(prepareLabel())
-    }
-    
-    func setupCollection(){
-        var x = CGFloat(0.0)
-        for item in items {
-            var imageView = UIPosterView(frame: CGRect(x: x, y: 0, width: itemWidth, height: itemHeight))
-            imageView.delegate = self
-            imageView.sd_setImageWithURL(NSURL(string: imageUrl(item)), placeholderImage: UIImage(named: "defaultPhoto"))
-            setupPosterId(item, poster: &imageView)
-            
-            x += itemWidth
-            scrollView.addSubview(imageView)
-        }
-        scrollView.contentSize = CGSizeMake(x, itemHeight)
-        scrollView.contentOffset = CGPointMake(-scrollView.contentInset.left + 1, 0)
-    }
-    
     func setupPosterId(item: C, inout poster: UIPosterView) {
         assert(false, "Must be overriden")
     }
     
+    func updateLabelText(label: UILabel) {
+        assert(false, "Must be overriden")
+    }
+
     func imageUrl(item: C) -> String {
         assert(false, "Must be overriden")
+    }
+
+    func callback(itemId: Int?) -> ((C) -> Bool) {
+        assert(false, "Must be specified")
     }
     
     func posterTapped(itemId: Int?) {
@@ -84,7 +68,26 @@ class UIScrollCollectionWithLabel<C>: NSObject, UIScrollViewDelegate, UIPosterVi
         }
     }
     
-    func updatePhoto(image: UIPosterView, delta: CGFloat){
+    private func setupLabel(){
+        scrollView.addSubview(prepareLabel())
+    }
+    
+    private func setupCollection(){
+        var x = CGFloat(0.0)
+        for item in items {
+            var imageView = UIPosterView(frame: CGRect(x: x, y: 0, width: itemWidth, height: itemHeight))
+            imageView.delegate = self
+            imageView.sd_setImageWithURL(NSURL(string: imageUrl(item)), placeholderImage: UIImage(named: "defaultPhoto"))
+            setupPosterId(item, poster: &imageView)
+            
+            x += itemWidth
+            scrollView.addSubview(imageView)
+        }
+        scrollView.contentSize = CGSizeMake(x, itemHeight)
+        scrollView.contentOffset = CGPointMake(-scrollView.contentInset.left + 1, 0)
+    }
+    
+    private func updatePhoto(image: UIPosterView, delta: CGFloat){
         let (scale, alpha): (CGFloat, CGFloat)
         
         if abs(delta) < offset {
@@ -101,7 +104,7 @@ class UIScrollCollectionWithLabel<C>: NSObject, UIScrollViewDelegate, UIPosterVi
         animatePhoto(image, params: (scale, alpha))
     }
     
-    func findIndex(callback: (C) -> Bool) -> Int? {
+    private func findIndex(callback: (C) -> Bool) -> Int? {
         for (index, elem): (Int, C) in items.enumerate() {
             if callback(elem) {
                 return index
@@ -110,11 +113,7 @@ class UIScrollCollectionWithLabel<C>: NSObject, UIScrollViewDelegate, UIPosterVi
         return .None
     }
     
-    func callback(itemId: Int?) -> ((C) -> Bool) {
-        assert(false, "Must be specified")
-    }
-    
-    func updateLabel(label: UILabel){
+    private func updateLabel(label: UILabel){
         if currentItem < items.count {
             updateLabelText(label)
             label.frame.origin.x = scrollView.center.x + scrollView.contentOffset.x - label.frame.width / 2
@@ -122,14 +121,9 @@ class UIScrollCollectionWithLabel<C>: NSObject, UIScrollViewDelegate, UIPosterVi
         }
     }
     
-    func updateLabelText(label: UILabel) {
-        assert(false, "Must be overriden")
-    }
-    
-    func animatePhoto(view: UIView, params : (CGFloat, CGFloat)){
+    private func animatePhoto(view: UIView, params : (CGFloat, CGFloat)){
         let (scale, alpha) = params
-        UIView.animateWithDuration(0.2,
-            delay: 0,
+        UIView.animateWithDuration(0.2, delay: 0,
             options: [UIViewAnimationOptions.CurveEaseInOut, .AllowUserInteraction],
             animations: {
                 view.transform = CGAffineTransformMakeScale(scale, scale)
