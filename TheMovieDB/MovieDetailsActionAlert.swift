@@ -12,6 +12,7 @@ class MovieDetailsActionAlert: DetailsActionAlert {
     
     var imdbPage: String?
     var shareUrl: String?
+    var id: String?
     
     init(presenter controller: UIViewController?, imdb: String?, url: String?){
         self.imdbPage = imdb
@@ -41,7 +42,12 @@ class MovieDetailsActionAlert: DetailsActionAlert {
             actions += [UIAlertAction(title: "Open IMDB page", style: .Default, handler: { action in UIApplication.sharedApplication().openURL(url) })]
         }
         
-        actions += [UIAlertAction(title: "Add to my list", style: .Default, handler: { action in print("add to my list") })]
+        actions += [UIAlertAction(title: "Add to my list", style: .Default, handler: { action in
+            let listPickerController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ListPickerController") as! ListPickerController
+            listPickerController.itemId = self.id
+            listPickerController.itemType = "movie"
+            self.controller?.presentViewController(listPickerController, animated: true, completion: nil)
+        })]
         
         return actions
     }

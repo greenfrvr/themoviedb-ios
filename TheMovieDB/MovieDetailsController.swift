@@ -81,6 +81,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     @IBAction func actionButtonClicked(sender: AnyObject) {
         let alert = MovieDetailsActionAlert(presenter: self, imdb: openIMDBUrl, url: shareUrl)
+        alert.id = movieId
         alert.present()
     }
     
