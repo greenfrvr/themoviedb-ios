@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  TheMovieDB
+
+  Created by Artsiom Grintsevich on 11/23/15.
+  Copyright © 2015 Artsiom Grintsevich. All rights reserved.
+*/
+
+"Pick an action" = "Pick an action";
+"What do you want to do with this show?" = "What do you want to do with this show?";

@@ -222,7 +222,7 @@
         <!--List Details-->
         <scene sceneID="rm9-hi-NDy">
             <objects>
-                <viewController id="HfO-sx-Kvr" customClass="ListDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController definesPresentationContext="YES" id="HfO-sx-Kvr" customClass="ListDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RDE-d5-VUo"/>
                         <viewControllerLayoutGuide type="bottom" id="vPe-c8-wMg"/>
@@ -333,7 +333,7 @@
         <!--List Items Collection Controller-->
         <scene sceneID="PO5-mu-qDm">
             <objects>
-                <collectionViewController id="NlQ-uf-sEz" customClass="ListItemsCollectionController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController definesPresentationContext="YES" id="NlQ-uf-sEz" customClass="ListItemsCollectionController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" dataMode="prototypes" id="ONO-Ca-bBP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -404,7 +404,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iTx-Yu-v7c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1608.5" y="-540"/>
+            <point key="canvasLocation" x="1664.5" y="-378"/>
         </scene>
         <!--Search-->
         <scene sceneID="qLq-Ef-MSF">

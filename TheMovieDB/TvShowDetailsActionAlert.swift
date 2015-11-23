@@ -21,7 +21,7 @@ class TvShowDetailsActionAlert: DetailsActionAlert {
     }
     
     override func alertData() -> (String, String) {
-        return (title: "Pick an action", message: "What do you want to do with this show?")
+        return (title: NSLocalizedString("Pick an action", comment: ""), message: NSLocalizedString("What do you want to do with this show?", comment: ""))
     }
     
     override func defineActions() -> [UIAlertAction] {

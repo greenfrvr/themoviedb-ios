@@ -41,6 +41,7 @@
 		118B115E1BFA0F69001DDC80 /* TvShowDetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B115D1BFA0F69001DDC80 /* TvShowDetailsActionAlert.swift */; };
 		118B11601BFA12F3001DDC80 /* MovieDetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B115F1BFA12F3001DDC80 /* MovieDetailsActionAlert.swift */; };
 		118B11621BFA1587001DDC80 /* DetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B11611BFA1587001DDC80 /* DetailsActionAlert.swift */; };
+		1199551D1C03539000CC5283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1199551F1C03539000CC5283 /* Localizable.strings */; };
 		11A3DC501BF60C6900F7F2B1 /* TvShowDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3DC4F1BF60C6900F7F2B1 /* TvShowDetailsController.swift */; };
 		11FC7C7D1BE779F600838AA5 /* MovieApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FC7C7C1BE779F600838AA5 /* MovieApiManager.swift */; };
 		11FC7C7F1BE78E4E00838AA5 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FC7C7E1BE78E4E00838AA5 /* Models.swift */; };
@@ -119,6 +120,10 @@
 		118B115D1BFA0F69001DDC80 /* TvShowDetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TvShowDetailsActionAlert.swift; sourceTree = "<group>"; };
 		118B115F1BFA12F3001DDC80 /* MovieDetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailsActionAlert.swift; sourceTree = "<group>"; };
 		118B11611BFA1587001DDC80 /* DetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsActionAlert.swift; sourceTree = "<group>"; };
+		119955191C03533F00CC5283 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		1199551A1C03533F00CC5283 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		119955201C03539600CC5283 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		119955211C0353A300CC5283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		11A3DC4F1BF60C6900F7F2B1 /* TvShowDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TvShowDetailsController.swift; sourceTree = "<group>"; };
 		11FC7C7C1BE779F600838AA5 /* MovieApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieApiManager.swift; sourceTree = "<group>"; };
 		11FC7C7E1BE78E4E00838AA5 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -222,6 +227,7 @@
 				11759AD71BE764FB00BE2B46 /* AppDelegate.swift */,
 				11759ADB1BE764FB00BE2B46 /* Main.storyboard */,
 				11759AE01BE764FB00BE2B46 /* LaunchScreen.storyboard */,
+				1199551F1C03539000CC5283 /* Localizable.strings */,
 				11759ADE1BE764FB00BE2B46 /* Assets.xcassets */,
 				11759AE31BE764FB00BE2B46 /* Info.plist */,
 			);
@@ -396,6 +402,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 11759ACB1BE764FB00BE2B46;
 			productRefGroup = 11759AD51BE764FB00BE2B46 /* Products */;
@@ -415,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11759AE21BE764FB00BE2B46 /* LaunchScreen.storyboard in Resources */,
+				1199551D1C03539000CC5283 /* Localizable.strings in Resources */,
 				11759ADF1BE764FB00BE2B46 /* Assets.xcassets in Resources */,
 				11759ADD1BE764FB00BE2B46 /* Main.storyboard in Resources */,
 			);
@@ -561,6 +569,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				11759ADC1BE764FB00BE2B46 /* Base */,
+				119955191C03533F00CC5283 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -569,8 +578,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				11759AE11BE764FB00BE2B46 /* Base */,
+				1199551A1C03533F00CC5283 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		1199551F1C03539000CC5283 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				119955201C03539600CC5283 /* ru */,
+				119955211C0353A300CC5283 /* Base */,
+			);
+			name = Localizable.strings;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
