@@ -127,10 +127,6 @@ struct ListInfo: Mappable, SegmentsRepresentation {
     var favoriteCount: Int?
     var listType: String?
     var langCode: String?
-    var itemsCount: String {
-        let count = itemsInList ?? 0
-        return "\(count > 0 ? String(count) : "no") item\(count != 1 ? "s" : "")"
-    }
     
     init?(_ map: Map) {
     }
@@ -164,8 +160,10 @@ struct ListInfo: Mappable, SegmentsRepresentation {
     }
     
     var representCounter: String? {
-        return itemsCount
+        let count = itemsInList ?? 0
+        return "\(count > 0 ? String(count) : "no") item\(count != 1 ? "s" : "")"
     }
+    
 }
 
 //__________________User's lists__________________
@@ -263,6 +261,21 @@ struct ListDetails: Mappable {
         langCode<-map["iso_639_1"]
         items<-map["items"]
         
+    }
+    
+    struct UpdateListBody: Mappable {
+        var mediaId: Int?
+        
+        init(mediaId id: Int) {
+            mediaId = id
+        }
+        
+        init?(_ map: Map) {
+        }
+        
+        mutating func mapping(map: Map) {
+            mediaId<-map["media_id"]
+        }
     }
 }
 

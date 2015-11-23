@@ -170,6 +170,34 @@ class AccountManager {
             list()
         }
     }
+    
+    func addToList(listId id: String, itemId: Int) {
+        updateList(ApiEndpoints.listAddItem(id, session), id: id, itemId: itemId)
+    }
+    
+    func removeToList(listId id: String, itemId: Int) {
+        updateList(ApiEndpoints.listDeleteItem(id, session), id: id, itemId: itemId)
+    }
+    
+    private func updateList(url: String, id: String, itemId: Int){
+        let body = Mapper<ListDetails.UpdateListBody>().toJSONString(ListDetails.UpdateListBody(mediaId: itemId), prettyPrint: true)!
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.HTTPRequestOperationWithRequest(request,
+            success: { operation, response in
+                self.listsDelegate?.listItemUpdatedSuccessfully()
+            },
+            failure: { operation, error in
+                self.listsDelegate?.listItemUpdatingFailed(error)
+        }).start()
+    }
 }
 
 protocol AccountDelegate {
@@ -190,6 +218,19 @@ protocol ListsDelegate {
     func userSegmentLoadingFailed(error: NSError) -> Void
     
     func userFetched() -> Void
+    
+    func listItemUpdatedSuccessfully() -> Void
+    
+    func listItemUpdatingFailed(error: NSError) -> Void
+
+}
+
+extension ListsDelegate {
+    
+    func listItemUpdatedSuccessfully() {}
+    
+    func listItemUpdatingFailed(error: NSError) {}
+    
 }
 
 //______________List details info______________
@@ -227,7 +268,6 @@ class ListDetailsManager {
             "session_id": session
         ]
         
-        self.detailsDelegate?.listRemovedSuccessfully()
         AFHTTPRequestOperationManager().DELETE(ApiEndpoints.listDetails(id), parameters: params,
             success: { operation, response in
                 self.detailsDelegate?.listRemovedSuccessfully()
@@ -246,6 +286,7 @@ protocol ListDetailsDelegate {
     func listRemovedSuccessfully() -> Void
     
     func listRemovingFailed(error: NSError) -> Void
+
 }
 
 //______________Search______________
@@ -741,6 +782,9 @@ class ApiEndpoints {
     static let accountItemFavoriteState = { (id: String, session: String) in "\(baseApiUrl)/account/\(id)/favorite?api_key=\(apiKey)&session_id=\(session)" }
     static let accountItemWatchlistState = { (id: String, session: String) in "\(baseApiUrl)/account/\(id)/watchlist?api_key=\(apiKey)&session_id=\(session)" }
     //list
+    static let listStatus = { (id: String) in "\(baseApiUrl)/list/\(id)/item_status" }
+    static let listAddItem = { (id: String, session: String) in "\(baseApiUrl)/list/\(id)/add_item?api_key=\(apiKey)&session_id=\(session)" }
+    static let listDeleteItem = { (id: String, session: String) in "\(baseApiUrl)/list/\(id)/remove_item?api_key=\(apiKey)&session_id=\(session)" }
     static let listDetails = { (id: String) in "\(baseApiUrl)/list/\(id)" }
     static let listShare = { (id: String) in "\(baseShareUrl)/list/\(id)"}
     //search
