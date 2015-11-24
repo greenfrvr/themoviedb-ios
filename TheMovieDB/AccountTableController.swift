@@ -103,7 +103,8 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         cell.listTitleLabel.text = item.representTitle
         cell.listDescLabel.text = item.representDescription
         cell.listCounterLabel.text = item.representCounter
-        cell.listImageView.sd_setImageWithURL(NSURL(imagePath: item.representImage), placeholderImage: UIImage.placeholder())
+        print("IMAGE URL: \(item.representImage!)")
+        cell.listImageView.sd_setImageWithURL(NSURL(string: item.representImage ?? ""), placeholderImage: UIImage.placeholder())
         
         return cell
     }

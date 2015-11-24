@@ -120,7 +120,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     //MARK: MovieDetailsDelegate
     func movieDetailsLoadedSuccessfully(details: MovieInfo) {
         imdbId = details.imdbId
-        posterImageView.sd_setImageWithURL(NSURL(imagePath: details.posterPath), placeholderImage: UIImage.placeholder())
+        posterImageView.sd_setImageWithURL(NSURL(posterPath: details.posterPath, size: 3), placeholderImage: UIImage.placeholder())
         titleLabel.text = details.title
         taglineLabel.text = details.tagline
         averageVoteLabel.text = String(details.voteAverage ?? 0.0)

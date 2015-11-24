@@ -40,7 +40,7 @@ class UICastHorizontalView: UIScrollCollectionWithLabel<Credits.Cast> {
     }
     
     override func imageUrl(item: Credits.Cast) -> String {
-        return ApiEndpoints.poster(3, item.profilePath ?? "")
+        return ImagesConfig.profile(2, item.profilePath ?? "")
     }
     
     override func callback(itemId: Int?) -> ((Credits.Cast) -> Bool) {

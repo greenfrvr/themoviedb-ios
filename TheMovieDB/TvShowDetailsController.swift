@@ -106,7 +106,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     //MARK: TvShowDetailsDelegate
     func tvshowDetailsLoadedSuccessfully(details: TvShowInfo) {
         homepage = details.homepage
-        posterImageView.sd_setImageWithURL(NSURL(imagePath: details.posterPath), placeholderImage: UIImage.placeholder())
+        posterImageView.sd_setImageWithURL(NSURL(posterPath: details.posterPath, size: 2), placeholderImage: UIImage.placeholder())
         titleLabel.text = details.name
         averageVoteLabel.text = String(details.voteAverage ?? 0.0)
         voteCountLabel.text = "(\(details.voteCount ?? 0))"

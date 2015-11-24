@@ -96,7 +96,7 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     func displayListInfo(item: ListInfo){
-        listImageView.sd_setImageWithURL(NSURL(imagePath: item.posterPath, size: 4), placeholderImage: UIImage.placeholder())
+        listImageView.sd_setImageWithURL(NSURL(posterPath: item.posterPath, size: 4), placeholderImage: UIImage.placeholder())
         descriptionLabel.text = item.representDescription
         if let count = item.itemsInList {
             if count == 0 {
@@ -123,5 +123,4 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
             completion: completion
         )
     }
-    
 }

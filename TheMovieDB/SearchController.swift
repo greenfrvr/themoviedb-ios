@@ -123,7 +123,7 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         cell.cellTitle.text = item?.representTitle
         cell.cellDate.text = item?.representDate?.stringByReplacingOccurrencesOfString("-", withString: "/")
         cell.cellDescription.text = item?.representDescription
-        cell.cellImage.sd_setImageWithURL(NSURL(imagePath: item?.representImage), placeholderImage: UIImage.placeholder())
+        cell.cellImage.sd_setImageWithURL(NSURL(string: item?.representImage ?? ""), placeholderImage: UIImage.placeholder())
         
         return cell
     }

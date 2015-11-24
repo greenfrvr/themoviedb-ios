@@ -8,6 +8,20 @@
 
 import UIKit
 
+extension NSBundle {
+    static func posterSizes() -> NSURL {
+        return NSBundle.mainBundle().URLForResource("PosterSizes", withExtension: "plist")!
+    }
+    
+    static func profileSizes() -> NSURL {
+        return NSBundle.mainBundle().URLForResource("ProfileSizes", withExtension: "plist")!
+    }
+    
+    static func backdropSizes() -> NSURL {
+        return NSBundle.mainBundle().URLForResource("BackdropSizes", withExtension: "plist")!
+    }
+}
+
 extension UIColor {
     
     static func rgb(red: Float, _ green: Float, _ blue: Float) -> UIColor? {
@@ -21,9 +35,25 @@ extension UIColor {
 
 extension NSURL {
     
-    convenience init?(imagePath: String?, size: Int = 3) {
-        if let path = imagePath {
-            self.init(string: ApiEndpoints.poster(size, path))
+    convenience init?(posterPath: String?, size: Int = 1) {
+        if let path = posterPath {
+            self.init(string: ImagesConfig.poster(size, path))
+        } else {
+            return nil
+        }
+    }
+    
+    convenience init?(profilePath: String?, size: Int = 1) {
+        if let path = profilePath {
+            self.init(string: ImagesConfig.profile(size, path))
+        } else {
+            return nil
+        }
+    }
+    
+    convenience init?(backdropPath: String?, size: Int = 1) {
+        if let path = backdropPath {
+            self.init(string: ImagesConfig.backdrop(size, path))
         } else {
             return nil
         }

@@ -26,7 +26,7 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
         
         cell.movieNameLabel.padding = 10
         cell.movieNameLabel.text = item.title
-        cell.posterImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item.posterPath!)), placeholderImage: UIImage(named: "defaultPhoto"))
+        cell.posterImageView.sd_setImageWithURL(NSURL(posterPath: item.posterPath, size: 3), placeholderImage: UIImage.placeholder())
         
         return cell
     }

@@ -16,7 +16,7 @@ protocol PaginationLoading {
 }
 
 //__________________Authorization request token__________________
-class Token: NSObject, NSCoding, Mappable {
+class Token: Mappable {
     var requestToken: String?
     var expireAt: String?
     var success: Bool?
@@ -24,8 +24,6 @@ class Token: NSObject, NSCoding, Mappable {
     init?(token: String, expire: String?){
         requestToken = token
         expireAt = expire
-        
-        super.init()
         
         if token.isEmpty {
             return nil
@@ -39,19 +37,6 @@ class Token: NSObject, NSCoding, Mappable {
         requestToken<-map["request_token"]
         expireAt<-map["expires_at"]
         success<-map["success"]
-    }
-
-    //MARK: NSCoding protocol
-    required convenience init?(coder aDecoder: NSCoder) {
-        let token = aDecoder.decodeObjectForKey("token") as? String
-        let expire = aDecoder.decodeObjectForKey("expire") as? String
-        
-        self.init(token: token ?? "", expire: expire)
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(requestToken, forKey: "token")
-        aCoder.encodeObject(expireAt, forKey: "expire")
     }
 }
 
@@ -102,6 +87,8 @@ struct Account: Mappable {
     var gravatar: String {
         return "http://www.gravatar.com/avatar/\(gravatarHash!)?s=150"
     }
+    
+    init(){}
     
     init?(_ map: Map) {
     }
@@ -156,7 +143,10 @@ struct ListInfo: Mappable, SegmentsRepresentation {
     }
     
     var representImage: String? {
-        return posterPath
+        if let path = posterPath {
+            return ImagesConfig.poster(2, path)
+        }
+        return nil
     }
     
     var representCounter: String? {
@@ -318,7 +308,10 @@ struct SearchMovieItem: Mappable, SearchViewRepresentation {
     
     //MARK: SearchViewRepresentation
     var representImage: String? {
-        return ApiEndpoints.poster(3, posterPath ?? "")
+        if let path = posterPath {
+            return ImagesConfig.poster(2, path)
+        }
+        return nil
     }
     var representTitle: String? {
         return title
@@ -395,7 +388,10 @@ struct SearchTVItem: Mappable, SearchViewRepresentation {
     
     //MARK: SearchViewRepresentation
     var representImage: String? {
-        return ApiEndpoints.poster(3, posterPath ?? "")
+        if let path = posterPath {
+            return ImagesConfig.poster(2, path)
+        }
+        return nil
     }
     var representTitle: String? {
         return name
@@ -455,7 +451,10 @@ struct SearchPersonItem: Mappable, SearchViewRepresentation {
     
     //MARK: SearchViewRepresentation
     var representImage: String? {
-        return ApiEndpoints.poster(3, profilePath ?? "")
+        if let path = profilePath {
+            return ImagesConfig.profile(2, path)
+        }
+        return nil
     }
     var representTitle: String? {
         return name
@@ -884,7 +883,10 @@ struct SegmentListItem: Mappable, SegmentsRepresentation {
     }
     
     var representImage: String? {
-        return posterPath
+        if let path = posterPath {
+            return ImagesConfig.poster(2, path)
+        }
+        return nil
     }
     
     var representCounter: String? {

@@ -37,7 +37,7 @@ class UIPersonCreditsView: UIScrollCollectionWithLabel<PersonCredits.Cast>  {
     }
     
     override func imageUrl(item: PersonCredits.Cast) -> String {
-        return ApiEndpoints.poster(3, item.posterPath ?? "")
+        return ImagesConfig.poster(3, item.posterPath ?? "")
     }
     
     override func callback(itemId: Int?) -> ((PersonCredits.Cast) -> Bool) {

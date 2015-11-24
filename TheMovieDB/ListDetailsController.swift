@@ -14,9 +14,7 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
     var argListId: String?
     var detailsManager: ListDetailsManager?
     var collectionDelegate: ListItemsCollectionDelegate?
-    var shareUrl: String {
-        return ApiEndpoints.listShare(self.argListId!)
-    }
+    var shareUrl: String { return String(format: ApiEndpoints.listShare, self.argListId!) }
     
     static func performListController(performer: UIViewController, id: String?){
         let navigationController = performer.storyboard?.instantiateViewControllerWithIdentifier("CollectionNavigationController") as! UINavigationController

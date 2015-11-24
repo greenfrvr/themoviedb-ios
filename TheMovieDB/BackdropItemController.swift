@@ -26,7 +26,7 @@ class BackdropItemController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        backdropImage.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(5, backdropData.filePath ?? "")))
+        backdropImage.sd_setImageWithURL(NSURL(backdropPath: backdropData.filePath, size: 2))
         backdropImage.frame.size = CGSizeMake(backdropImage.frame.size.width, CGFloat(Double(backdropImage.frame.width) * backdropData.aspectRatio!))
     }
     
