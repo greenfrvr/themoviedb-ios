@@ -6,5 +6,39 @@
   Copyright © 2015 Artsiom Grintsevich. All rights reserved.
 */
 
+"Login is missing" = "Введите логин";
+"Password is missing" = "Введите пароль";
+"Something went wrong" = "Что то пошло не так";
+"Please come back to app again later" = "Пожалуйста попробуйте позже";
+"OK" = "OK";
+"Please fill required fields" = "Пожалуйста заполните необходимые поля";
+"OK, Got it" = "OK, понял";
+"Last update:" = "Последнее обновление: %@";
 "Pick an action" = "Выберите действие";
+"Share" = "Поделиться";
+"Open homepage" = "Открыть домашнюю страницу";
+"Open IMDB page" = "Открыть страницу IMDB";
+"Add to my list" = "Добавить в мою подборку";
+"Back" = "Назад";
+"Delete list" = "Удалить подборку";
+"List removing" = "Удаление подборки";
+"Are you sure you want to remove this list?" = "Вы уверены что хотите удалить эту подборку? (Действие нельзя будет отменить)";
+"Cancel" = "Отмена";
+"Remove" = "Удалить";
 "What do you want to do with this show?" = "Что вы хотите сделать с этой передачей?";
+"What do you want to do with this movie?" = "Что вы хотите сделать с этим фильмом?";
+"What do you want to do with this person?" = "Что вы хотите сделать с этим человеком?";
+"What do you want to do with this list?" = "Что вы хотите сделать с этой подборкой?";
+"Movie" = "Фильмы";
+"TV Show" = "Телепередачи";
+"People" = "Люди";
+"Favorite list" = "Избранное";
+"Movie added to favorites" = "Фильм был добавлен в избранное";
+"Movie removed from favorites" = "Фильм был удален из списка избранных";
+"TV added to favorites" = "Телепередача была добавлена в избранное";
+"TV removed from favorites" = "Телепередача была удалена из списка избранных";
+"Watchlist" = "Смотреть позже";
+"Movie added to watchlist" = "Вы решили посмотреть этот фильм позже";
+"Movie removed from watchlist" = "Вы решили не смотреть этот фильм позже";
+"TV added to watchlist" = "Вы решили посмотреть эту телепередачу позже";
+"TV removed from watchlist" = "Вы решили не смотреть эту телепередачу позже";

@@ -31,6 +31,10 @@
 		11759AED1BE764FB00BE2B46 /* TheMovieDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AEC1BE764FB00BE2B46 /* TheMovieDBTests.swift */; };
 		11759AF81BE764FB00BE2B46 /* TheMovieDBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AF71BE764FB00BE2B46 /* TheMovieDBUITests.swift */; };
 		11759B061BE76D5800BE2B46 /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759B051BE76D5800BE2B46 /* AccountController.swift */; };
+		117BF1571C04460900708172 /* ListDetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117BF1561C04460900708172 /* ListDetailsActionAlert.swift */; };
+		117BF1591C044F7900708172 /* BackdropSizes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 117BF1581C044F7900708172 /* BackdropSizes.plist */; };
+		117BF15B1C044FFB00708172 /* PosterSizes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 117BF15A1C044FFB00708172 /* PosterSizes.plist */; };
+		117BF15D1C04508100708172 /* ProfileSizes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 117BF15C1C04508100708172 /* ProfileSizes.plist */; };
 		117CF94F1BECD56E00BA2A3B /* MovieDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */; };
 		117F2A4D1BFF5D0C00FC29B4 /* ListPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117F2A4C1BFF5D0C00FC29B4 /* ListPickerController.swift */; };
 		1180EFAD1BE9EAA900082B6E /* ListItemsCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1180EFAC1BE9EAA900082B6E /* ListItemsCollectionController.swift */; };
@@ -110,6 +114,10 @@
 		11759AF71BE764FB00BE2B46 /* TheMovieDBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMovieDBUITests.swift; sourceTree = "<group>"; };
 		11759AF91BE764FB00BE2B46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11759B051BE76D5800BE2B46 /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
+		117BF1561C04460900708172 /* ListDetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListDetailsActionAlert.swift; sourceTree = "<group>"; };
+		117BF1581C044F7900708172 /* BackdropSizes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = BackdropSizes.plist; path = ../BackdropSizes.plist; sourceTree = "<group>"; };
+		117BF15A1C044FFB00708172 /* PosterSizes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PosterSizes.plist; path = ../PosterSizes.plist; sourceTree = "<group>"; };
+		117BF15C1C04508100708172 /* ProfileSizes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ProfileSizes.plist; path = ../ProfileSizes.plist; sourceTree = "<group>"; };
 		117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailsController.swift; sourceTree = "<group>"; };
 		117F2A4C1BFF5D0C00FC29B4 /* ListPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPickerController.swift; sourceTree = "<group>"; };
 		1180EFAC1BE9EAA900082B6E /* ListItemsCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListItemsCollectionController.swift; sourceTree = "<group>"; };
@@ -227,7 +235,7 @@
 				11759AD71BE764FB00BE2B46 /* AppDelegate.swift */,
 				11759ADB1BE764FB00BE2B46 /* Main.storyboard */,
 				11759AE01BE764FB00BE2B46 /* LaunchScreen.storyboard */,
-				1199551F1C03539000CC5283 /* Localizable.strings */,
+				117BF15E1C04512000708172 /* Resources */,
 				11759ADE1BE764FB00BE2B46 /* Assets.xcassets */,
 				11759AE31BE764FB00BE2B46 /* Info.plist */,
 			);
@@ -250,6 +258,17 @@
 				11759AF91BE764FB00BE2B46 /* Info.plist */,
 			);
 			path = TheMovieDBUITests;
+			sourceTree = "<group>";
+		};
+		117BF15E1C04512000708172 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				117BF15C1C04508100708172 /* ProfileSizes.plist */,
+				117BF15A1C044FFB00708172 /* PosterSizes.plist */,
+				117BF1581C044F7900708172 /* BackdropSizes.plist */,
+				1199551F1C03539000CC5283 /* Localizable.strings */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		118336A41BF1E64B00D590AF /* Cell */ = {
@@ -278,6 +297,7 @@
 				118B115D1BFA0F69001DDC80 /* TvShowDetailsActionAlert.swift */,
 				118B115F1BFA12F3001DDC80 /* MovieDetailsActionAlert.swift */,
 				1159831B1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift */,
+				117BF1561C04460900708172 /* ListDetailsActionAlert.swift */,
 			);
 			name = Alerts;
 			sourceTree = "<group>";
@@ -423,7 +443,10 @@
 			files = (
 				11759AE21BE764FB00BE2B46 /* LaunchScreen.storyboard in Resources */,
 				1199551D1C03539000CC5283 /* Localizable.strings in Resources */,
+				117BF15D1C04508100708172 /* ProfileSizes.plist in Resources */,
+				117BF15B1C044FFB00708172 /* PosterSizes.plist in Resources */,
 				11759ADF1BE764FB00BE2B46 /* Assets.xcassets in Resources */,
+				117BF1591C044F7900708172 /* BackdropSizes.plist in Resources */,
 				11759ADD1BE764FB00BE2B46 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,6 +531,7 @@
 				117F2A4D1BFF5D0C00FC29B4 /* ListPickerController.swift in Sources */,
 				116D4A021BFB0C3000AB44F1 /* PersonDetailsController.swift in Sources */,
 				1174C9681BE8D40C00A0075B /* ListsTableViewCell.swift in Sources */,
+				117BF1571C04460900708172 /* ListDetailsActionAlert.swift in Sources */,
 				11759B061BE76D5800BE2B46 /* AccountController.swift in Sources */,
 				11A3DC501BF60C6900F7F2B1 /* TvShowDetailsController.swift in Sources */,
 				1159831C1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift in Sources */,

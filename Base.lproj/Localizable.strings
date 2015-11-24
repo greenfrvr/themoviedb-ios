@@ -6,5 +6,39 @@
   Copyright © 2015 Artsiom Grintsevich. All rights reserved.
 */
 
+"Login is missing" = "Login is missing";
+"Password is missing" = "Password is missing";
+"Something went wrong" = "Something went wrong";
+"Please come back to app again later" = "Please come back to app again later";
+"OK" = "OK";
+"Please fill required fields" = "Please fill required fields";
+"OK, Got it" = "OK, Got it";
+"Last update:" = "Last update: %@";
 "Pick an action" = "Pick an action";
+"Share" = "Share";
+"Open homepage" = "Open homepage";
+"Open IMDB page" = "Open IMDB page";
+"Add to my list" = "Add to my list";
+"Delete list" = "Delete list";
+"List removing" = "List removing";
+"Are you sure you want to remove this list?" = "Are you sure you want to remove this list? (Can't be undone)";
+"Cancel" = "Cancel";
+"Remove" = "Remove";
+"Back" = "Back";
 "What do you want to do with this show?" = "What do you want to do with this show?";
+"What do you want to do with this movie?" = "What do you want to do with this movie?";
+"What do you want to do with this person?" = "What do you want to do with this person?";
+"What do you want to do with this list?" = "What do you want to do with this list?";
+"Movie" = "Movie";
+"TV Show" = "TV Show";
+"People" = "People";
+"Favorite list" = "Favorite list";
+"Movie added to favorites" = "This movie was added to your favorites list";
+"Movie removed from favorites" = "This movie was removed from your favorites list";
+"TV added to favorites" = "This TV show was added to your favorites list";
+"TV removed from favorites" = "This TV show was removed from your favorites list";
+"Watchlist" = "Watchlist";
+"Movie added to watchlist" = "This movie was added to your watchlist";
+"Movie removed from watchlist" = "This movie was removed from your watchlist";
+"TV added to watchlist" = "This TV show was added to your watchlist";
+"TV removed from watchlist" = "This TV show was removed from your watchlist";

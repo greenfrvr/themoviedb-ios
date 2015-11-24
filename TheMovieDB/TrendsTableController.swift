@@ -26,7 +26,6 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
     
     //MARK: Actions
     @IBAction func typeChanged(sender: UISegmentedControl) {
-        print("Type changed to \(sender.selectedSegmentIndex)")
         trendsType = TrendsType(rawValue: sender.selectedSegmentIndex)!
         loadInitPage()
     }
@@ -94,7 +93,7 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
         switch trendsType {
         case .MOVIE:
             MovieDetailsController.performMovieController(self, id: String(itemId!))
-        case .TV: print("TV show details not ready")
+        case .TV:
             TvShowDetailsController.performTvController(self, id: String(itemId!))
         }
     }

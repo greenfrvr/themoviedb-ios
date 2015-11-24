@@ -23,20 +23,14 @@ class SignInController: UIViewController, AuthenticationDelegate {
     
     //MARK: Actions
     @IBAction func signInClick(sender: UIButton) {
-        print("Sign in button clicked")
         if let login = loginField.text, password = passwordField.text {
             if login.isEmpty {
-                showInputAlert("Login is missing")
+                showInputAlert(NSLocalizedString("Login is missing", comment: ""))
             }
             else if password.isEmpty {
-                showInputAlert("Password is missing")
+                showInputAlert(NSLocalizedString("Password is missing", comment: ""))
             }
             else {
-                let range = password.characters.startIndex.advancedBy(3)..<password.characters.endIndex.predecessor()
-                var hiddenPassword = password
-                hiddenPassword.replaceRange(range, with: "*")
-                print("login - \(login), password - \(hiddenPassword)")
-                
                 validateToken(login, password)
             }
         } else {
@@ -99,7 +93,7 @@ class SignInController: UIViewController, AuthenticationDelegate {
     
     func tokenLoadingFailed(error: NSError) {
         print(error)
-        let alert = UIAlertView(title: "Something went wrong", message: "Please come back to app again later", delegate: nil, cancelButtonTitle: "OK")
+        let alert = UIAlertView(title: NSLocalizedString("Something went wrong", comment: ""), message: NSLocalizedString("Please come back to app again later", comment: ""), delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment: ""))
         alert.show()
     }
     
@@ -118,7 +112,7 @@ class SignInController: UIViewController, AuthenticationDelegate {
 
     //MARK: UI
     func showInputAlert(message: String) {
-        let alert = UIAlertView(title: "Please fill required fields", message: message, delegate: nil, cancelButtonTitle: "OK, Got it")
+        let alert = UIAlertView(title: NSLocalizedString("Please fill required fields", comment: ""), message: message, delegate: nil, cancelButtonTitle: NSLocalizedString("OK, Got it", comment: ""))
         alert.show()
     }
     

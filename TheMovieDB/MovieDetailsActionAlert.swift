@@ -22,7 +22,7 @@ class MovieDetailsActionAlert: DetailsActionAlert {
     }
     
     override internal func alertData() -> (String, String) {
-        return (title: "Pick an action", message: "What do you want to do with this movie?")
+        return (title: NSLocalizedString("Pick an action", comment: ""), message:NSLocalizedString("What do you want to do with this movie?", comment: ""))
     }
     
     override func defineActions() -> [UIAlertAction] {
@@ -30,7 +30,7 @@ class MovieDetailsActionAlert: DetailsActionAlert {
         
         if let url = shareUrl {
             actions += [
-                UIAlertAction(title: "Share", style: .Default,
+                UIAlertAction(title: NSLocalizedString("Share", comment: ""), style: .Default,
                     handler: { action in
                         let shareController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                         self.controller?.presentViewController(shareController, animated: true, completion: nil)
@@ -39,10 +39,10 @@ class MovieDetailsActionAlert: DetailsActionAlert {
         }
         
         if let imdb = imdbPage, url = NSURL(string: imdb) {
-            actions += [UIAlertAction(title: "Open IMDB page", style: .Default, handler: { action in UIApplication.sharedApplication().openURL(url) })]
+            actions += [UIAlertAction(title: NSLocalizedString("Open IMDB page", comment: ""), style: .Default, handler: { action in UIApplication.sharedApplication().openURL(url) })]
         }
         
-        actions += [UIAlertAction(title: "Add to my list", style: .Default, handler: { action in
+        actions += [UIAlertAction(title: NSLocalizedString("Add to my list", comment: ""), style: .Default, handler: { action in
             let listPickerController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ListPickerController") as! ListPickerController
             listPickerController.itemId = self.id
             listPickerController.itemType = "movie"

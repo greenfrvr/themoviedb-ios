@@ -167,15 +167,21 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     //MARK: MovieStateChangeDelegate
     func movieFavoriteStateChangedSuccessfully(isFavorite: Bool) {
+        let title = NSLocalizedString("Favorite list", comment: "")
+        let message = NSLocalizedString(isFavorite ? "Movie added to favorites" : "Movie removed from favorites", comment: "")
         movieState?.favorite = isFavorite
+        
         updateStateIndicators()
-        movieStateChangeNotifier("Favorite list", message: "This movie was \(isFavorite ? "added to" : "removed from") your favorites list")
+        movieStateChangeNotifier(title, message)
     }
     
     func movieWatchlistStateChangedSuccessfully(isInWatchlist: Bool) {
+        let title = NSLocalizedString("Watchlist", comment: "")
+        let message = NSLocalizedString(isInWatchlist ? "Movie added to watchlist" : "Movie removed from watchlist", comment: "")
         movieState?.watchlist = isInWatchlist
+        
         updateStateIndicators()
-        movieStateChangeNotifier("Watchlist", message: "This movie was \(isInWatchlist ? "added to" : "removed from") your watchlist")
+        movieStateChangeNotifier(title, message)
     }
     
     func movieFavoriteStateChangesFailed(error: NSError) {
@@ -197,17 +203,16 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     //MARK: CastDelegate
     func castSelected(id: Int?) {
         if let castId = id {
-            print("Cast item with id \(castId) was tapped!")
             PersonDetailsController.performPersonDetails(self, id: String(castId))
         }
     }
 
     
     //MARK: UI
-    func movieStateChangeNotifier(title: String, message: String){
+    func movieStateChangeNotifier(title: String, _ message: String){
         let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: nil)
         alert.show()
-        alert.performSelector(Selector("dismiss"), withObject: alert, afterDelay: 1)
+        alert.performSelector("dismiss", withObject: alert, afterDelay: 1)
         
         func dismiss() {
             alert.dismissWithClickedButtonIndex(-1, animated: true)

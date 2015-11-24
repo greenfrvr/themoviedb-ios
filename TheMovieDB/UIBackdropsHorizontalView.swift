@@ -11,24 +11,24 @@ import SDWebImage
 
 class UIBackdropsHorizontalView: UIScrollView {
     
-    var padding: Int = 8
-    var itemsMargin: Int = 8
-    var itemHeight: Int = 128
+    var padding: CGFloat = 8
+    var itemsMargin: CGFloat = 8
+    var itemHeight: CGFloat = 128
     var backdropsDelegate: UIBackdropsDelegat?
     
     func backdropsDisplay(backdrops: [ImageInfo]){
-        var x = padding
+        var x: CGFloat = padding
         for (pos, image) in backdrops.enumerate() {
-            let width = Int(Double(itemHeight) * (image.aspectRatio ?? 1.0))
+            let width = itemHeight * CGFloat(image.aspectRatio ?? 1.0)
             let imageView = UIImageView(frame: CGRect(x: x, y: 0, width: width, height: itemHeight))
-            imageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(4, image.filePath ?? "")))
+            imageView.sd_setImageWithURL(NSURL(imagePath: image.filePath, size: 4))
             
             x += width + (pos == backdrops.count - 1 ? padding : itemsMargin)
             
             addSubview(imageView)
             itemTapDetector(imageView)
         }
-        contentSize = CGSizeMake(CGFloat(x), CGFloat(itemHeight))
+        contentSize = CGSizeMake(x, itemHeight)
     }
     
     func itemTapDetector(imageView: UIImageView){

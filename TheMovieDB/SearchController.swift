@@ -13,9 +13,9 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     
     //MARK: Properties
     let sectionTitles = [
-        0 : "Movie",
-        1 : "TV Show",
-        2 : "People"
+        0 : NSLocalizedString("Movie", comment: ""),
+        1 : NSLocalizedString("TV Show", comment: ""),
+        2 : NSLocalizedString("People", comment: "")
     ]
     var scopeIndex = 0
     var nextPage: Int?
@@ -123,7 +123,7 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         cell.cellTitle.text = item?.representTitle
         cell.cellDate.text = item?.representDate?.stringByReplacingOccurrencesOfString("-", withString: "/")
         cell.cellDescription.text = item?.representDescription
-        cell.cellImage.sd_setImageWithURL(NSURL(string: item?.representImage ?? ""), placeholderImage: UIImage(named: "defaultPhoto"))
+        cell.cellImage.sd_setImageWithURL(NSURL(imagePath: item?.representImage), placeholderImage: UIImage.placeholder())
         
         return cell
     }

@@ -29,7 +29,7 @@ class TvShowDetailsActionAlert: DetailsActionAlert {
         
         if let url = shareUrl {
             actions += [
-                UIAlertAction(title: "Share", style: .Default,
+                UIAlertAction(title: NSLocalizedString("Share", comment: ""), style: .Default,
                     handler: { action in
                         let shareController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                         self.controller?.presentViewController(shareController, animated: true, completion: nil)
@@ -38,10 +38,8 @@ class TvShowDetailsActionAlert: DetailsActionAlert {
         }
         
         if let homepage = showHomepage, url = NSURL(string: homepage) {
-            actions += [UIAlertAction(title: "Open home page", style: .Default, handler: { action in UIApplication.sharedApplication().openURL(url) })]
+            actions += [UIAlertAction(title: NSLocalizedString("Open homepage", comment: ""), style: .Default, handler: { action in UIApplication.sharedApplication().openURL(url) })]
         }
-        
-        actions += [UIAlertAction(title: "Add to my list", style: .Default, handler: { action in print("add to my list")})]
         
         return actions
     }

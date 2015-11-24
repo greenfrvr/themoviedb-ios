@@ -39,24 +39,8 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
     }
     
     @IBAction func actionButtonClick(sender: UIBarButtonItem) {
-        let actionSheet = UIAlertController(title: "Pick an action", message: "What do you want to do with your list?", preferredStyle: .ActionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "Share", style: .Default, handler: { action in
-            let shareController = UIActivityViewController(activityItems: [self.shareUrl], applicationActivities: nil)
-            self.presentViewController(shareController, animated: true, completion: nil)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Delete list", style: .Destructive, handler: { action in
-            let deleteController = UIAlertController(title: "List removing", message: "Are you sure you want to remove this list. (Can't be undone)", preferredStyle: .Alert)
-            deleteController.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
-            deleteController.addAction(UIAlertAction(title: "Remove", style: .Destructive, handler:
-                { action in self.detailsManager?.listDelete(listId: self.argListId!) }))
-            self.presentViewController(deleteController, animated: true, completion: nil)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Back", style: .Cancel, handler: nil))
-        
-        presentViewController(actionSheet, animated: true, completion: nil)
+        let alert = ListDetailsActionAlert(presenter: self, detailsManager: detailsManager, id: argListId!, url: shareUrl)
+        alert.present()
     }
     
     //MARK: Controller lifecycle
@@ -66,12 +50,6 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
         detailsManager?.listDetails(listId: argListId!)
     }
         
-    override func viewDidAppear(animated: Bool) {
-        if let list = argListId {
-            print("List loaded: \(list)")
-        }
-    }
-    
     //MARK: ListDetailsDelegate
     func listDetailsLoadedSuccessfully(details: ListDetails) {
         loadingIndicator.stopAnimating()

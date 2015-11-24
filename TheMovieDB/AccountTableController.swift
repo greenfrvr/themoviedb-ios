@@ -103,7 +103,7 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         cell.listTitleLabel.text = item.representTitle
         cell.listDescLabel.text = item.representDescription
         cell.listCounterLabel.text = item.representCounter
-        cell.listImageView.sd_setImageWithURL(NSURL(string: ApiEndpoints.poster(3, item.representImage ?? "")), placeholderImage: UIImage(named: "defaultPhoto"))
+        cell.listImageView.sd_setImageWithURL(NSURL(imagePath: item.representImage), placeholderImage: UIImage.placeholder())
         
         return cell
     }
@@ -145,7 +145,7 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         refreshControl = UIRefreshControl()
         refreshControl?.backgroundColor = UIColor.rgb(22, 122, 110)
         refreshControl?.tintColor = UIColor.whiteColor()
-        refreshControl?.addTarget(self, action: Selector("loadInitPage"), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl?.addTarget(self, action: "loadInitPage", forControlEvents: UIControlEvents.ValueChanged)
     }
     
     func stopRefreshing() {
@@ -157,7 +157,7 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     func updateRefreshingTitle() {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MMM d, h:mm a"
-        let title = "Last update: \(formatter.stringFromDate(NSDate()))"
+        let title = String(format: NSLocalizedString("Last update:", comment: ""), formatter.stringFromDate(NSDate()))
         refreshControl?.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
     }
 }

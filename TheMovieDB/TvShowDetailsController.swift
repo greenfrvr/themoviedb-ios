@@ -152,15 +152,21 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     
     //MARK: TvShowStateChangeDelegate
     func tvshowFavoriteStateChangedSuccessfully(isFavorite: Bool) {
+        let title = NSLocalizedString("Favorite list", comment: "")
+        let message = NSLocalizedString(isFavorite ? "TV added to favorites" : "TV removed from favorites", comment: "")
         showState?.favorite = isFavorite
+        
         updateStateIndicators()
-        movieStateChangeNotifier("Favorite list", message: "This show was \(isFavorite ? "added to" : "removed from") your favorites list")
+        movieStateChangeNotifier(title, message)
     }
     
     func tvshowWatchlistStateChangedSuccessfully(isInWatchlist: Bool) {
+        let title = NSLocalizedString("Watchlist", comment: "")
+        let message = NSLocalizedString(isInWatchlist ? "TV added to watchlist" : "TV removed from watchlist", comment: "")
         showState?.watchlist = isInWatchlist
+        
         updateStateIndicators()
-        movieStateChangeNotifier("Watchlist", message: "This show was \(isInWatchlist ? "added to" : "removed from") your watchlist")
+        movieStateChangeNotifier(title, message)
     }
     
     func tvshowFavoriteStateChangesFailed(error: NSError) {
@@ -187,7 +193,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     //MARK: UI
-    func movieStateChangeNotifier(title: String, message: String){
+    func movieStateChangeNotifier(title: String, _ message: String){
         let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: nil)
         alert.show()
         alert.performSelector("dismiss", withObject: alert, afterDelay: 1)

@@ -21,7 +21,7 @@ class PersonDetailsActionAlert: DetailsActionAlert {
     }
     
     override func alertData() -> (String, String) {
-        return (title: "Pick an action", message: "What do you want to do with this person?")
+        return (title: NSLocalizedString("Pick an action", comment: ""), message: NSLocalizedString("What do you want to do with this person?", comment: ""))
     }
  
     override func defineActions() -> [UIAlertAction] {
@@ -29,7 +29,7 @@ class PersonDetailsActionAlert: DetailsActionAlert {
         
         if let url = shareUrl {
             actions += [
-                UIAlertAction(title: "Share", style: .Default,
+                UIAlertAction(title: NSLocalizedString("Share", comment: ""), style: .Default,
                     handler: { action in
                         let shareController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                         self.controller?.presentViewController(shareController, animated: true, completion: nil)
@@ -38,7 +38,7 @@ class PersonDetailsActionAlert: DetailsActionAlert {
         }
         
         if let home = homepage, url = NSURL(string: home) {
-            actions += [UIAlertAction(title: "Open home page", style: .Default, handler: { action in UIApplication.sharedApplication().openURL(url) })]
+            actions += [UIAlertAction(title: NSLocalizedString("Open homepage", comment: ""), style: .Default, handler: { action in UIApplication.sharedApplication().openURL(url) })]
         }
         
         return actions

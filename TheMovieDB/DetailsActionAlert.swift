@@ -28,7 +28,7 @@ class DetailsActionAlert {
             alert.addAction(action)
         }
         
-        alert.addAction(UIAlertAction(title: "Back", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Back", comment: ""), style: .Cancel, handler: nil))
         
         return alert
     }

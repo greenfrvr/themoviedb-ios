@@ -29,11 +29,9 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
         if let listId = list.id, id = Int(self.itemId!) {
             accountManager?.addToList(listId: listId, itemId: id)
         }
-        print("Picked item is \(list.listName)")
     }
     
     override func viewDidLoad() {
-        print("Item with id \(itemId ?? "none") and of type \(itemType ?? "none")")
         let sessionId = SessionCache.restoreSession()?.sessionToken
         if let session = sessionId {
             accountManager = AccountManager(session: session, accountDelegate: nil, listsDelegate: self)
