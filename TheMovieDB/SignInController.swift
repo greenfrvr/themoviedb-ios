@@ -10,26 +10,21 @@ import UIKit
 
 class SignInController: UIViewController, AuthenticationDelegate {
 
-    //MARK: Properties
-    var authManager: AuthenticationManager!
+    var authManager: AuthenticationManager?
     
-    //MARK: Outlets
     @IBOutlet weak var appNameLabel: UILabel!
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var signInButton: UIButton!
     
-    //MARK: Actions
     @IBAction func signInClick(sender: UIButton) {
         if let login = loginField.text, password = passwordField.text {
             if login.isEmpty {
-                showInputAlert("Login is missing")
-            }
-            else if password.isEmpty {
-                showInputAlert("Password is missing")
-            }
-            else {
+                showAlert("Please fill required fields", "Login is missing", "OK, Got it")
+            } else if password.isEmpty {
+                showAlert("Please fill required fields", "Password is missing", "OK, Got it")
+            } else {
                 validateToken(login, password)
             }
         } else {
@@ -40,84 +35,72 @@ class SignInController: UIViewController, AuthenticationDelegate {
     //MARK: Controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCachedSession()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        appNameLabel.transform = CGAffineTransformMakeScale(0, 0)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        loginField.layer.addSublayer(bottomLine())
-        passwordField.layer.addSublayer(bottomLine())
-
-        appearAnimation()
-    }
-    
-    func bottomLine() -> CALayer {
-        let bottomBorder = CALayer()
-        bottomBorder.frame = CGRectMake(0.0, loginField.frame.size.height - 1, loginField.frame.size.width, 1.0);
-        bottomBorder.backgroundColor = UIColor.rgb(6, 117, 255)?.CGColor
-        return bottomBorder
-    }
-    
-    //MARK: Session cache check
-    func loadCachedSession(){
-        let session = Cache.restoreSession()
-        if let session = session {
+        Cache.clearSessionIfNeeded()
+        
+        if let session = Cache.restoreSession() {
             print("Session restored:\n \(session)")
             moveToMainController()
-         } else {
-            print("Need to create new session")
-            authManager = AuthenticationManager(delegate: self)
-            authManager.loadRequestToken()
+        } else {
+            authManager = AuthenticationManager()
+            authManager?.delegate = self
+            authManager?.loadRequestToken()
+            prepareViews()
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        appearAnimation()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        authManager?.delegate = nil
+        authManager = nil
+    }
+    
     //MARK: AuthenticationDelegate
-    func tokenLoadedSuccessfully(token: Token) {
-        print("Token loaded:\n \(token.requestToken!)")
+    func sessionCreatedSuccessfully(session: Session) {
+        loadingIndicator.stopAnimating()
+        
+        moveToMainController()
     }
     
     func tokenValidatedSuccessfully(token: Token) {
         print("Token validated:\n \(token.requestToken!)")
-        authManager.createSession()
+        authManager?.createSession()
     }
     
-    func sessionCreatedSuccessfully(session: Session) {
-        loadingIndicator.stopAnimating()
-        moveToMainController()
+    func tokenLoadedSuccessfully(token: Token) {
+        print("Token loaded")
     }
     
     func tokenLoadingFailed(error: NSError) {
+        showAlert("Something went wrong", "Please come back to app again later", "OK")
+
         print(error)
-        let alert = UIAlertView(title: NSLocalizedString("Something went wrong", comment: ""), message: NSLocalizedString("Please come back to app again later", comment: ""), delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment: ""))
-        alert.show()
     }
     
     func tokenValidationFailed(error: NSError) {
-        print(error)
+        loadingIndicator.stopAnimating()
+        
+        if let error = error.apiError {
+            if error.statusCode == 30 || error.statusCode == 32 {
+                showAlert("Invalid login and/or password", "Check your sign-in data", "OK")
+            }
+            error.printError()
+        }
     }
     
     func sessionCreationFailed(error: NSError) {
-        print(error)
+        print("Can't create session:\n \(error)")
     }
     
     func validateToken(login: String, _ password: String) {
         loadingIndicator.startAnimating()
-        authManager.validateRequestToken(login, password)
+        
+        authManager?.validateRequestToken(login, password)
     }
 
     //MARK: UI
-    func showInputAlert(messageKey: String) {
-        let title = NSLocalizedString("Please fill required fields", comment: "")
-        let message = NSLocalizedString(messageKey, comment: "")
-        let cancelTitle = NSLocalizedString("OK, Got it", comment: "")
-        
-        let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: cancelTitle)
-        alert.show()
-    }
-    
     func moveToMainController() {
         let mainController = self.storyboard?.instantiateViewControllerWithIdentifier("MainContentControllerID") as! UITabBarController
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -125,22 +108,28 @@ class SignInController: UIViewController, AuthenticationDelegate {
     }
     
     func appearAnimation() {
-        loginField.center.x -= view.bounds.width
-        passwordField.center.x -= view.bounds.width
+        let width = view.bounds.width
+        loginField.center.x -= width
+        passwordField.center.x -= width
         signInButton.alpha = 0
         
-        UIView.animateWithDuration(0.4, animations: {
-            self.loginField.center.x += self.view.bounds.width
-        })
-        UIView.animateWithDuration(0.4, delay: 0.15, options: [], animations: {
-            self.passwordField.center.x += self.view.bounds.width
-            }, completion: nil)
-        UIView.animateWithDuration(0.8, delay: 0.4, options: [], animations: {
-            self.signInButton.alpha += 1
-            }, completion: nil)
-        UIView.animateWithDuration(0.4) {
-            self.appNameLabel.transform = CGAffineTransformMakeScale(1,1)
-        }
+        UIView.animateWithDuration(0.4) { self.loginField.center.x += width }
+        UIView.animateWithDuration(0.4, delay: 0.15) { self.passwordField.center.x += width }
+        UIView.animateWithDuration(0.8, delay: 0.4) { self.signInButton.alpha += 1 }
+        UIView.animateWithDuration(0.4) { self.appNameLabel.transform = CGAffineTransformMakeScale(1,1) }
+    }
+    
+    func prepareViews() {
+        loginField.layer.addSublayer(bottomLineLayer())
+        passwordField.layer.addSublayer(bottomLineLayer())
+        appNameLabel.transform = CGAffineTransformMakeScale(0, 0)
+    }
+    
+    func bottomLineLayer() -> CALayer {
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRectMake(0.0, CGRectGetHeight(loginField.frame) - 1, CGRectGetWidth(loginField.frame), 1.0);
+        bottomBorder.backgroundColor = UIColor.rgb(6, 117, 255).CGColor
+        return bottomBorder
     }
 }
 

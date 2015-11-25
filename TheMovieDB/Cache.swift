@@ -14,7 +14,12 @@ class Cache {
     static let userAccount = "default_account"
     
     static func saveSession(session: Session) {
-        try! session.createInSecureStore()
+        do {
+            try session.createInSecureStore()
+        } catch {
+            print("Caching session token is failed")
+            print(error)
+        }
     }
     
     static func restoreSession() -> String? {
@@ -23,6 +28,17 @@ class Cache {
             return data["sessionId"] as? String
         }
         return nil
+    }
+    
+    static func clearSessionIfNeeded() {
+        if !needsSessionCaching() {
+            do {
+                try Locksmith.deleteDataForUserAccount(userAccount, inService: serviceName)
+            } catch {
+                print("Cannot clear session cache")
+                print(error)
+            }
+        }
     }
     
     static func saveAccount(account: Account) {
@@ -34,6 +50,7 @@ class Cache {
         prefs.setObject(account.langCode, forKey: "lang")
         prefs.setObject(account.countryCode, forKey: "country")
         prefs.setBool((account.includeAdult)!, forKey: "adult")
+        prefs.setObject(account.username, forKey: "account")
     }
     
     static func restoreAccount() -> Account? {
@@ -52,5 +69,9 @@ class Cache {
         } else {
             return nil
         }
+    }
+    
+    private static func needsSessionCaching() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey("session_caching_enabled")
     }
 }

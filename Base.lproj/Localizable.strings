@@ -5,7 +5,8 @@
   Created by Artsiom Grintsevich on 11/23/15.
   Copyright © 2015 Artsiom Grintsevich. All rights reserved.
 */
-
+"Invalid login and/or password" = "Invalid login and/or password";
+"Check your sign-in data" = "You have entered invalid login and/or password. Please check it carefully.";
 "Login is missing" = "Login is missing";
 "Password is missing" = "Password is missing";
 "Something went wrong" = "Something went wrong";

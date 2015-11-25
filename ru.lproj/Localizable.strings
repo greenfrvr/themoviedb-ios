@@ -5,7 +5,8 @@
   Created by Artsiom Grintsevich on 11/23/15.
   Copyright © 2015 Artsiom Grintsevich. All rights reserved.
 */
-
+"Invalid login and/or password" = "Неверные данные для входа";
+"Check your sign-in data" = "Пожалуйста проверьте корректность введенных логина и пароля.";
 "Login is missing" = "Введите логин";
 "Password is missing" = "Введите пароль";
 "Something went wrong" = "Что то пошло не так";

@@ -8,28 +8,25 @@
 
 import AFNetworking
 import ObjectMapper
-import Locksmith
 
 class AuthenticationManager {
     var requestToken: String?
-    let delegate: AuthenticationDelegate
-    
-    init(delegate: AuthenticationDelegate){
-        self.delegate = delegate
-    }
+    var delegate: AuthenticationDelegate?
     
     func loadRequestToken(){
-        let params = ["api_key": ApiEndpoints.apiKey]
+        let params = [
+            "api_key": ApiEndpoints.apiKey
+        ]
         
         AFHTTPRequestOperationManager().GET(ApiEndpoints.newToken, parameters: params,
             success: { operation, response in
                 if let token = Mapper<Token>().map(response) {
-                    self.delegate.tokenLoadedSuccessfully(token)
+                    self.delegate?.tokenLoadedSuccessfully(token)
                     self.requestToken = token.requestToken
                 }
             },
-            failure: { operation, error in self.delegate.tokenLoadingFailed(error)
-        })
+            failure: { operation, error in self.delegate?.tokenLoadingFailed(error) }
+        )
     }
     
     func validateRequestToken(login: String, _ password: String){
@@ -43,12 +40,12 @@ class AuthenticationManager {
         AFHTTPRequestOperationManager().GET(ApiEndpoints.validateToken, parameters: params,
             success: { operation, response in
                 if let token = Mapper<Token>().map(response) {
-                    self.delegate.tokenValidatedSuccessfully(token)
+                    self.delegate?.tokenValidatedSuccessfully(token)
                     self.requestToken = token.requestToken
                 }
             },
-            failure: { operation, error in self.delegate.tokenValidationFailed(error)
-        })
+            failure: { operation, error in self.delegate?.tokenValidationFailed(error) }
+        )
     }
     
     func createSession(){
@@ -61,11 +58,11 @@ class AuthenticationManager {
             success: { operation, response in
                 if let session = Mapper<Session>().map(response) {
                     Cache.saveSession(session)
-                    self.delegate.sessionCreatedSuccessfully(session)
+                    self.delegate?.sessionCreatedSuccessfully(session)
                 }
             },
-            failure: { operation, error in self.delegate.sessionCreationFailed(error)
-        })
+            failure: { operation, error in self.delegate?.sessionCreationFailed(error) }
+        )
     }
 }
 

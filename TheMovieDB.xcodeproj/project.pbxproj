@@ -14,6 +14,8 @@
 		114EB5421BF338D30091F49B /* BackdropsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB5411BF338D30091F49B /* BackdropsController.swift */; };
 		114EB5441BF346370091F49B /* BackdropItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EB5431BF346370091F49B /* BackdropItemController.swift */; };
 		1159831C1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159831B1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift */; };
+		1161C70A1C059EA20070A1DC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1161C7091C059EA20070A1DC /* Settings.bundle */; };
+		1161C70C1C05BBDF0070A1DC /* ApiErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1161C70B1C05BBDF0070A1DC /* ApiErrors.swift */; };
 		1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1164CF4F1BEB876000E3893F /* SearchViewCell.swift */; };
 		116D4A021BFB0C3000AB44F1 /* PersonDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116D4A011BFB0C3000AB44F1 /* PersonDetailsController.swift */; };
 		116D4A041BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116D4A031BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift */; };
@@ -99,6 +101,8 @@
 		114EB5411BF338D30091F49B /* BackdropsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackdropsController.swift; sourceTree = "<group>"; };
 		114EB5431BF346370091F49B /* BackdropItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackdropItemController.swift; sourceTree = "<group>"; };
 		1159831B1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetailsActionAlert.swift; sourceTree = "<group>"; };
+		1161C7091C059EA20070A1DC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		1161C70B1C05BBDF0070A1DC /* ApiErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiErrors.swift; sourceTree = "<group>"; };
 		1164CF4F1BEB876000E3893F /* SearchViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		116D4A011BFB0C3000AB44F1 /* PersonDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetailsController.swift; sourceTree = "<group>"; };
 		116D4A031BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollCollectionWithLabel.swift; sourceTree = "<group>"; };
@@ -183,6 +187,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1161C7081C059E8C0070A1DC /* Properties */ = {
+			isa = PBXGroup;
+			children = (
+				117BF15C1C04508100708172 /* ProfileSizes.plist */,
+				117BF15A1C044FFB00708172 /* PosterSizes.plist */,
+				117BF1581C044F7900708172 /* BackdropSizes.plist */,
+			);
+			name = Properties;
+			sourceTree = "<group>";
+		};
 		1174C9651BE8C6DA00A0075B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,10 +293,9 @@
 		117BF15E1C04512000708172 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				117BF15C1C04508100708172 /* ProfileSizes.plist */,
-				117BF15A1C044FFB00708172 /* PosterSizes.plist */,
-				117BF1581C044F7900708172 /* BackdropSizes.plist */,
+				1161C7081C059E8C0070A1DC /* Properties */,
 				1199551F1C03539000CC5283 /* Localizable.strings */,
+				1161C7091C059EA20070A1DC /* Settings.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -306,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				11FC7C7E1BE78E4E00838AA5 /* Models.swift */,
+				1161C70B1C05BBDF0070A1DC /* ApiErrors.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -481,6 +495,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1161C70A1C059EA20070A1DC /* Settings.bundle in Resources */,
 				11759AE21BE764FB00BE2B46 /* LaunchScreen.storyboard in Resources */,
 				1199551D1C03539000CC5283 /* Localizable.strings in Resources */,
 				117BF15D1C04508100708172 /* ProfileSizes.plist in Resources */,
@@ -596,6 +611,7 @@
 				113F96BF1BF4D557006551BD /* UIPosterView.swift in Sources */,
 				11FC7C811BE7906300838AA5 /* Cache.swift in Sources */,
 				11FC7C7F1BE78E4E00838AA5 /* Models.swift in Sources */,
+				1161C70C1C05BBDF0070A1DC /* ApiErrors.swift in Sources */,
 				1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */,
 				114EB5421BF338D30091F49B /* BackdropsController.swift in Sources */,
 				1174C96A1BE8E67900A0075B /* ListDetailsController.swift in Sources */,
