@@ -11,10 +11,10 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--My lists-->
+        <!--Account-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="UserControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="AccountController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserControllerID" title="Account" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="AccountController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XfZ-YK-Nb2"/>
                         <viewControllerLayoutGuide type="bottom" id="G6r-f3-x3d"/>
@@ -111,10 +111,10 @@
             </objects>
             <point key="canvasLocation" x="-1.5" y="-472.5"/>
         </scene>
-        <!--Account Table Controller-->
+        <!--Account Table-->
         <scene sceneID="acz-28-Ay1">
             <objects>
-                <tableViewController storyboardIdentifier="UserTableControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mja-0v-7y3" customClass="AccountTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UserTableControllerID" title="Account Table" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mja-0v-7y3" customClass="AccountTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" id="H2U-ut-bcA">
                         <rect key="frame" x="0.0" y="0.0" width="359" height="478"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -222,7 +222,7 @@
         <!--List Details-->
         <scene sceneID="rm9-hi-NDy">
             <objects>
-                <viewController definesPresentationContext="YES" id="HfO-sx-Kvr" customClass="ListDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="List Details" definesPresentationContext="YES" id="HfO-sx-Kvr" customClass="ListDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RDE-d5-VUo"/>
                         <viewControllerLayoutGuide type="bottom" id="vPe-c8-wMg"/>
@@ -330,10 +330,10 @@
             </objects>
             <point key="canvasLocation" x="1170.5" y="-537.5"/>
         </scene>
-        <!--List Items Collection Controller-->
+        <!--List Details Collection-->
         <scene sceneID="PO5-mu-qDm">
             <objects>
-                <collectionViewController definesPresentationContext="YES" id="NlQ-uf-sEz" customClass="ListItemsCollectionController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController title="List Details Collection" definesPresentationContext="YES" id="NlQ-uf-sEz" customClass="ListItemsCollectionController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" dataMode="prototypes" id="ONO-Ca-bBP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -409,7 +409,7 @@
         <!--Search-->
         <scene sceneID="qLq-Ef-MSF">
             <objects>
-                <viewController storyboardIdentifier="SearchControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="N7Q-yb-0fq" customClass="SearchController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchControllerID" title="Search" useStoryboardIdentifierAsRestorationIdentifier="YES" id="N7Q-yb-0fq" customClass="SearchController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IWR-1S-lKr"/>
                         <viewControllerLayoutGuide type="bottom" id="SGF-kU-blB"/>
@@ -566,7 +566,7 @@
         <!--Trends-->
         <scene sceneID="WBg-XT-ov8">
             <objects>
-                <viewController storyboardIdentifier="TrendsControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Z0A-Rk-FyL" customClass="TrendsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TrendsControllerID" title="Trends" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Z0A-Rk-FyL" customClass="TrendsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="shS-0k-hfi"/>
                         <viewControllerLayoutGuide type="bottom" id="IJ4-sB-Ezh"/>
@@ -598,10 +598,10 @@
             </objects>
             <point key="canvasLocation" x="-957.5" y="1403.5"/>
         </scene>
-        <!--Sign In Controller-->
+        <!--Login-->
         <scene sceneID="fO1-OR-pNQ">
             <objects>
-                <viewController id="9qG-mN-TCb" customClass="SignInController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInControllerID" title="Login" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9qG-mN-TCb" customClass="SignInController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TXT-JF-d4H"/>
                         <viewControllerLayoutGuide type="bottom" id="cCL-Sn-e2g"/>
@@ -676,10 +676,10 @@
             </objects>
             <point key="canvasLocation" x="-1009.5" y="341.5"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Base Navigation-->
         <scene sceneID="3Ez-w8-8gS">
             <objects>
-                <tabBarController storyboardIdentifier="MainContentControllerID" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lNe-ed-atc" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainContentControllerID" title="Base Navigation" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lNe-ed-atc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="99Q-gK-hUh">
@@ -697,10 +697,10 @@
             </objects>
             <point key="canvasLocation" x="-583.5" y="341.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--List Details Navigation-->
         <scene sceneID="e4Q-MQ-axC">
             <objects>
-                <navigationController storyboardIdentifier="CollectionNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="ici-Ka-8Lt" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CollectionNavigationController" title="List Details Navigation" automaticallyAdjustsScrollViewInsets="NO" id="ici-Ka-8Lt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="a6v-Sb-XlJ">
@@ -717,10 +717,10 @@
             </objects>
             <point key="canvasLocation" x="696.5" y="-540.5"/>
         </scene>
-        <!--Details-->
+        <!--Movie Details-->
         <scene sceneID="GwJ-cS-JPW">
             <objects>
-                <viewController storyboardIdentifier="MovieDetails" providesPresentationContextTransitionStyle="YES" id="0Jj-bf-DEJ" customClass="MovieDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetails" title="Movie Details" providesPresentationContextTransitionStyle="YES" id="0Jj-bf-DEJ" customClass="MovieDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yng-t7-MFh"/>
                         <viewControllerLayoutGuide type="bottom" id="as8-SY-YaG"/>
@@ -1126,10 +1126,10 @@
             </objects>
             <point key="canvasLocation" x="1170.5" y="287.5"/>
         </scene>
-        <!--Trends Table Controller-->
+        <!--Trends Table-->
         <scene sceneID="dtb-tx-2x0">
             <objects>
-                <tableViewController storyboardIdentifier="TrendsTableControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bVV-r1-n5I" customClass="TrendsTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TrendsTableControllerID" title="Trends Table" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bVV-r1-n5I" customClass="TrendsTableController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" id="m0Q-vL-lCK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1378,20 +1378,20 @@
             </objects>
             <point key="canvasLocation" x="-493.5" y="1403.5"/>
         </scene>
-        <!--Backdrops Controller-->
+        <!--Backdrops Gallery-->
         <scene sceneID="nxx-n8-DHT">
             <objects>
-                <pageViewController storyboardIdentifier="BackdropPages" autoresizesArchivedViewToFullSize="NO" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" transitionStyle="scroll" pageSpacing="2" navigationOrientation="horizontal" spineLocation="none" id="hAI-T1-JJx" customClass="BackdropsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="BackdropPages" autoresizesArchivedViewToFullSize="NO" title="Backdrops Gallery" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" transitionStyle="scroll" pageSpacing="2" navigationOrientation="horizontal" spineLocation="none" id="hAI-T1-JJx" customClass="BackdropsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wKB-tm-wqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1664.5" y="606.5"/>
         </scene>
-        <!--Backdrop Item Controller-->
+        <!--Single Backdrop -->
         <scene sceneID="UGk-uR-9LR">
             <objects>
-                <viewController storyboardIdentifier="BackdropItem" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="Faz-TW-ddb" customClass="BackdropItemController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BackdropItem" title="Single Backdrop " definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="Faz-TW-ddb" customClass="BackdropItemController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iX1-kt-aoK"/>
                         <viewControllerLayoutGuide type="bottom" id="1kM-DQ-ab2"/>
@@ -1424,10 +1424,10 @@
             </objects>
             <point key="canvasLocation" x="2086.5" y="606.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Movie Details Navigation-->
         <scene sceneID="SY4-qa-9p7">
             <objects>
-                <navigationController storyboardIdentifier="MovieNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="UIc-CP-7Je" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MovieNavigationController" title="Movie Details Navigation" automaticallyAdjustsScrollViewInsets="NO" id="UIc-CP-7Je" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b6v-zY-mXl">
@@ -1444,10 +1444,10 @@
             </objects>
             <point key="canvasLocation" x="696.5" y="287.5"/>
         </scene>
-        <!--Details-->
+        <!--TV Details-->
         <scene sceneID="Rc8-EG-GTT">
             <objects>
-                <viewController storyboardIdentifier="TvDetails" providesPresentationContextTransitionStyle="YES" id="F62-Ic-NRQ" customClass="TvShowDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TvDetails" title="TV Details" providesPresentationContextTransitionStyle="YES" id="F62-Ic-NRQ" customClass="TvShowDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4Jc-yR-0l7"/>
                         <viewControllerLayoutGuide type="bottom" id="9WX-3X-usM"/>
@@ -1818,10 +1818,10 @@
             </objects>
             <point key="canvasLocation" x="1170.5" y="1015.5"/>
         </scene>
-        <!--Details-->
+        <!--Person Details-->
         <scene sceneID="sdQ-C9-dOX">
             <objects>
-                <viewController id="U4y-BH-JXe" customClass="PersonDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Person Details" id="U4y-BH-JXe" customClass="PersonDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sfX-8K-5d4"/>
                         <viewControllerLayoutGuide type="bottom" id="KWF-Ud-RCw"/>
@@ -2027,10 +2027,10 @@
             </objects>
             <point key="canvasLocation" x="1170.5" y="1735.5"/>
         </scene>
-        <!--List Picker Controller-->
+        <!--Lists Picker-->
         <scene sceneID="c3A-K3-nnO">
             <objects>
-                <viewController storyboardIdentifier="ListPickerController" definesPresentationContext="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="4wf-VE-o8X" customClass="ListPickerController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListPickerController" title="Lists Picker" definesPresentationContext="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="4wf-VE-o8X" customClass="ListPickerController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Glq-gC-41Q"/>
                         <viewControllerLayoutGuide type="bottom" id="ER4-Zs-FVn"/>
@@ -2158,10 +2158,10 @@
             </objects>
             <point key="canvasLocation" x="1685.5" y="1467.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--TV Details Navigation-->
         <scene sceneID="qNU-uA-tyI">
             <objects>
-                <navigationController storyboardIdentifier="TvNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="duo-uY-w2w" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TvNavigationController" title="TV Details Navigation" automaticallyAdjustsScrollViewInsets="NO" id="duo-uY-w2w" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="M1u-Ar-Bht">
@@ -2178,10 +2178,10 @@
             </objects>
             <point key="canvasLocation" x="696.5" y="1015.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Person Details Navigation-->
         <scene sceneID="koH-uQ-k5J">
             <objects>
-                <navigationController storyboardIdentifier="PersonNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="IEO-dr-6RO" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="PersonNavigationController" title="Person Details Navigation" automaticallyAdjustsScrollViewInsets="NO" id="IEO-dr-6RO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ziL-cJ-jn1">

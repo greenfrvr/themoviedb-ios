@@ -88,10 +88,8 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        let session = SessionCache.restoreSession()!
-        detailsManager = MovieDetailsManager(sessionId: session.sessionToken!, detailsDelegate: self, stateDelegate: self)
-        
-        if let id = movieId {
+        if let session = Cache.restoreSession(), id = movieId {
+            detailsManager = MovieDetailsManager(sessionId: session, detailsDelegate: self, stateDelegate: self)
             detailsManager?.loadDetails(id)
             detailsManager?.loadState(id)
             detailsManager?.loadImages(id)

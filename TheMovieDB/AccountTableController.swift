@@ -15,7 +15,6 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     var nextPage: Int?
     var hasMoreItems = false
     var currentType = AccountSegmentType.List
-    var session: Session!
     var accountManager: AccountManager?
     var lists = [SegmentsRepresentation]()
     
@@ -32,9 +31,10 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     
     //MARK: Controller lifecycle
     override func viewDidLoad() {
-        session = SessionCache.restoreSession()!
-        accountManager = AccountManager(sessionId: session.sessionToken!, listsDelegate: self)
-        accountManager?.loadAccountData()
+        if let session = Cache.restoreSession() {
+            accountManager = AccountManager(sessionId: session, listsDelegate: self)
+            accountManager?.loadAccountData()
+        }
     
         setupPullToRefreshControl()
         tableView.tableFooterView?.hidden = true
@@ -103,7 +103,6 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         cell.listTitleLabel.text = item.representTitle
         cell.listDescLabel.text = item.representDescription
         cell.listCounterLabel.text = item.representCounter
-        print("IMAGE URL: \(item.representImage!)")
         cell.listImageView.sd_setImageWithURL(NSURL(string: item.representImage ?? ""), placeholderImage: UIImage.placeholder())
         
         return cell

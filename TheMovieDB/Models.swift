@@ -6,8 +6,8 @@
 //  Copyright © 2015 Artsiom Grintsevich. All rights reserved.
 //
 
-import Foundation
 import ObjectMapper
+import Locksmith
 
 //_____________________Pagintation protocol______________________
 protocol PaginationLoading {
@@ -41,37 +41,32 @@ class Token: Mappable {
 }
 
 //__________________Sesssion identificator__________________
-class Session: NSObject, NSCoding, Mappable {
+class Session: Mappable, CreateableSecureStorable, GenericPasswordSecureStorable  {
     var sessionToken: String?
     var success: Bool?
     
     init?(session: String) {
         sessionToken = session
-        
-        super.init()
-        
         if session.isEmpty {
             return nil
         }
     }
     
-    required init?(_ map: Map) {
-    }
+    required init?(_ map: Map) {}
     
     func mapping(map: Map) {
         sessionToken<-map["session_id"]
         success<-map["success"]
     }
     
-    //MARK: NSCoding protocol
-    required convenience init?(coder aDecoder: NSCoder) {
-        let session = aDecoder.decodeObjectForKey("session_id") as? String
-        
-        self.init(session: session ?? "")
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(sessionToken, forKey: "session_id")
+    //MARK: Locksmith
+    let service = Cache.serviceName
+    var account: String { return Cache.userAccount }
+    var data: [String: AnyObject] {
+        if let token = sessionToken {
+            return ["sessionId": token]
+        }
+        return [:]
     }
 }
 

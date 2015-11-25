@@ -78,10 +78,8 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     
     //MARK: Lifecycle
     override func viewDidLoad() {
-        let session = SessionCache.restoreSession()!
-        detailsManager = TvShowDetailsManager(sessionId: session.sessionToken!, detailsDelegate: self, stateDelegate: self)
-        
-        if let id = tvShowId {
+        if let session = Cache.restoreSession(), id = tvShowId {
+            detailsManager = TvShowDetailsManager(sessionId: session, detailsDelegate: self, stateDelegate: self)
             detailsManager?.loadDetails(id)
             detailsManager?.loadState(id)
             detailsManager?.loadImages(id)

@@ -8,6 +8,7 @@ pod 'AFNetworking', '~> 2.6.1'
 pod 'ObjectMapper', '~> 1.0.0'
 pod 'SDWebImage', '~> 3.7'
 pod 'Dollar'
+pod 'Locksmith'
 end
 
 target 'TheMovieDBTests' do

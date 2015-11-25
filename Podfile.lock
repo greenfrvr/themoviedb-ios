@@ -21,6 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Dollar (4.0.1)
+  - Locksmith (2.0.2)
   - ObjectMapper (1.0.0)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -29,12 +30,14 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.6.1)
   - Dollar
+  - Locksmith
   - ObjectMapper (~> 1.0.0)
   - SDWebImage (~> 3.7)
 
 SPEC CHECKSUMS:
   AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
   Dollar: a058e2659e0d3261307c12630dbc2fd8e32f80bf
+  Locksmith: 7f2b68448449a7712348f9a4ed60604c1cc8dfa6
   ObjectMapper: 0cd8372a0da95ae146afc63d8b512c32dd372a49
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
 

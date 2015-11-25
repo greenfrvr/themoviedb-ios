@@ -8,6 +8,7 @@
 
 import AFNetworking
 import ObjectMapper
+import Locksmith
 
 class AuthenticationManager {
     var requestToken: String?
@@ -38,7 +39,7 @@ class AuthenticationManager {
             "username": login,
             "password": password
         ]
-        
+            
         AFHTTPRequestOperationManager().GET(ApiEndpoints.validateToken, parameters: params,
             success: { operation, response in
                 if let token = Mapper<Token>().map(response) {
@@ -59,6 +60,7 @@ class AuthenticationManager {
         AFHTTPRequestOperationManager().GET(ApiEndpoints.createNewSession, parameters: params,
             success: { operation, response in
                 if let session = Mapper<Session>().map(response) {
+                    Cache.saveSession(session)
                     self.delegate.sessionCreatedSuccessfully(session)
                 }
             },

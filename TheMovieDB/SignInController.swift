@@ -11,7 +11,6 @@ import UIKit
 class SignInController: UIViewController, AuthenticationDelegate {
 
     //MARK: Properties
-    var session: Session?
     var authManager: AuthenticationManager!
     
     //MARK: Outlets
@@ -25,10 +24,10 @@ class SignInController: UIViewController, AuthenticationDelegate {
     @IBAction func signInClick(sender: UIButton) {
         if let login = loginField.text, password = passwordField.text {
             if login.isEmpty {
-                showInputAlert(NSLocalizedString("Login is missing", comment: ""))
+                showInputAlert("Login is missing")
             }
             else if password.isEmpty {
-                showInputAlert(NSLocalizedString("Password is missing", comment: ""))
+                showInputAlert("Password is missing")
             }
             else {
                 validateToken(login, password)
@@ -64,11 +63,12 @@ class SignInController: UIViewController, AuthenticationDelegate {
     
     //MARK: Session cache check
     func loadCachedSession(){
-        session = SessionCache.restoreSession()
-        if let s = session {
-            print("Session restored:\n \(s.sessionToken!)")
+        let session = Cache.restoreSession()
+        if let session = session {
+            print("Session restored:\n \(session)")
             moveToMainController()
          } else {
+            print("Need to create new session")
             authManager = AuthenticationManager(delegate: self)
             authManager.loadRequestToken()
         }
@@ -85,8 +85,6 @@ class SignInController: UIViewController, AuthenticationDelegate {
     }
     
     func sessionCreatedSuccessfully(session: Session) {
-        print("Session created: \(session.sessionToken!)")
-        SessionCache.save(session)
         loadingIndicator.stopAnimating()
         moveToMainController()
     }
@@ -111,13 +109,17 @@ class SignInController: UIViewController, AuthenticationDelegate {
     }
 
     //MARK: UI
-    func showInputAlert(message: String) {
-        let alert = UIAlertView(title: NSLocalizedString("Please fill required fields", comment: ""), message: message, delegate: nil, cancelButtonTitle: NSLocalizedString("OK, Got it", comment: ""))
+    func showInputAlert(messageKey: String) {
+        let title = NSLocalizedString("Please fill required fields", comment: "")
+        let message = NSLocalizedString(messageKey, comment: "")
+        let cancelTitle = NSLocalizedString("OK, Got it", comment: "")
+        
+        let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: cancelTitle)
         alert.show()
     }
     
     func moveToMainController() {
-        let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainContentControllerID") as! UITabBarController
+        let mainController = self.storyboard?.instantiateViewControllerWithIdentifier("MainContentControllerID") as! UITabBarController
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.window?.rootViewController = mainController
     }

@@ -43,9 +43,10 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
     
     //MARK: Controller lifecycle
     override func viewDidLoad() {
-        let session = SessionCache.restoreSession()!
-        detailsManager = ListDetailsManager(sessionId: session.sessionToken!, detailsDelegate: self)
-        detailsManager?.listDetails(listId: argListId!)
+        if let session = Cache.restoreSession() {
+            detailsManager = ListDetailsManager(sessionId: session, detailsDelegate: self)
+            detailsManager?.listDetails(listId: argListId!)
+        }
     }
         
     //MARK: ListDetailsDelegate

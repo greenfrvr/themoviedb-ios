@@ -39,7 +39,7 @@ class AccountManager {
             self.listsDelegate?.userFetched()
         }
         
-        if let account = restoreAccount() {
+        if let account = Cache.restoreAccount() {
             print("Loaded from device")
             callback(account)
             return
@@ -54,41 +54,12 @@ class AccountManager {
             success: { operation, response in
                 if let account = Mapper<Account>().map(response) {
                     print("Loaded from network")
+                    Cache.saveAccount(account)
                     callback(account)
-                    self.persistAccount()
                 }
             },
             failure: { operation, error in self.accountDelegate?.userLoadingFailed(error)
         })
-    }
-    
-    private func persistAccount() {
-        let prefs = NSUserDefaults.standardUserDefaults()
-        prefs.setInteger((account?.userId)!, forKey: "userId")
-        prefs.setObject(account?.username, forKey: "username")
-        prefs.setObject(account?.fullName, forKey: "fullname")
-        prefs.setObject(account?.gravatarHash, forKey: "gravatar")
-        prefs.setObject(account?.langCode, forKey: "lang")
-        prefs.setObject(account?.countryCode, forKey: "country")
-        prefs.setBool((account?.includeAdult)!, forKey: "adult")
-    }
-    
-    private func restoreAccount() -> Account? {
-        let prefs = NSUserDefaults.standardUserDefaults()
-        let id = prefs.integerForKey("userId")
-        if id != 0 {
-            var acc = Account()
-            acc.userId = id
-            acc.username = prefs.stringForKey("username")
-            acc.fullName = prefs.stringForKey("fullname")
-            acc.gravatarHash = prefs.stringForKey("gravatar")
-            acc.langCode = prefs.stringForKey("lang")
-            acc.countryCode = prefs.stringForKey("country")
-            acc.includeAdult = prefs.boolForKey("adult")
-            return acc
-        } else {
-            return nil
-        }
     }
     
     func loadSegment(type: AccountSegmentType, page: Int = 1){

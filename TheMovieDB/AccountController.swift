@@ -12,7 +12,6 @@ import SDWebImage
 class AccountController: UIViewController, AccountDelegate {
     
     //MARK: Properties
-    var session: Session!
     var segmentsLoader: UserSegmentsDelegate?
     var accountManager: AccountManager?
     
@@ -32,9 +31,10 @@ class AccountController: UIViewController, AccountDelegate {
     
     //MARK: Controller lifecycle
     override func viewDidLoad() {
-        session = SessionCache.restoreSession()!
-        accountManager = AccountManager(sessionId: session.sessionToken!, accountDelegate: self)
-        accountManager?.loadAccountData()
+        if let session = Cache.restoreSession() {
+            accountManager = AccountManager(sessionId: session, accountDelegate: self)
+            accountManager?.loadAccountData()
+        }
     }
     
     //MARK: AccountDelegate

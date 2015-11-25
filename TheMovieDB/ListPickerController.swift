@@ -32,8 +32,7 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     override func viewDidLoad() {
-        let sessionId = SessionCache.restoreSession()?.sessionToken
-        if let session = sessionId {
+        if let session = Cache.restoreSession() {
             accountManager = AccountManager(session: session, accountDelegate: nil, listsDelegate: self)
             accountManager?.loadAccountData()
         }
