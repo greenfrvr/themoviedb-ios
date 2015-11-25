@@ -9,15 +9,17 @@
 import AFNetworking
 import ObjectMapper
 
-class TvShowDetailsManager {
-    let session: String
+class TvShowDetailsManager: ApiManager, SessionRequired {
+    var sessionId: String
     let detailsDelegate: TvShowDetailsDelegate?
     let stateDelegate: TvShowStateChangeDelegate?
     
     init?(sessionId: String, detailsDelegate: TvShowDetailsDelegate?, stateDelegate: TvShowStateChangeDelegate?){
-        self.session = sessionId
+        self.sessionId = sessionId
         self.detailsDelegate = detailsDelegate
         self.stateDelegate = stateDelegate
+        
+        super.init()
         
         if sessionId.isEmpty {
             return nil
@@ -33,35 +35,26 @@ class TvShowDetailsManager {
     }
     
     func loadDetails(id: String) {
-        let params = [
-            "api_key": ApiEndpoints.apiKey
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.tvDetails, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<TvShowInfo>().map(response) {
-                    self.detailsDelegate?.tvshowDetailsLoadedSuccessfully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.tvshowDetailsLoadingFailed(error)
-        })
+        let url = String(format: ApiEndpoints.tvDetails, id)
+        get(url, apiKey, detailsDelegate?.tvshowDetailsLoadedSuccessfully, detailsDelegate?.tvshowDetailsLoadingFailed)
     }
     
     func loadState(id: String) {
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "session_id": session
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.tvState, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<AccountState>().map(response) {
-                    self.detailsDelegate?.tvshowStateLoadedSuccessfully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.tvshowStateLoadingFailed(error)
-        })
+        let url = String(format: ApiEndpoints.tvState, id)
+        get(url, apiKey +> session, detailsDelegate?.tvshowStateLoadedSuccessfully, detailsDelegate?.tvshowStateLoadingFailed)
+
     }
+    
+    func loadImages(id: String) {
+        let url = String(format: ApiEndpoints.tvImages, id)
+        get(url, apiKey +> session, detailsDelegate?.tvshowImagesLoadedSuccessully, detailsDelegate?.tvshowImagesLoadingFailed)
+    }
+    
+    func loadCredits(id: String) {
+        let url = String(format: ApiEndpoints.tvCredits, id)
+        get(url, apiKey, detailsDelegate?.tvshowCreditsLoadedSuccessfully, detailsDelegate?.tvshowCreditsLoadingFailed)
+    }
+
     
     func changeFavoriteState(id: String, state: Bool){
         let newState = !state
@@ -104,37 +97,6 @@ class TvShowDetailsManager {
             failure: { operation, error in
                 self.stateDelegate?.tvshowWatchlistStateChangesFailed(error)
         }).start()
-    }
-    
-    func loadImages(id: String) {
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "session_id": session
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.tvImages, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<ImageInfoList>().map(response) {
-                    self.detailsDelegate?.tvshowImagesLoadedSuccessully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.tvshowImagesLoadingFailed(error)
-        })
-    }
-    
-    func loadCredits(id: String) {
-        let params = [
-            "api_key": ApiEndpoints.apiKey
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.tvCredits, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<Credits>().map(response) {
-                    self.detailsDelegate?.tvshowCreditsLoadedSuccessfully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.tvshowCreditsLoadingFailed(error) }
-        )
     }
 }
 

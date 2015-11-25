@@ -9,8 +9,7 @@
 import AFNetworking
 import ObjectMapper
 
-class SearchManager {
-    
+class SearchManager: ApiManager {
     let searchDelegate: SearchDelegate?
     
     init(delegate: SearchDelegate?){
@@ -18,40 +17,19 @@ class SearchManager {
     }
     
     func query(scope: SearchController.ScopeType, query: String, page: Int = 1){
-        if scope == .ALL {
+        switch scope {
+        case .MOVIE:
+            get(scope.scopeRequestUrl(), apiKey +> [ "query": query, "page": page ], searchDelegate?.searchMovieResuts, searchDelegate?.searchNoPersonFound)
+        case .TV:
+            get(scope.scopeRequestUrl(), apiKey +> [ "query": query, "page": page ], searchDelegate?.searchTvShowResuts, searchDelegate?.searchNoPersonFound)
+        case .PEOPLE:
+            get(scope.scopeRequestUrl(), apiKey +> [ "query": query, "page": page ], searchDelegate?.searchPersonResuts, searchDelegate?.searchNoPersonFound)
+        case .ALL:
             self.query(.MOVIE, query: query, page: page)
             self.query(.TV, query: query, page: page)
             self.query(.PEOPLE, query: query, page: page)
-            return
+        return;
         }
-        
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "query": query,
-            "page": page
-        ]
-        
-        AFHTTPRequestOperationManager().GET(scope.scopeRequestUrl(), parameters: params,
-            success: { operation, response in
-                switch scope {
-                case .MOVIE:
-                    if let results = Mapper<SearchMovieResults>().map(response) {
-                        self.searchDelegate?.searchMovieResuts(results)
-                    }
-                case .TV:
-                    if let results = Mapper<SearchTVResults>().map(response) {
-                        self.searchDelegate?.searchTvShowResuts(results)
-                    }
-                case .PEOPLE:
-                    if let results = Mapper<SearchPersonResults>().map(response) {
-                        self.searchDelegate?.searchPersonResuts(results)
-                    }
-                case .ALL: break;
-                }
-                
-            },
-            failure: { operation, error in self.searchDelegate?.searchNoPersonFound(error)
-        })
     }
 }
 

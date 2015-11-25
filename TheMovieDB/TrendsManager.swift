@@ -9,39 +9,31 @@
 import AFNetworking
 import ObjectMapper
 
-class TrendsManager {
-    
+class TrendsManager: ApiManager {
     let delegate: TrendsDelegate?
     
     init(delegate: TrendsDelegate?){
         self.delegate = delegate
+        super.init()
     }
     
-    func loadPopular(type: TrendsType, page: Int = 1){
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "page": page
-        ]
-        
-        AFHTTPRequestOperationManager().GET(type.url(), parameters: params,
-            success: { operation, response in
-                switch type {
-                case .MOVIE:
-                    if let movies = Mapper<MovieTrendsList>().map(response) {
-                        if let result = TrendsList(fromMovieList: movies) {
-                            self.delegate?.trendsLoadedSuccessfully(result)
-                        }
-                    }
-                case .TV:
-                    if let tvshows = Mapper<TvTrendsList>().map(response) {
-                        if let result = TrendsList(fromTvList: tvshows) {
-                            self.delegate?.trendsLoadedSuccessfully(result)
-                        }
-                    }
-                }  
-            },
-            failure: { operation, error in self.delegate?.trendsLoadingFailed(error)
-        })
+    func loadPopular(type: TrendsType, page: Int = 1) {
+        switch type {
+        case .MOVIE:
+            get(type.url(), apiKey +> [ "page": page ], { (res: MovieTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
+                [unowned self] in
+                if let result = TrendsList(fromMovieList: $0) {
+                    self.delegate?.trendsLoadedSuccessfully(result)
+                }
+            }
+        case .TV:
+            get(type.url(), apiKey +> [ "page": page ], { (res: TvTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
+                [unowned self] in
+                if let result = TrendsList(fromTvList: $0) {
+                    self.delegate?.trendsLoadedSuccessfully(result)
+                }
+            }
+        }
     }
 }
 

@@ -9,13 +9,15 @@
 import AFNetworking
 import ObjectMapper
 
-class ListDetailsManager {
-    let session: String
+class ListDetailsManager: ApiManager, SessionRequired {
+    var sessionId: String
     let detailsDelegate: ListDetailsDelegate?
     
     init?(sessionId: String, detailsDelegate delegate: ListDetailsDelegate){
-        self.session = sessionId
+        self.sessionId = sessionId
         self.detailsDelegate = delegate
+        
+        super.init()
         
         if sessionId.isEmpty {
             return nil
@@ -23,32 +25,13 @@ class ListDetailsManager {
     }
     
     func listDetails(listId id: String){
-        let params = [
-            "api_key": ApiEndpoints.apiKey
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.listDetails, id), parameters: params,
-            success: { operation, response in
-                if let details = Mapper<ListDetails>().map(response) {
-                    self.detailsDelegate?.listDetailsLoadedSuccessfully(details)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.listDetailsLoadingFailed(error)
-        })
+        let url = String(format: ApiEndpoints.listDetails, id)
+        get(url, apiKey, detailsDelegate?.listDetailsLoadedSuccessfully, detailsDelegate?.listDetailsLoadingFailed)
     }
     
     func listDelete(listId id: String) {
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "session_id": session
-        ]
-        
-        AFHTTPRequestOperationManager().DELETE(String(format: ApiEndpoints.listDetails, id), parameters: params,
-            success: { operation, response in
-                self.detailsDelegate?.listRemovedSuccessfully()
-            },
-            failure: { operation, error in self.detailsDelegate?.listRemovingFailed(error)
-        })
+        let url = String(format: ApiEndpoints.listDetails, id)
+        delete(url, apiKey, detailsDelegate?.listRemovedSuccessfully, detailsDelegate?.listRemovingFailed)
     }
 }
 

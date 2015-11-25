@@ -9,15 +9,17 @@
 import AFNetworking
 import ObjectMapper
 
-class MovieDetailsManager {
-    let session: String
+class MovieDetailsManager: ApiManager, SessionRequired {
+    var sessionId: String
     let detailsDelegate: MovieDetailsDelegate?
     let stateDelegate: MovieStateChangeDelegate?
     
     init?(sessionId: String, detailsDelegate: MovieDetailsDelegate?, stateDelegate: MovieStateChangeDelegate?){
-        self.session = sessionId
+        self.sessionId = sessionId
         self.detailsDelegate = detailsDelegate
         self.stateDelegate = stateDelegate
+        
+        super.init()
         
         if sessionId.isEmpty {
             return nil
@@ -33,34 +35,23 @@ class MovieDetailsManager {
     }
     
     func loadDetails(id: String) {
-        let params = [
-            "api_key": ApiEndpoints.apiKey
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.movieDetails, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<MovieInfo>().map(response) {
-                    self.detailsDelegate?.movieDetailsLoadedSuccessfully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.movieDetailsLoadingFailed(error)
-        })
+        let url = String(format: ApiEndpoints.movieDetails, id)
+        get(url, apiKey, detailsDelegate?.movieDetailsLoadedSuccessfully, detailsDelegate?.movieDetailsLoadingFailed)
     }
     
     func loadState(id: String) {
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "session_id": session
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.movieState, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<AccountState>().map(response) {
-                    self.detailsDelegate?.movieStateLoadedSuccessfully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.movieStateLoadingFailed(error)
-        })
+        let url = String(format: ApiEndpoints.movieState, id)
+        get(url, apiKey +> session, detailsDelegate?.movieStateLoadedSuccessfully, detailsDelegate?.movieStateLoadingFailed)
+    }
+    
+    func loadImages(id: String){
+        let url = String(format: ApiEndpoints.movieImages, id)
+        get(url, apiKey +> session, detailsDelegate?.movieImagesLoadedSuccessully, detailsDelegate?.movieImagesLoadingFailed)
+    }
+    
+    func loadCredits(id: String) {
+        let url = String(format: ApiEndpoints.movieCredits, id)
+        get(url, apiKey, detailsDelegate?.movieCreditsLoadedSuccessfully, detailsDelegate?.movieCreditsLoadingFailed)
     }
     
     func changeFavoriteState(id: String, state: Bool){
@@ -104,37 +95,6 @@ class MovieDetailsManager {
             failure: { operation, error in
                 self.stateDelegate?.movieWatchlistStateChangesFailed(error)
         }).start()
-    }
-    
-    func loadImages(id: String){
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "session_id": session
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.movieImages, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<ImageInfoList>().map(response) {
-                    self.detailsDelegate?.movieImagesLoadedSuccessully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.movieImagesLoadingFailed(error)
-        })
-    }
-    
-    func loadCredits(id: String) {
-        let params = [
-            "api_key": ApiEndpoints.apiKey
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.movieCredits, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<Credits>().map(response) {
-                    self.detailsDelegate?.movieCreditsLoadedSuccessfully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.movieCreditsLoadingFailed(error)
-        })
     }
 }
 

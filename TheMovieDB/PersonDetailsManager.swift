@@ -9,42 +9,22 @@
 import AFNetworking
 import ObjectMapper
 
-class PersonDetailsManager {
-    
+class PersonDetailsManager: ApiManager {
     var detailsDelegate: PersonDetailsDelegate?
     
     init(detailsDelegate: PersonDetailsDelegate?){
         self.detailsDelegate = detailsDelegate
+        super.init()
     }
     
     func loadDetails(id: String) {
-        let params = [
-            "api_key" : ApiEndpoints.apiKey
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.personDetails, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<PersonInfo>().map(response) {
-                    self.detailsDelegate?.personDetailsLoadedSuccessfully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.personDetailsLoadingFailed(error) }
-        )
+        let url = String(format: ApiEndpoints.personDetails, id)
+        get(url, apiKey, detailsDelegate?.personDetailsLoadedSuccessfully, detailsDelegate?.personDetailsLoadingFailed)
     }
     
     func loadCredits(id: String) {
-        let params = [
-            "api_key" : ApiEndpoints.apiKey
-        ]
-        
-        AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.personCredits, id), parameters: params,
-            success: { operation, response in
-                if let results = Mapper<PersonCredits>().map(response) {
-                    self.detailsDelegate?.personCreditsLoadedScuccessfully(results)
-                }
-            },
-            failure: { operation, error in self.detailsDelegate?.personCreditsLoadingFailed(error) }
-        )
+        let url = String(format: ApiEndpoints.personCredits, id)
+        get(url, apiKey, detailsDelegate?.personCreditsLoadedScuccessfully, detailsDelegate?.personCreditsLoadingFailed)
     }
 }
 

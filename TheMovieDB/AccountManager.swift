@@ -8,16 +8,18 @@
 import AFNetworking
 import ObjectMapper
 
-class AccountManager {
+class AccountManager: ApiManager, SessionRequired {
+    var sessionId: String
     var account: Account?
-    let session: String
     let accountDelegate: AccountDelegate?
     let listsDelegate: ListsDelegate?
     
     init?(session: String, accountDelegate: AccountDelegate?, listsDelegate: ListsDelegate?){
-        self.session = session
+        self.sessionId = session
         self.accountDelegate = accountDelegate
         self.listsDelegate = listsDelegate
+        
+        super.init()
         
         if session.isEmpty {
             return nil
@@ -40,55 +42,21 @@ class AccountManager {
         }
         
         if let account = Cache.restoreAccount() {
-            print("Loaded from device")
             callback(account)
             return
         }
-
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "session_id": session,
-        ]
         
-        AFHTTPRequestOperationManager().GET(ApiEndpoints.accountInfo, parameters: params,
-            success: { operation, response in
-                if let account = Mapper<Account>().map(response) {
-                    print("Loaded from network")
-                    Cache.saveAccount(account)
-                    callback(account)
-                }
-            },
-            failure: { operation, error in self.accountDelegate?.userLoadingFailed(error)
-        })
+        get(ApiEndpoints.accountInfo, apiKey +> session, callback, accountDelegate?.userLoadingFailed) { Cache.saveAccount($0) }
     }
     
     func loadSegment(type: AccountSegmentType, page: Int = 1){
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "session_id": session,
-            "page": page
-        ]
-        
         func segment(requestUrl: String) {
-            AFHTTPRequestOperationManager().GET(requestUrl, parameters: params,
-                success: { operation, response in
-                    if let results = Mapper<SegmentList>().map(response) {
-                        self.listsDelegate?.userSegmentLoadedSuccessfully(results)
-                    }
-                },
-                failure: { operation, error in self.listsDelegate?.userSegmentLoadingFailed(error)
-            })
+            get(requestUrl, apiKey +> session +> [ "page": page ], listsDelegate?.userSegmentLoadedSuccessfully, listsDelegate?.userSegmentLoadingFailed)
         }
         
         func list() {
-            AFHTTPRequestOperationManager().GET(String(format: ApiEndpoints.accountLists, (account?.userId)!), parameters: params,
-                success: { operation, response in
-                    if let lists = Mapper<ListInfoPages>().map(response) {
-                        self.listsDelegate?.userListsLoadedSuccessfully(lists)
-                    }
-                },
-                failure: { operation, error in self.listsDelegate?.userListsLoadingFailed(error)
-            })
+            let url = String(format: ApiEndpoints.accountLists, (account?.userId)!)
+            get(url, apiKey +> session +> [ "page": page ], listsDelegate?.userListsLoadedSuccessfully, listsDelegate?.userListsLoadingFailed)
         }
         
         let url: String?
@@ -107,11 +75,11 @@ class AccountManager {
     }
     
     func addToList(listId id: String, itemId: Int) {
-        updateList(String(format: ApiEndpoints.listAddItem, id, session), id: id, itemId: itemId)
+        updateList(String(format: ApiEndpoints.listAddItem, id, sessionId), id: id, itemId: itemId)
     }
     
     func removeFromList(listId id: String, itemId: Int) {
-        updateList(String(format: ApiEndpoints.listDeleteItem, id, session), id: id, itemId: itemId)
+        updateList(String(format: ApiEndpoints.listDeleteItem, id, sessionId), id: id, itemId: itemId)
     }
     
     private func updateList(url: String, id: String, itemId: Int){

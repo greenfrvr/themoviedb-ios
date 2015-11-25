@@ -9,74 +9,40 @@
 import AFNetworking
 import ObjectMapper
 
-class AuthenticationManager {
-    var requestToken: String?
+class AuthenticationManager: ApiManager {
+    var token: String?
+    var requestToken: [String : String] { return [ "request_token": token ?? "" ] }
     var delegate: AuthenticationDelegate?
     
     func loadRequestToken(){
-        let params = [
-            "api_key": ApiEndpoints.apiKey
-        ]
-        
-        AFHTTPRequestOperationManager().GET(ApiEndpoints.newToken, parameters: params,
-            success: { operation, response in
-                if let token = Mapper<Token>().map(response) {
-                    self.delegate?.tokenLoadedSuccessfully(token)
-                    self.requestToken = token.requestToken
-                }
-            },
-            failure: { operation, error in self.delegate?.tokenLoadingFailed(error) }
-        )
+        get(ApiEndpoints.newToken, apiKey, delegate?.tokenLoadedSuccessfully, delegate?.tokenLoadingFailed) { [unowned self] in self.token = $0.requestToken }
     }
     
     func validateRequestToken(login: String, _ password: String){
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "request_token": requestToken!,
-            "username": login,
-            "password": password
-        ]
-            
-        AFHTTPRequestOperationManager().GET(ApiEndpoints.validateToken, parameters: params,
-            success: { operation, response in
-                if let token = Mapper<Token>().map(response) {
-                    self.delegate?.tokenValidatedSuccessfully(token)
-                    self.requestToken = token.requestToken
-                }
-            },
-            failure: { operation, error in self.delegate?.tokenValidationFailed(error) }
-        )
+        let params = wrapAuth(login, password)
+        get(ApiEndpoints.validateToken, apiKey +> requestToken +> params, delegate?.tokenValidatedSuccessfully, delegate?.tokenValidationFailed) { [unowned self] in self.token = $0.requestToken }
     }
     
     func createSession(){
-        let params = [
-            "api_key": ApiEndpoints.apiKey,
-            "request_token": requestToken!,
-        ]
-        
-        AFHTTPRequestOperationManager().GET(ApiEndpoints.createNewSession, parameters: params,
-            success: { operation, response in
-                if let session = Mapper<Session>().map(response) {
-                    Cache.saveSession(session)
-                    self.delegate?.sessionCreatedSuccessfully(session)
-                }
-            },
-            failure: { operation, error in self.delegate?.sessionCreationFailed(error) }
-        )
+        get(ApiEndpoints.createNewSession, apiKey +> requestToken, delegate?.sessionCreatedSuccessfully, delegate?.sessionCreationFailed) { Cache.saveSession($0) }
+    }
+    
+    private func wrapAuth(login: String, _ password: String) -> [String : String] {
+        return [ "username": login, "password": password]
     }
 }
 
 protocol AuthenticationDelegate {
     
-    func tokenLoadedSuccessfully(response: Token) -> Void
+    func tokenLoadedSuccessfully(response: Token)
     
-    func tokenLoadingFailed(error: NSError) -> Void
+    func tokenValidatedSuccessfully(response: Token)
     
-    func tokenValidatedSuccessfully(response: Token) -> Void
+    func sessionCreatedSuccessfully(session: Session)
     
-    func tokenValidationFailed(error: NSError) -> Void
+    func tokenLoadingFailed(error: NSError)
     
-    func sessionCreatedSuccessfully(session: Session) -> Void
+    func tokenValidationFailed(error: NSError)
     
-    func sessionCreationFailed(error: NSError) -> Void
+    func sessionCreationFailed(error: NSError)
 }

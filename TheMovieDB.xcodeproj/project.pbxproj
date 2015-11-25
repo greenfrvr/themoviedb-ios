@@ -16,6 +16,8 @@
 		1159831C1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159831B1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift */; };
 		1161C70A1C059EA20070A1DC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1161C7091C059EA20070A1DC /* Settings.bundle */; };
 		1161C70C1C05BBDF0070A1DC /* ApiErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1161C70B1C05BBDF0070A1DC /* ApiErrors.swift */; };
+		1161C70E1C05C8360070A1DC /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1161C70D1C05C8360070A1DC /* Operators.swift */; };
+		1161C7101C05CC7F0070A1DC /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1161C70F1C05CC7F0070A1DC /* ApiManager.swift */; };
 		1164CF501BEB876000E3893F /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1164CF4F1BEB876000E3893F /* SearchViewCell.swift */; };
 		116D4A021BFB0C3000AB44F1 /* PersonDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116D4A011BFB0C3000AB44F1 /* PersonDetailsController.swift */; };
 		116D4A041BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116D4A031BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift */; };
@@ -103,6 +105,8 @@
 		1159831B1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetailsActionAlert.swift; sourceTree = "<group>"; };
 		1161C7091C059EA20070A1DC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1161C70B1C05BBDF0070A1DC /* ApiErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiErrors.swift; sourceTree = "<group>"; };
+		1161C70D1C05C8360070A1DC /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		1161C70F1C05CC7F0070A1DC /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		1164CF4F1BEB876000E3893F /* SearchViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		116D4A011BFB0C3000AB44F1 /* PersonDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetailsController.swift; sourceTree = "<group>"; };
 		116D4A031BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollCollectionWithLabel.swift; sourceTree = "<group>"; };
@@ -311,6 +315,7 @@
 				117BF16C1C0472F300708172 /* TvShowDetailsManager.swift */,
 				117BF16E1C04730D00708172 /* PersonDetailsManager.swift */,
 				11FC7C7C1BE779F600838AA5 /* TrendsManager.swift */,
+				1161C70F1C05CC7F0070A1DC /* ApiManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -339,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				118336A61BF2145700D590AF /* UtilExtensions.swift */,
+				1161C70D1C05C8360070A1DC /* Operators.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -592,6 +598,7 @@
 				117BF16B1C0472D200708172 /* MovieDetailsManager.swift in Sources */,
 				11759B061BE76D5800BE2B46 /* AccountController.swift in Sources */,
 				11A3DC501BF60C6900F7F2B1 /* TvShowDetailsController.swift in Sources */,
+				1161C70E1C05C8360070A1DC /* Operators.swift in Sources */,
 				117BF16D1C0472F300708172 /* TvShowDetailsManager.swift in Sources */,
 				1159831C1BFCA34D00077AD7 /* PersonDetailsActionAlert.swift in Sources */,
 				11759ADA1BE764FB00BE2B46 /* SignInController.swift in Sources */,
@@ -608,6 +615,7 @@
 				11759AD81BE764FB00BE2B46 /* AppDelegate.swift in Sources */,
 				116D4A041BFB1B2F00AB44F1 /* UIScrollCollectionWithLabel.swift in Sources */,
 				114EB53E1BF31E4F0091F49B /* UIBackdropsHorizontalView.swift in Sources */,
+				1161C7101C05CC7F0070A1DC /* ApiManager.swift in Sources */,
 				113F96BF1BF4D557006551BD /* UIPosterView.swift in Sources */,
 				11FC7C811BE7906300838AA5 /* Cache.swift in Sources */,
 				11FC7C7F1BE78E4E00838AA5 /* Models.swift in Sources */,

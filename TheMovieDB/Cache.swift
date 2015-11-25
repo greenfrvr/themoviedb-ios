@@ -15,6 +15,7 @@ class Cache {
     
     static func saveSession(session: Session) {
         do {
+            print("Saving session id \(session.sessionToken ?? "")")
             try session.createInSecureStore()
         } catch {
             print("Caching session token is failed")

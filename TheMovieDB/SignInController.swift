@@ -25,14 +25,14 @@ class SignInController: UIViewController, AuthenticationDelegate {
             } else if password.isEmpty {
                 showAlert("Please fill required fields", "Password is missing", "OK, Got it")
             } else {
-                validateToken(login, password)
+                loadingIndicator.startAnimating()
+                authManager?.validateRequestToken(login, password)
             }
         } else {
             print("Input problem")
         }
     }
     
-    //MARK: Controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         Cache.clearSessionIfNeeded()
@@ -60,7 +60,7 @@ class SignInController: UIViewController, AuthenticationDelegate {
     //MARK: AuthenticationDelegate
     func sessionCreatedSuccessfully(session: Session) {
         loadingIndicator.stopAnimating()
-        
+
         moveToMainController()
     }
     
@@ -74,33 +74,30 @@ class SignInController: UIViewController, AuthenticationDelegate {
     }
     
     func tokenLoadingFailed(error: NSError) {
-        showAlert("Something went wrong", "Please come back to app again later", "OK")
-
-        print(error)
+        handleError(error)
     }
     
     func tokenValidationFailed(error: NSError) {
+        handleError(error)
+    }
+    
+    func sessionCreationFailed(error: NSError) {
+        handleError(error)
+    }
+
+    func handleError(error: NSError) {
         loadingIndicator.stopAnimating()
         
         if let error = error.apiError {
             if error.statusCode == 30 || error.statusCode == 32 {
                 showAlert("Invalid login and/or password", "Check your sign-in data", "OK")
+            } else {
+                showAlert("Something went wrong", "Please come back to app again later", "OK")
             }
             error.printError()
         }
     }
     
-    func sessionCreationFailed(error: NSError) {
-        print("Can't create session:\n \(error)")
-    }
-    
-    func validateToken(login: String, _ password: String) {
-        loadingIndicator.startAnimating()
-        
-        authManager?.validateRequestToken(login, password)
-    }
-
-    //MARK: UI
     func moveToMainController() {
         let mainController = self.storyboard?.instantiateViewControllerWithIdentifier("MainContentControllerID") as! UITabBarController
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
