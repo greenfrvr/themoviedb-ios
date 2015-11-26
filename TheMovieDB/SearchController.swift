@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class SearchController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchControllerDelegate, SearchDelegate  {
+class SearchController: UIViewController, UITabBarControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchControllerDelegate, SearchDelegate  {
     
     let sectionTitles = [
         0 : NSLocalizedString("Movie", comment: ""),
@@ -19,7 +19,7 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     var scopeIndex = 0
     var nextPage: Int?
     var hasMoreItems = false
-    var query: String?
+    var queryString: String?
     var searchManager: SearchManager?
     var resultsMovies = [SearchMovieItem]()
     var resultsTvShow = [SearchTVItem]()
@@ -34,10 +34,39 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.delegate = self
+        
         searchManager = SearchManager(delegate: self)
         searchTableView.dataSource = self
         searchTableView.delegate = self
         searchTableView.tableFooterView?.hidden = true
+        
+        restoreLastSearch()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        let app = UIApplication.sharedApplication()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveSearchParams", name: UIApplicationWillResignActiveNotification, object: app)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func restoreLastSearch() {
+        guard let (query, scope) = FileCache.restoreLastQueryParams() where !query.isEmpty else {
+            return
+        }
+        
+        (queryString, scopeIndex) = (query, scope)
+        searchBar.text = queryString
+        searchBar.selectedScopeButtonIndex = scopeIndex
+        clearResutls()
+        executeQuery()
+    }
+    
+    func saveSearchParams() {
+        FileCache.saveLastQueryParams(queryString, scopeIndex)
     }
     
     func receiveResults(@autoclosure persistData: () -> Void, pages: PaginationLoading) {
@@ -52,18 +81,17 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func executeQuery() {
-        print("Searching for: \(searchBar.text!)")
-        if let queryString = query where !queryString.isEmpty {
+        if let query = queryString where !query.isEmpty {
             loadingIndicator.startAnimating()
-            searchManager?.query(ScopeType(scopeIndex), query: queryString)
+            searchManager?.query(ScopeType(scopeIndex), query: query)
         }
     }
     
     func loadNextPage(){
         searchTableView.tableFooterView?.hidden = false
-        if let page = nextPage {
+        if let page = nextPage, query = queryString {
             let scope = ScopeType(scopeIndex)
-            searchManager?.query(scope, query: query!, page: page)
+            searchManager?.query(scope, query: query, page: page)
         }
         hasMoreItems = false
     }
@@ -76,7 +104,6 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         searchTableView.tableFooterView?.hidden = true
     }
     
-    //MARK: SearchDelegate
     func searchMovieResuts(searchResults: SearchMovieResults) {
         print("\(searchResults.results!.count) movies loaded out of \(searchResults.totalItems!)")
         receiveResults(self.resultsMovies += searchResults.results!, pages: searchResults)
@@ -113,6 +140,15 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
+    func extractDataForRepresentation(row row: Int, section: Int) -> SearchViewRepresentation? {
+        switch ScopeType(scopeIndex, section) {
+        case .MOVIE: return resultsMovies[row]
+        case .TV: return resultsTvShow[row]
+        case .PEOPLE: return resultsPerson[row]
+        case .ALL: return nil
+        }
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return scopeIndex == 0 ? 3 : 1
     }
@@ -127,15 +163,6 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         cell.cellImage.sd_setImageWithURL(NSURL(string: item?.representImage ?? ""), placeholderImage: UIImage.placeholder())
         
         return cell
-    }
-    
-    func extractDataForRepresentation(row row: Int, section: Int) -> SearchViewRepresentation? {
-        switch ScopeType(scopeIndex, section) {
-        case .MOVIE: return resultsMovies[row]
-        case .TV: return resultsTvShow[row]
-        case .PEOPLE: return resultsPerson[row]
-        case .ALL: return nil
-        }
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -182,14 +209,14 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        query = searchBar.text!
+        queryString = searchBar.text!
         scopeIndex = selectedScope
         clearResutls()
         executeQuery()
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        query = searchBar.text!
+        queryString = searchBar.text!
         clearResutls()
         executeQuery()
         searchBar.resignFirstResponder()
@@ -200,8 +227,16 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         searchBar.resignFirstResponder()
     }
     
-    enum ScopeType {
-        case ALL, MOVIE, TV, PEOPLE
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        if viewController == self {
+            print("You're back to search controller")
+        } else {
+            print("You're leaving search controller")
+        }
+    }
+    
+    enum ScopeType: Int {
+        case ALL = 0, MOVIE, TV, PEOPLE
         init(_ scope: Int, _ section: Int = -1){
             if (scope == 0 && section == 0) || scope == 1 {
                 self = .MOVIE

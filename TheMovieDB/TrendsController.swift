@@ -8,6 +8,15 @@
 
 import UIKit
 
-class TrendsController: UIViewController{
+class TrendsController: UIViewController, UITabBarControllerDelegate {
     
+    override func viewDidLoad() {
+        tabBarController?.delegate = self
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        if viewController == self {
+            print("You're back to trends controller")
+        }
+    }
 }

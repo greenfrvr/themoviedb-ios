@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class AccountController: UIViewController, AccountDelegate {
+class AccountController: UIViewController, UITabBarControllerDelegate, AccountDelegate {
     
     var segmentsLoader: UserSegmentsDelegate?
     var accountManager: AccountManager?
@@ -27,6 +27,8 @@ class AccountController: UIViewController, AccountDelegate {
     }
     
     override func viewDidLoad() {
+        tabBarController?.delegate = self
+        
         if let session = Cache.restoreSession() {
             accountManager = AccountManager(sessionId: session, accountDelegate: self)
             accountManager?.loadAccountData()
@@ -52,6 +54,12 @@ class AccountController: UIViewController, AccountDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "UserListsSegue" {
            segmentsLoader = segue.destinationViewController as? UserSegmentsDelegate
+        }
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        if viewController == self {
+            print("You're back to account controller")
         }
     }
 }
