@@ -9,27 +9,23 @@
 import UIKit
 import SDWebImage
 
-class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieStateChangeDelegate, UIBackdropsDelegat, UICastDelegate {
+class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieStateChangeDelegate, UIBackdropsDelegat, UICastDelegate, DetailsNavigation {
     
-    var movieId: String?
+    static var controllerId = "MovieDetails"
+    static var navigationId = "MovieNavigationController"
+    
+    var id: String?
     var imdbId: String?
     var movieState: AccountState?
     var detailsManager: MovieDetailsManager?
     var backdropImages = [ImageInfo]()
     var shareUrl: String {
-        return "\(ApiEndpoints.movieShare)/\(movieId!)"
+        return "\(ApiEndpoints.movieShare)/\(id!)"
     }
     var openIMDBUrl: String {
         return "http://www.imdb.com/title/\(imdbId!)"
     }
     lazy var castView = UICastHorizontalView()
-    
-    static func performMovieController(performer: UIViewController, id: String?){
-        let navigationController = performer.storyboard?.instantiateViewControllerWithIdentifier("MovieNavigationController") as! UINavigationController
-        let controller = navigationController.topViewController as! MovieDetailsController
-        controller.movieId = id
-        performer.presentViewController(navigationController, animated: true, completion: nil)
-    }
     
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -57,7 +53,11 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     @IBAction func unwindMovieDetails(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+        if navigationController?.viewControllers.count == 1 {
+            dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     @IBAction func overviewSectionClicked(sender: AnyObject) {
@@ -66,26 +66,26 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     @IBAction func addToFavorite(sender: UIBarButtonItem) {
         if let movie = movieState {
-            detailsManager?.changeFavoriteState(movieId!, state: movie.favorite ?? false)
+            detailsManager?.changeFavoriteState(id!, state: movie.favorite ?? false)
         }
     }
     
     @IBAction func addToWatchlist(sender: AnyObject) {
         if let movie = movieState {
-            detailsManager?.changeWatchlistState(movieId!, state: movie.watchlist ?? false)
+            detailsManager?.changeWatchlistState(id!, state: movie.watchlist ?? false)
         }
     }
     
     @IBAction func actionButtonClicked(sender: AnyObject) {
         let alert = MovieDetailsActionAlert(presenter: self, imdb: openIMDBUrl, url: shareUrl)
-        alert.id = movieId
+        alert.id = id
         alert.present()
     }
     
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let session = Cache.restoreSession(), id = movieId {
+        if let session = Cache.restoreSession(), id = id {
             detailsManager = MovieDetailsManager(sessionId: session, detailsDelegate: self, stateDelegate: self)
             detailsManager?.loadDetails(id)
             detailsManager?.loadState(id)
@@ -201,7 +201,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     func castSelected(id: Int?) {
         if let castId = id {
-            PersonDetailsController.performPersonDetails(self, id: String(castId))
+            PersonDetailsController.presentControllerModally(self, id: String(castId))
         }
     }
     

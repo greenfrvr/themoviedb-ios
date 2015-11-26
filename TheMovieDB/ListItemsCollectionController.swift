@@ -15,7 +15,7 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
-        MovieDetailsController.performMovieController(self, id: String(item.itemId!))
+        MovieDetailsController.presentControllerWithNavigation(self, id: String(item.itemId!))
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

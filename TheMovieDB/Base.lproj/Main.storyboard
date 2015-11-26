@@ -222,7 +222,7 @@
         <!--List Details-->
         <scene sceneID="rm9-hi-NDy">
             <objects>
-                <viewController title="List Details" definesPresentationContext="YES" id="HfO-sx-Kvr" customClass="ListDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListDetails" title="List Details" definesPresentationContext="YES" id="HfO-sx-Kvr" customClass="ListDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RDE-d5-VUo"/>
                         <viewControllerLayoutGuide type="bottom" id="vPe-c8-wMg"/>
@@ -1821,7 +1821,7 @@
         <!--Person Details-->
         <scene sceneID="sdQ-C9-dOX">
             <objects>
-                <viewController title="Person Details" id="U4y-BH-JXe" customClass="PersonDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PersonDetails" title="Person Details" id="U4y-BH-JXe" customClass="PersonDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sfX-8K-5d4"/>
                         <viewControllerLayoutGuide type="bottom" id="KWF-Ud-RCw"/>

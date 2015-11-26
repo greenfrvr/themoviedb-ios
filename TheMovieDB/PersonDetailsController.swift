@@ -8,23 +8,19 @@
 
 import UIKit
 
-class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPersonCreditsViewDelegate {
+class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPersonCreditsViewDelegate, DetailsNavigation {
     
-    var personId: String?
+    static var controllerId = "PersonDetails"
+    static var navigationId = "PersonNavigationController"
+    
+    var id: String?
     var homepage: String?
     var shareUrl: String {
-        return "\(ApiEndpoints.personShare)/\(personId!)"
+        return "\(ApiEndpoints.personShare)/\(id!)"
     }
     var detailsManager: PersonDetailsManager?
     lazy var creditsView = UIPersonCreditsView()
-    
-    static func performPersonDetails(performer: UIViewController, id: String) {
-        let navigationController = performer.storyboard?.instantiateViewControllerWithIdentifier("PersonNavigationController") as! UINavigationController
-        let controller = navigationController.topViewController as! PersonDetailsController
-        controller.personId = id
-        performer.presentViewController(navigationController, animated: true, completion: nil)
-    }
-    
+
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var birthdayLabel: UILabel!
@@ -37,7 +33,11 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     }
     
     @IBAction func unwindPersonDetails(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        if navigationController?.viewControllers.count == 1 {
+            dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     @IBAction func actionButtonClicked(sender: AnyObject) {
@@ -48,7 +48,7 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     override func viewDidLoad() {
         detailsManager = PersonDetailsManager(detailsDelegate: self)
         
-        if let id = personId {
+        if let id = id {
             detailsManager?.loadDetails(id)
             detailsManager?.loadCredits(id)
         }
@@ -88,8 +88,8 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     func castSelected(itemId: Int?, type itemType: String?) {
         if let id = itemId, type = itemType {
             switch type {
-            case "movie": MovieDetailsController.performMovieController(self, id: String(id))
-            case "tv": TvShowDetailsController.performTvController(self, id: String(id))
+            case "movie": MovieDetailsController.presentControllerModally(self, id: String(id))
+            case "tv": TvShowDetailsController.presentControllerModally(self, id: String(id))
             default: return
             }
         }

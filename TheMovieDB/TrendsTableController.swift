@@ -92,9 +92,9 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
     func posterTapped(itemId: Int?) {
         switch trendsType {
         case .MOVIE:
-            MovieDetailsController.performMovieController(self, id: String(itemId!))
+            MovieDetailsController.presentControllerWithNavigation(self, id: String(itemId!))
         case .TV:
-            TvShowDetailsController.performTvController(self, id: String(itemId!))
+            TvShowDetailsController.presentControllerWithNavigation(self, id: String(itemId!))
         }
     }
     

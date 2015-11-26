@@ -8,19 +8,15 @@
 
 import UIKit
 
-class ListDetailsController: UIViewController, ListDetailsDelegate {
+class ListDetailsController: UIViewController, ListDetailsDelegate, DetailsNavigation {
     
-    var argListId: String?
+    static var controllerId = "ListDetails"
+    static var navigationId = "CollectionNavigationController"
+    
+    var id: String?
     var detailsManager: ListDetailsManager?
     var collectionDelegate: ListItemsCollectionDelegate?
-    var shareUrl: String { return String(format: ApiEndpoints.listShare, self.argListId!) }
-    
-    static func performListController(performer: UIViewController, id: String?){
-        let navigationController = performer.storyboard?.instantiateViewControllerWithIdentifier("CollectionNavigationController") as! UINavigationController
-        let controller = navigationController.topViewController as! ListDetailsController
-        controller.argListId = id
-        performer.presentViewController(navigationController, animated: true, completion: nil)
-    }
+    var shareUrl: String { return String(format: ApiEndpoints.listShare, self.id!) }
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
@@ -34,14 +30,14 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
     }
     
     @IBAction func actionButtonClick(sender: UIBarButtonItem) {
-        let alert = ListDetailsActionAlert(presenter: self, detailsManager: detailsManager, id: argListId!, url: shareUrl)
+        let alert = ListDetailsActionAlert(presenter: self, detailsManager: detailsManager, id: id!, url: shareUrl)
         alert.present()
     }
     
     override func viewDidLoad() {
         if let session = Cache.restoreSession() {
             detailsManager = ListDetailsManager(sessionId: session, detailsDelegate: self)
-            detailsManager?.listDetails(listId: argListId!)
+            detailsManager?.listDetails(listId: id!)
         }
     }
         

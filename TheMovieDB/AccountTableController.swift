@@ -110,8 +110,8 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         let item = lists[indexPath.row]
         
         switch currentType {
-        case .List: ListDetailsController.performListController(self, id: item.id)
-        default: MovieDetailsController.performMovieController(self, id: item.id)
+        case .List: ListDetailsController.presentControllerWithNavigation(self, id: item.id)
+        default: MovieDetailsController.presentControllerWithNavigation(self, id: item.id)
         }
     }
     
@@ -158,3 +158,7 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         refreshControl?.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
     }
 }
+
+
+
+

@@ -8,25 +8,21 @@
 
 import UIKit
 
-class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowStateChangeDelegate, UIBackdropsDelegat, UICastDelegate {
-
-    var tvShowId: String?
+class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowStateChangeDelegate, UIBackdropsDelegat, UICastDelegate, DetailsNavigation {
+    
+    static var controllerId = "TvDetails"
+    static var navigationId = "TvNavigationController"
+    
+    var id: String?
     var homepage: String?
     var showState: AccountState?
     var detailsManager: TvShowDetailsManager?
     var backdropImages = [ImageInfo]()
     var shareUrl: String {
-        return "\(ApiEndpoints.tvShare)/\(tvShowId!)"
+        return "\(ApiEndpoints.tvShare)/\(id!)"
     }
     lazy var castView = UICastHorizontalView()
-    
-    static func performTvController(performer: UIViewController, id: String){
-        let navigationController = performer.storyboard?.instantiateViewControllerWithIdentifier("TvNavigationController") as! UINavigationController
-        let controller = navigationController.topViewController as! TvShowDetailsController
-        controller.tvShowId = id
-        performer.presentViewController(navigationController, animated: true, completion: nil)
-    }
-    
+        
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var averageVoteLabel: UILabel!
@@ -53,18 +49,22 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     @IBAction func unwindTvShowDetails(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+        if navigationController?.viewControllers.count == 1 {
+            dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     @IBAction func addToFavorite(sender: UIBarButtonItem) {
         if let show = showState {
-            detailsManager?.changeFavoriteState(tvShowId!, state: show.favorite ?? false)
+            detailsManager?.changeFavoriteState(id!, state: show.favorite ?? false)
         }
     }
     
     @IBAction func addToWatchlist(sender: AnyObject) {
         if let show = showState {
-            detailsManager?.changeWatchlistState(tvShowId!, state: show.watchlist ?? false)
+            detailsManager?.changeWatchlistState(id!, state: show.watchlist ?? false)
         }
     }
     
@@ -74,7 +74,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     override func viewDidLoad() {
-        if let session = Cache.restoreSession(), id = tvShowId {
+        if let session = Cache.restoreSession(), id = id {
             detailsManager = TvShowDetailsManager(sessionId: session, detailsDelegate: self, stateDelegate: self)
             detailsManager?.loadDetails(id)
             detailsManager?.loadState(id)
@@ -190,7 +190,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     
     func castSelected(id: Int?) {
         if let castId = id {
-            PersonDetailsController.performPersonDetails(self, id: String(castId))
+            PersonDetailsController.presentControllerModally(self, id: String(castId))
          }
     }
     
