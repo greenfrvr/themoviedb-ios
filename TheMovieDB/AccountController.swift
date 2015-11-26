@@ -18,11 +18,12 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var segmentsChooser: UISegmentedControl!
     
     @IBAction func usersSetChanged(sender: UISegmentedControl, forEvent event: UIEvent) {
-        let type = AccountSegmentType(rawValue: sender.selectedSegmentIndex)
-        if let segmentType = type {
-            segmentsLoader?.loadSelectedSegment(segmentType)
+        let index = sender.selectedSegmentIndex
+        if let type = AccountSegmentType(rawValue: index) {
+            segmentsLoader?.loadSelectedSegment(type)
         }
     }
     
@@ -60,6 +61,10 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         if viewController == self {
             print("You're back to account controller")
+            let index = segmentsChooser.selectedSegmentIndex
+            if let type = AccountSegmentType(rawValue: index) {
+                segmentsLoader?.loadSelectedSegment(type)
+            }
         }
     }
 }

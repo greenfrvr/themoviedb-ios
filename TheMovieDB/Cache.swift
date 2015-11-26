@@ -41,38 +41,37 @@ class Cache {
             }
         }
     }
+
+    private static func needsSessionCaching() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey("session_caching_enabled")
+    }
+
+    static func saveUsername(username: String?) {
+        NSUserDefaults.standardUserDefaults().setObject(username, forKey: "account")
+    }
     
     static func saveAccount(account: Account) {
-        let prefs = NSUserDefaults.standardUserDefaults()
-        prefs.setInteger((account.userId)!, forKey: "userId")
-        prefs.setObject(account.username, forKey: "username")
-        prefs.setObject(account.fullName, forKey: "fullname")
-        prefs.setObject(account.gravatarHash, forKey: "gravatar")
-        prefs.setObject(account.langCode, forKey: "lang")
-        prefs.setObject(account.countryCode, forKey: "country")
-        prefs.setBool((account.includeAdult)!, forKey: "adult")
-        prefs.setObject(account.username, forKey: "account")
+        saveUsername(account.username)
+        
+        guard let url = NSURL(docsFilePath: "account.archive") else {
+            print("Cannot save account info")
+            return
+        }
+        
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
+        archiver.encodeObject(account, forKey: "account")
+        archiver.finishEncoding()
+        data.writeToURL(url, atomically: true)
     }
     
     static func restoreAccount() -> Account? {
-        let prefs = NSUserDefaults.standardUserDefaults()
-        let id = prefs.integerForKey("userId")
-        if id != 0 {
-            var acc = Account()
-            acc.userId = id
-            acc.username = prefs.stringForKey("username")
-            acc.fullName = prefs.stringForKey("fullname")
-            acc.gravatarHash = prefs.stringForKey("gravatar")
-            acc.langCode = prefs.stringForKey("lang")
-            acc.countryCode = prefs.stringForKey("country")
-            acc.includeAdult = prefs.boolForKey("adult")
-            return acc
-        } else {
+        guard let url = NSURL(docsFilePath: "account.archive"), let data = NSData(contentsOfURL: url) else {
+            print("Cannot restore account info")
             return nil
         }
-    }
-    
-    private static func needsSessionCaching() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey("session_caching_enabled")
+        
+        let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+        return unarchiver.decodeObjectForKey("account") as? Account
     }
 }

@@ -71,7 +71,7 @@ class Session: Mappable, CreateableSecureStorable, GenericPasswordSecureStorable
 }
 
 //__________________User account info__________________
-struct Account: Mappable {
+class Account: NSObject, NSCoding, Mappable {
     var userId: Int?
     var username: String?
     var fullName: String?
@@ -83,12 +83,31 @@ struct Account: Mappable {
         return "http://www.gravatar.com/avatar/\(gravatarHash!)?s=150"
     }
     
-    init(){}
-    
-    init?(_ map: Map) {
+    required init?(_ map: Map) {
     }
     
-    mutating func mapping(map: Map) {
+    required init?(coder decoder: NSCoder) {
+        userId = decoder.decodeObjectForKey("userId") as! Int?
+        username = decoder.decodeObjectForKey("username") as! String?
+        fullName = decoder.decodeObjectForKey("fullname") as! String?
+        langCode = decoder.decodeObjectForKey("lang") as! String?
+        countryCode = decoder.decodeObjectForKey("country") as! String?
+        includeAdult = decoder.decodeObjectForKey("adult") as! Bool?
+        gravatarHash = decoder.decodeObjectForKey("gravatar") as! String?
+
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(userId, forKey: "userId")
+        aCoder.encodeObject(username, forKey: "username")
+        aCoder.encodeObject(fullName, forKey: "fullname")
+        aCoder.encodeObject(langCode, forKey: "lang")
+        aCoder.encodeObject(countryCode, forKey: "country")
+        aCoder.encodeObject(includeAdult, forKey: "adult")
+        aCoder.encodeObject(gravatarHash, forKey: "gravatar")
+    }
+    
+    func mapping(map: Map) {
         userId<-map["id"]
         username<-map["username"]
         fullName<-map["name"]

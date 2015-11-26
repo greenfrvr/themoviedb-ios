@@ -62,29 +62,6 @@ class AccountManager: ApiManager, SessionRequired {
         default:
             get(url, apiKey +> session +> [ "page" : page ], listsDelegate?.userSegmentLoadedSuccessfully, listsDelegate?.userSegmentLoadingFailed)
         }
-        
-//        func segment(requestUrl: String) {
-//            get(requestUrl, apiKey +> session +> [ "page" : page ], listsDelegate?.userSegmentLoadedSuccessfully, listsDelegate?.userSegmentLoadingFailed)
-//        }
-//        
-//        func list() {
-//            let url = ApiEndpoints.accountLists.withArgs(userId)
-//            get(url, apiKey +> session +> [ "page" : page ], listsDelegate?.userListsLoadedSuccessfully, listsDelegate?.userListsLoadingFailed)
-//        }
-//        
-//        let url: String?
-//        switch type {
-//        case .Favorite: url = ApiEndpoints.accountFavoriteMovies.withArgs(userId)
-//        case .Rated: url = ApiEndpoints.accountRatedMovies.withArgs(userId)
-//        case .Watchlist: url = ApiEndpoints.accountWatchlistMovies.withArgs(userId)
-//        case .List: url = nil
-//        }
-//        
-//        if let requestUrl = url {
-//            segment(requestUrl)
-//        } else {
-//            list()
-//        }
     }
     
     func addToList(listId id: String, itemId: Int) {

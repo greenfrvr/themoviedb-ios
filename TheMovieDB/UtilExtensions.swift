@@ -76,6 +76,15 @@ extension NSURL {
             return nil
         }
     }
+    
+    convenience init?(docsFilePath path: String) {
+        let docsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        self.init(string: path, relativeToURL: docsUrl)
+        
+        if path.isEmpty {
+            return nil
+        }
+    }
 }
 
 extension UIImage {
@@ -88,9 +97,7 @@ extension UIImage {
 extension UIImageView {
     
     @IBInspectable var cornerRadius: CGFloat {
-        get {
-            return layer.cornerRadius
-        }
+        get { return layer.cornerRadius }
         set {
             layer.cornerRadius = newValue
             layer.masksToBounds = newValue > 0
@@ -101,38 +108,22 @@ extension UIImageView {
 extension UIScrollView {
     
     @IBInspectable var topInset: CGFloat {
-        get {
-            return self.topInset
-        }
-        set {
-            self.contentInset.top = newValue
-        }
+        get { return self.topInset }
+        set { self.contentInset.top = newValue }
     }
     
     @IBInspectable var bottomInset: CGFloat {
-        get {
-            return self.topInset
-        }
-        set {
-            self.contentInset.bottom = newValue
-        }
+        get { return self.topInset }
+        set { self.contentInset.bottom = newValue }
     }
     
     @IBInspectable var leftInset: CGFloat {
-        get {
-            return self.leftInset
-        }
-        set {
-            self.contentInset.left = newValue
-        }
+        get { return self.leftInset }
+        set { self.contentInset.left = newValue }
     }
     
     @IBInspectable var rightInset: CGFloat {
-        get {
-            return self.rightInset
-        }
-        set {
-            self.contentInset.right = newValue
-        }
+        get { return self.rightInset }
+        set { self.contentInset.right = newValue }
     }
 }

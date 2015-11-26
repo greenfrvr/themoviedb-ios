@@ -33,22 +33,18 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         }
     
         setupPullToRefreshControl()
-        stopRefreshing()
         tableView.tableFooterView?.hidden = true
     }
     
     func receiveResults(@autoclosure persistData: () -> Void, pages: PaginationLoading) {
-        tableView.tableFooterView?.hidden = true
-        
-        stopRefreshing()
-        updateRefreshingTitle()
-        
         persistData()
         
         hasMoreItems = pages.hasMorePages
         nextPage = pages.nextPage
         
         tableView.reloadData()
+        tableView.tableFooterView?.hidden = true
+        stopRefreshing()
     }
     
     func userListsLoadedSuccessfully(results: ListInfoPages) {
@@ -77,13 +73,7 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     
     func loadSelectedSegment(segment: AccountSegmentType) {
         currentType = segment
-        loadData()
-    }
-    
-    func loadData(){
-        lists.removeAll()
-        tableView.reloadData()
-        accountManager?.loadSegment(currentType)
+        loadInitPage()
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -136,19 +126,20 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     func loadInitPage(){
         lists.removeAll()
         accountManager?.loadSegment(currentType)
+        updateRefreshingTitle()
     }
     
     func setupPullToRefreshControl() {
-        refreshControl = UIRefreshControl()
-        refreshControl?.backgroundColor = UIColor.rgb(22, 122, 110)
-        refreshControl?.tintColor = UIColor.whiteColor()
-        refreshControl?.addTarget(self, action: "loadInitPage", forControlEvents: UIControlEvents.ValueChanged)
+        let refresh = UIRefreshControl()
+        refresh.backgroundColor = UIColor.rgb(22, 122, 110)
+        refresh.tintColor = UIColor.whiteColor()
+        refresh.addTarget(self, action: "loadInitPage", forControlEvents: UIControlEvents.ValueChanged)
+        
+        refreshControl = refresh
     }
     
     func stopRefreshing() {
-        if let refresh = refreshControl where refresh.refreshing {
-            refresh.endRefreshing()
-        }
+            refreshControl?.endRefreshing()
     }
     
     func updateRefreshingTitle() {

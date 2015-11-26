@@ -104,6 +104,7 @@
                         <outlet property="avatarImageView" destination="caT-wG-tG1" id="mQK-V4-r9G"/>
                         <outlet property="fullNameLabel" destination="bG2-2B-CvB" id="BU3-Y0-Xkg"/>
                         <outlet property="loadingIndicator" destination="IZs-z8-xr4" id="3z6-ul-4Mp"/>
+                        <outlet property="segmentsChooser" destination="YyO-q8-jjC" id="8BN-ec-Y8r"/>
                         <outlet property="usernameLabel" destination="zjS-aJ-9bK" id="Ktg-Ej-6ip"/>
                     </connections>
                 </viewController>
@@ -436,7 +437,7 @@
                                     <outlet property="delegate" destination="N7Q-yb-0fq" id="E6t-WT-VYu"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchTableControllerID" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TuP-ki-0zJ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchTableControllerID" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TuP-ki-0zJ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
