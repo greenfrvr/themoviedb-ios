@@ -35,68 +35,41 @@ class TvShowDetailsManager: ApiManager, SessionRequired {
     }
     
     func loadDetails(id: String) {
-        let url = String(format: ApiEndpoints.tvDetails, id)
+        let url = ApiEndpoints.tvDetails.withArgs(id)
         get(url, apiKey, detailsDelegate?.tvshowDetailsLoadedSuccessfully, detailsDelegate?.tvshowDetailsLoadingFailed)
     }
     
     func loadState(id: String) {
-        let url = String(format: ApiEndpoints.tvState, id)
+        let url = ApiEndpoints.tvState.withArgs(id)
         get(url, apiKey +> session, detailsDelegate?.tvshowStateLoadedSuccessfully, detailsDelegate?.tvshowStateLoadingFailed)
 
     }
     
     func loadImages(id: String) {
-        let url = String(format: ApiEndpoints.tvImages, id)
+        let url = ApiEndpoints.tvImages.withArgs(id)
         get(url, apiKey +> session, detailsDelegate?.tvshowImagesLoadedSuccessully, detailsDelegate?.tvshowImagesLoadingFailed)
     }
     
     func loadCredits(id: String) {
-        let url = String(format: ApiEndpoints.tvCredits, id)
+        let url = ApiEndpoints.tvCredits.withArgs(id)
         get(url, apiKey, detailsDelegate?.tvshowCreditsLoadedSuccessfully, detailsDelegate?.tvshowCreditsLoadingFailed)
     }
 
     
     func changeFavoriteState(id: String, state: Bool){
         let newState = !state
-        let body = Mapper<FavoriteBody>().toJSONString(FavoriteBody(tvShowId: Int(id), isFavorite: newState), prettyPrint: true)!
+        let body = FavoriteBody(tvShowId: Int(id), isFavorite: newState)
+        let url = ApiEndpoints.accountItemFavoriteState.withArgs(id, sessionId)
         
-        let request = NSMutableURLRequest(URL: NSURL(string: String(format: ApiEndpoints.accountItemFavoriteState, id, session))!)
-        request.HTTPMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let manager = AFHTTPRequestOperationManager()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        manager.HTTPRequestOperationWithRequest(request,
-            success: { operation, response in
-                self.stateDelegate?.tvshowFavoriteStateChangedSuccessfully(newState)
-            },
-            failure: { operation, error in
-                self.stateDelegate?.tvshowFavoriteStateChangesFailed(error)
-        }).start()
+        post(url, body, { [unowned self] in self.stateDelegate?.tvshowFavoriteStateChangedSuccessfully(newState) }, stateDelegate?.tvshowFavoriteStateChangesFailed)
     }
     
     func changeWatchlistState(id: String, state: Bool){
         let newState = !state
-        let body = Mapper<WatchlistBody>().toJSONString(WatchlistBody(tvShowId: Int(id), isInWatchlist: newState), prettyPrint: true)!
-        print(body)
+        let body = WatchlistBody(tvShowId: Int(id), isInWatchlist: newState)
+        let url = ApiEndpoints.accountItemWatchlistState.withArgs(id, sessionId)
         
-        let request = NSMutableURLRequest(URL: NSURL(string: String(format: ApiEndpoints.accountItemWatchlistState, id, session))!)
-        request.HTTPMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let manager = AFHTTPRequestOperationManager()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        manager.HTTPRequestOperationWithRequest(request,
-            success: { operation, response in
-                self.stateDelegate?.tvshowWatchlistStateChangedSuccessfully(newState)
-            },
-            failure: { operation, error in
-                self.stateDelegate?.tvshowWatchlistStateChangesFailed(error)
-        }).start()
+        post(url, body, { [unowned self] in self.stateDelegate?.tvshowWatchlistStateChangedSuccessfully(newState) }, stateDelegate?.tvshowWatchlistStateChangesFailed)
     }
 }
 

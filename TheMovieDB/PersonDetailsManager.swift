@@ -18,12 +18,12 @@ class PersonDetailsManager: ApiManager {
     }
     
     func loadDetails(id: String) {
-        let url = String(format: ApiEndpoints.personDetails, id)
+        let url = ApiEndpoints.personDetails.withArgs(id)
         get(url, apiKey, detailsDelegate?.personDetailsLoadedSuccessfully, detailsDelegate?.personDetailsLoadingFailed)
     }
     
     func loadCredits(id: String) {
-        let url = String(format: ApiEndpoints.personCredits, id)
+        let url = ApiEndpoints.personCredits.withArgs(id)
         get(url, apiKey, detailsDelegate?.personCreditsLoadedScuccessfully, detailsDelegate?.personCreditsLoadingFailed)
     }
 }

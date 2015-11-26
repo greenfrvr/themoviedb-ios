@@ -11,7 +11,6 @@ import SDWebImage
 
 class SearchController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchControllerDelegate, SearchDelegate  {
     
-    //MARK: Properties
     let sectionTitles = [
         0 : NSLocalizedString("Movie", comment: ""),
         1 : NSLocalizedString("TV Show", comment: ""),
@@ -26,7 +25,6 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     var resultsTvShow = [SearchTVItem]()
     var resultsPerson = [SearchPersonItem]()
     
-    //MARK: Outlets
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
@@ -34,7 +32,6 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     @IBOutlet weak var pagintationIndicator: UIActivityIndicatorView!
     @IBOutlet weak var pagintationLabel: UILabel!
     
-    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         searchManager = SearchManager(delegate: self)
@@ -43,7 +40,6 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         searchTableView.tableFooterView?.hidden = true
     }
     
-    //MARK: Data
     func receiveResults(@autoclosure persistData: () -> Void, pages: PaginationLoading) {
         persistData()
         
@@ -97,21 +93,26 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func searchNoMoviesFound(error: NSError) {
-        print(error)
         loadingIndicator.stopAnimating()
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func searchNoTvShowFound(error: NSError) {
-        print(error)
         loadingIndicator.stopAnimating()
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func searchNoPersonFound(error: NSError) {
-        print(error)
         loadingIndicator.stopAnimating()
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
-    //MARK: TableViewDataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return scopeIndex == 0 ? 3 : 1
     }
@@ -180,7 +181,6 @@ class SearchController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
-    //MARK: SearchBarDelegate
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         query = searchBar.text!
         scopeIndex = selectedScope

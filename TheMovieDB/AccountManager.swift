@@ -50,56 +50,54 @@ class AccountManager: ApiManager, SessionRequired {
     }
     
     func loadSegment(type: AccountSegmentType, page: Int = 1){
-        func segment(requestUrl: String) {
-            get(requestUrl, apiKey +> session +> [ "page": page ], listsDelegate?.userSegmentLoadedSuccessfully, listsDelegate?.userSegmentLoadingFailed)
+        guard let userId = account?.userId else {
+            print("Can't obtain user id")
+            return
         }
         
-        func list() {
-            let url = String(format: ApiEndpoints.accountLists, (account?.userId)!)
-            get(url, apiKey +> session +> [ "page": page ], listsDelegate?.userListsLoadedSuccessfully, listsDelegate?.userListsLoadingFailed)
-        }
-        
-        let url: String?
+        let url = type.requestUrl.withArgs(userId)
         switch type {
-        case .Favorite: url = String(format: ApiEndpoints.accountFavoriteMovies, (account?.userId)!)
-        case .Rated: url = String(format: ApiEndpoints.accountRatedMovies, (account?.userId)!)
-        case .Watchlist: url = String(format: ApiEndpoints.accountWatchlistMovies, (account?.userId)!)
-        case .List: url = nil
+        case .List:
+            get(url, apiKey +> session +> [ "page" : page ], listsDelegate?.userListsLoadedSuccessfully, listsDelegate?.userListsLoadingFailed)
+        default:
+            get(url, apiKey +> session +> [ "page" : page ], listsDelegate?.userSegmentLoadedSuccessfully, listsDelegate?.userSegmentLoadingFailed)
         }
         
-        if let requestUrl = url {
-            segment(requestUrl)
-        } else {
-            list()
-        }
+//        func segment(requestUrl: String) {
+//            get(requestUrl, apiKey +> session +> [ "page" : page ], listsDelegate?.userSegmentLoadedSuccessfully, listsDelegate?.userSegmentLoadingFailed)
+//        }
+//        
+//        func list() {
+//            let url = ApiEndpoints.accountLists.withArgs(userId)
+//            get(url, apiKey +> session +> [ "page" : page ], listsDelegate?.userListsLoadedSuccessfully, listsDelegate?.userListsLoadingFailed)
+//        }
+//        
+//        let url: String?
+//        switch type {
+//        case .Favorite: url = ApiEndpoints.accountFavoriteMovies.withArgs(userId)
+//        case .Rated: url = ApiEndpoints.accountRatedMovies.withArgs(userId)
+//        case .Watchlist: url = ApiEndpoints.accountWatchlistMovies.withArgs(userId)
+//        case .List: url = nil
+//        }
+//        
+//        if let requestUrl = url {
+//            segment(requestUrl)
+//        } else {
+//            list()
+//        }
     }
     
     func addToList(listId id: String, itemId: Int) {
-        updateList(String(format: ApiEndpoints.listAddItem, id, sessionId), id: id, itemId: itemId)
+        updateList(ApiEndpoints.listAddItem.withArgs(id, sessionId), itemId: itemId)
     }
     
     func removeFromList(listId id: String, itemId: Int) {
-        updateList(String(format: ApiEndpoints.listDeleteItem, id, sessionId), id: id, itemId: itemId)
+        updateList(ApiEndpoints.listDeleteItem.withArgs(id, sessionId), itemId: itemId)
     }
     
-    private func updateList(url: String, id: String, itemId: Int){
-        let body = Mapper<ListDetails.UpdateListBody>().toJSONString(ListDetails.UpdateListBody(mediaId: itemId), prettyPrint: true)!
-        
-        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
-        request.HTTPMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let manager = AFHTTPRequestOperationManager()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        manager.HTTPRequestOperationWithRequest(request,
-            success: { operation, response in
-                self.listsDelegate?.listItemUpdatedSuccessfully()
-            },
-            failure: { operation, error in
-                self.listsDelegate?.listItemUpdatingFailed(error)
-        }).start()
+    private func updateList(url: String, itemId: Int){
+        let body = ListDetails.UpdateListBody(mediaId: itemId)
+        post(url, body, listsDelegate?.listItemUpdatedSuccessfully, listsDelegate?.listItemUpdatingFailed)
     }
 }
 

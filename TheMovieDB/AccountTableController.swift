@@ -11,17 +11,14 @@ import SDWebImage
 
 class AccountTableController: UITableViewController, ListsDelegate, UserSegmentsDelegate {
 
-    //MARK: Properties
     var nextPage: Int?
     var hasMoreItems = false
     var currentType = AccountSegmentType.List
     var accountManager: AccountManager?
     var lists = [SegmentsRepresentation]()
     
-    //MARK: Outlets
     @IBOutlet weak var paginationView: UIView!
     
-    //MARK: Actions
     @IBAction func unwindItemRemoved(segue: UIStoryboardSegue){
         if let selectedIndex = tableView.indexPathForSelectedRow {
             lists.removeAtIndex(selectedIndex.row)
@@ -29,7 +26,6 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         }
     }
     
-    //MARK: Controller lifecycle
     override func viewDidLoad() {
         if let session = Cache.restoreSession() {
             accountManager = AccountManager(sessionId: session, listsDelegate: self)
@@ -37,22 +33,22 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         }
     
         setupPullToRefreshControl()
+        stopRefreshing()
         tableView.tableFooterView?.hidden = true
-        refreshControl?.endRefreshing()
     }
     
-    //MARK: ListsDelegate
     func receiveResults(@autoclosure persistData: () -> Void, pages: PaginationLoading) {
+        tableView.tableFooterView?.hidden = true
+        
+        stopRefreshing()
+        updateRefreshingTitle()
+        
         persistData()
         
         hasMoreItems = pages.hasMorePages
         nextPage = pages.nextPage
         
         tableView.reloadData()
-        tableView.tableFooterView?.hidden = true
-        
-        stopRefreshing()
-        updateRefreshingTitle()
     }
     
     func userListsLoadedSuccessfully(results: ListInfoPages) {
@@ -68,14 +64,17 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     }
     
     func userListsLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func userSegmentLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
-    //MARK: UserSegmentsDelegate
     func loadSelectedSegment(segment: AccountSegmentType) {
         currentType = segment
         loadData()
@@ -87,7 +86,6 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         accountManager?.loadSegment(currentType)
     }
     
-    //MARK: TableView
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -140,7 +138,6 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         accountManager?.loadSegment(currentType)
     }
     
-    //MARK: Pull-to-refresh
     func setupPullToRefreshControl() {
         refreshControl = UIRefreshControl()
         refreshControl?.backgroundColor = UIColor.rgb(22, 122, 110)

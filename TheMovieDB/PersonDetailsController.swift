@@ -74,11 +74,15 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     }
     
     func personDetailsLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func personCreditsLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func castSelected(itemId: Int?, type itemType: String?) {
@@ -88,7 +92,6 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
             case "tv": TvShowDetailsController.performTvController(self, id: String(id))
             default: return
             }
-            print("Cast with id \(id) selected")
         }
     }
 }

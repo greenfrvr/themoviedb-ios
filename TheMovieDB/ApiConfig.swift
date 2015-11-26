@@ -63,8 +63,18 @@ class ApiEndpoints {
     
     //trends
     static let popularMovies = "\(baseApiUrl)/movie/popular"
+    static let topMovies = "\(baseApiUrl)/movie/top_rated"
     static let popularTvShow = "\(baseApiUrl)/tv/popular"
+    static let topTvShow = "\(baseApiUrl)/tv/top_rated"
 
+}
+
+extension String {
+    
+    func withArgs(args: CVarArgType...) -> String {
+        return String(format: self, arguments: args)
+    }
+    
 }
 
 class ImagesConfig {

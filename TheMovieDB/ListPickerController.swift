@@ -24,6 +24,7 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBAction func cancelButtonClicked(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
     @IBAction func doneButtonClicked(sender: AnyObject) {
         let list = lists[listsPicker.selectedRowInComponent(0)]
         if let listId = list.id, id = Int(self.itemId!) {
@@ -56,8 +57,9 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     func userListsLoadingFailed(error: NSError) {
-        print(error)
-        
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func listItemUpdatedSuccessfully() {
@@ -65,7 +67,9 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     func listItemUpdatingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func userSegmentLoadedSuccessfully(results: SegmentList) { }
@@ -97,13 +101,13 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     func displayListInfo(item: ListInfo){
         listImageView.sd_setImageWithURL(NSURL(posterPath: item.posterPath, size: 4), placeholderImage: UIImage.placeholder())
         descriptionLabel.text = item.representDescription
-        if let count = item.itemsInList {
-            if count == 0 {
-                itemsCountLabel.text = "No items have been added yet."
-            } else {
-                itemsCountLabel.text = "Totally \(count) item\(count > 1 ? "s" : "") in list"
-            }
+        
+        if let count = item.itemsInList where count > 0 {
+            itemsCountLabel.text = "Totally \(count) item\(count > 1 ? "s" : "") in list"
+        } else {
+            itemsCountLabel.text = "No items have been added yet."
         }
+        
         if let count = item.favoriteCount where count > 0 {
             favoriteCountLabel.text = "Contains \(count) favorite\(count > 1 ? "s" : "")"
         } else {
@@ -112,14 +116,11 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     private func animateInfo(alpha alpha: CGFloat, delay: NSTimeInterval = 0, completion: ((Bool) -> Void)? = nil){
-        UIView.animateWithDuration(0.3, delay: delay, options: [],
-            animations: {
+        UIView.animateWithDuration(0.3, delay: delay) {
                 self.listImageView.alpha = alpha
                 self.descriptionLabel.alpha = alpha
                 self.itemsCountLabel.alpha = alpha
                 self.favoriteCountLabel.alpha = alpha
-            },
-            completion: completion
-        )
+            }
     }
 }

@@ -11,10 +11,8 @@ import SDWebImage
 
 class ListItemsCollectionController: UICollectionViewController, ListItemsCollectionDelegate {
     
-    //MARK: Properties
     var items = [ListItem]()
     
-    //MARK: Collection
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
         MovieDetailsController.performMovieController(self, id: String(item.itemId!))
@@ -39,7 +37,6 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
         return 1
     }
     
-    //MARK: Data
     func collectionFetched(collection: [ListItem]) {
         items += collection
         collectionView?.reloadData()

@@ -10,17 +10,14 @@ import UIKit
 
 class BackdropItemController: UIViewController, UIGestureRecognizerDelegate {
     
-    //MARK: Properties
     let movementDuration = 0.3
     let screenPart: CGFloat = 0.2
     
     var backdropData: ImageInfo!
     var dragPoint = CGPoint()
     
-    //MARK: Outlets
     @IBOutlet var backdropImage: UIImageView!
     
-    //MARK: Lifecycle
     override func viewDidAppear(animated: Bool) {
         setupPanRecognizer()
     }
@@ -30,7 +27,6 @@ class BackdropItemController: UIViewController, UIGestureRecognizerDelegate {
         backdropImage.frame.size = CGSizeMake(backdropImage.frame.size.width, CGFloat(Double(backdropImage.frame.width) * backdropData.aspectRatio!))
     }
     
-    //MARK: Gestures
     func setupPanRecognizer() {
         let panRecognizer = UIPanGestureRecognizer(target: self, action: "dismiss:")
         panRecognizer.cancelsTouchesInView = false

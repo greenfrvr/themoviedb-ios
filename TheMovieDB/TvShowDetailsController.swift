@@ -10,7 +10,6 @@ import UIKit
 
 class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowStateChangeDelegate, UIBackdropsDelegat, UICastDelegate {
 
-    //MARK: Properties
     var tvShowId: String?
     var homepage: String?
     var showState: AccountState?
@@ -28,7 +27,6 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         performer.presentViewController(navigationController, animated: true, completion: nil)
     }
     
-    //MARK: Outlets
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var averageVoteLabel: UILabel!
@@ -54,7 +52,6 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         }
     }
     
-    //MARK: Actions
     @IBAction func unwindTvShowDetails(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -76,7 +73,6 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         alert.present()
     }
     
-    //MARK: Lifecycle
     override func viewDidLoad() {
         if let session = Cache.restoreSession(), id = tvShowId {
             detailsManager = TvShowDetailsManager(sessionId: session, detailsDelegate: self, stateDelegate: self)
@@ -101,7 +97,6 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         castView.castDelegate = self
     }
     
-    //MARK: TvShowDetailsDelegate
     func tvshowDetailsLoadedSuccessfully(details: TvShowInfo) {
         homepage = details.homepage
         posterImageView.sd_setImageWithURL(NSURL(posterPath: details.posterPath, size: 2), placeholderImage: UIImage.placeholder())
@@ -133,22 +128,29 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     func tvshowDetailsLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func tvshowImagesLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func tvshowStateLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func tvshowCreditsLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
-    //MARK: TvShowStateChangeDelegate
     func tvshowFavoriteStateChangedSuccessfully(isFavorite: Bool) {
         let title = NSLocalizedString("Favorite list", comment: "")
         let message = NSLocalizedString(isFavorite ? "TV added to favorites" : "TV removed from favorites", comment: "")
@@ -168,14 +170,17 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     func tvshowFavoriteStateChangesFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func tvshowWatchlistStateChangesFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
-    //MARK: BackdropsDelegate
     func backdropTapped(image: UIImage?, imageUrl: String) {
         let controller = storyboard?.instantiateViewControllerWithIdentifier("BackdropPages") as! BackdropsController
         controller.content = backdropImages
@@ -183,14 +188,12 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         presentViewController(controller, animated: true, completion: nil)
     }
     
-    //MARK: CastDelegate 
     func castSelected(id: Int?) {
         if let castId = id {
             PersonDetailsController.performPersonDetails(self, id: String(castId))
          }
     }
     
-    //MARK: UI
     func movieStateChangeNotifier(title: String, _ message: String){
         let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: nil)
         alert.show()
@@ -205,5 +208,4 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         navFavoriteButton.image = UIImage(named: showState?.favorite ?? false ? "Like Filled" : "Hearts")
         watchlistButton.image = UIImage(named: showState?.watchlist ?? false ? "Movie Filled" : "Movie")
     }
-
 }

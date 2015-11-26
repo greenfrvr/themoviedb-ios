@@ -9,22 +9,21 @@
 import AFNetworking
 import ObjectMapper
 
-class AuthenticationManager: ApiManager {
-    var token: String?
-    var requestToken: [String : String] { return [ "request_token": token ?? "" ] }
+class AuthenticationManager: ApiManager, TokenRequired {
+    var tokenId: String?
     var delegate: AuthenticationDelegate?
     
     func loadRequestToken(){
-        get(ApiEndpoints.newToken, apiKey, delegate?.tokenLoadedSuccessfully, delegate?.tokenLoadingFailed) { [unowned self] in self.token = $0.requestToken }
+        get(ApiEndpoints.newToken, apiKey, delegate?.tokenLoadedSuccessfully, delegate?.tokenLoadingFailed) { [unowned self] in self.tokenId = $0.requestToken }
     }
     
     func validateRequestToken(login: String, _ password: String){
         let params = wrapAuth(login, password)
-        get(ApiEndpoints.validateToken, apiKey +> requestToken +> params, delegate?.tokenValidatedSuccessfully, delegate?.tokenValidationFailed) { [unowned self] in self.token = $0.requestToken }
+        get(ApiEndpoints.validateToken, apiKey +> token +> params, delegate?.tokenValidatedSuccessfully, delegate?.tokenValidationFailed) { [unowned self] in self.tokenId = $0.requestToken }
     }
     
     func createSession(){
-        get(ApiEndpoints.createNewSession, apiKey +> requestToken, delegate?.sessionCreatedSuccessfully, delegate?.sessionCreationFailed) { Cache.saveSession($0) }
+        get(ApiEndpoints.createNewSession, apiKey +> token, delegate?.sessionCreatedSuccessfully, delegate?.sessionCreationFailed) { Cache.saveSession($0) }
     }
     
     private func wrapAuth(login: String, _ password: String) -> [String : String] {

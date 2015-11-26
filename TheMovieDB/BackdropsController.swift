@@ -11,11 +11,9 @@ import Dollar
 
 class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
-    //MARK: Properties
     var initialUrl: String!
     var content = [ImageInfo]()
     
-    //MARK: Lifecycle
     override func viewDidLoad() {
         self.delegate = self
         self.dataSource = self
@@ -27,7 +25,6 @@ class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, U
         setupBackground()
     }
     
-    //MARK: PageViewController
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         let index = indexOfViewController(viewController as! BackdropItemController) + 1
         return index == content.count ? nil : viewControllerAtIndex(index)
@@ -55,7 +52,6 @@ class BackdropsController: UIPageViewController, UIPageViewControllerDelegate, U
         return $.findIndex(content, callback: { self.initialUrl.containsString($0.filePath!) }) ?? 0
     }
     
-    //MARK: UI
     func setupBackground(){
         if !UIAccessibilityIsReduceTransparencyEnabled() {
             view.backgroundColor = UIColor.clearColor()

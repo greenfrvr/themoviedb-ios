@@ -17,17 +17,19 @@ class TrendsManager: ApiManager {
         super.init()
     }
     
-    func loadPopular(type: TrendsType, page: Int = 1) {
+    func loadPopular(type: TrendsType, popular: Bool = true, page: Int = 1) {
+        let url = popular ? type.popularUrl : type.topUrl
+        
         switch type {
         case .MOVIE:
-            get(type.url(), apiKey +> [ "page": page ], { (res: MovieTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
+            get(url, apiKey +> [ "page": page ], { (res: MovieTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
                 [unowned self] in
                 if let result = TrendsList(fromMovieList: $0) {
                     self.delegate?.trendsLoadedSuccessfully(result)
                 }
             }
         case .TV:
-            get(type.url(), apiKey +> [ "page": page ], { (res: TvTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
+            get(url, apiKey +> [ "page": page ], { (res: TvTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
                 [unowned self] in
                 if let result = TrendsList(fromTvList: $0) {
                     self.delegate?.trendsLoadedSuccessfully(result)

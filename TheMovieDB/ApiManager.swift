@@ -32,6 +32,31 @@ class ApiManager {
             success: { operation, response in callback?() },
             failure: { operation, error in handler?(error) })
     }
+    
+    func post<T: Mappable>(url: String, _ body: T, _ callback: (() -> Void)?, _ handler: ((NSError) -> Void)? = nil) {
+        guard let body = Mapper<T>().toJSONString(body, prettyPrint: true) else {
+            print("Cannot parse request body")
+            return
+        }
+        
+        guard let url = NSURL(string: url) else {
+            print("Wrong request url")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let manager = AFHTTPRequestOperationManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.HTTPRequestOperationWithRequest(request,
+            success: { operation, response in callback?() },
+            failure: { operation, error in handler?(error)
+        }).start()
+    }
 }
 
 protocol SessionRequired {
@@ -44,4 +69,16 @@ extension SessionRequired {
     
     var session: [String: String] { return [ "session_id": sessionId ] }
 
+}
+
+protocol TokenRequired {
+    
+    var tokenId: String? { get set }
+    
+}
+
+extension TokenRequired {
+
+    var token: [String: String] { return [ "request_token": tokenId ?? "" ] }
+    
 }

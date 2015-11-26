@@ -10,7 +10,6 @@ import UIKit
 
 class ListDetailsController: UIViewController, ListDetailsDelegate {
     
-    //MARK: Properties
     var argListId: String?
     var detailsManager: ListDetailsManager?
     var collectionDelegate: ListItemsCollectionDelegate?
@@ -23,7 +22,6 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
         performer.presentViewController(navigationController, animated: true, completion: nil)
     }
     
-    //MARK: Outlets
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -31,7 +29,6 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var collectionContainer: UIView!
     
-    //MARK: Actions
     @IBAction func backButtonClick(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -41,7 +38,6 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
         alert.present()
     }
     
-    //MARK: Controller lifecycle
     override func viewDidLoad() {
         if let session = Cache.restoreSession() {
             detailsManager = ListDetailsManager(sessionId: session, detailsDelegate: self)
@@ -49,7 +45,6 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
         }
     }
         
-    //MARK: ListDetailsDelegate
     func listDetailsLoadedSuccessfully(details: ListDetails) {
         loadingIndicator.stopAnimating()
         titleLabel.text = details.name
@@ -60,19 +55,22 @@ class ListDetailsController: UIViewController, ListDetailsDelegate {
         collectionDelegate?.collectionFetched(details.items ?? [])
     }
     
-    func listDetailsLoadingFailed(error: NSError) {
-        print(error)
-    }
-    
     func listRemovedSuccessfully() {
         performSegueWithIdentifier("ItemRemoved", sender: self)
     }
     
+    func listDetailsLoadingFailed(error: NSError) {
+        if let error = error.apiError {
+            error.printError()
+        }
+    }
+
     func listRemovingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
-    //MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ListItemsCollectionSegue" {
             collectionDelegate = segue.destinationViewController as? ListItemsCollectionDelegate

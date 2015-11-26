@@ -57,7 +57,6 @@ class SignInController: UIViewController, AuthenticationDelegate {
         authManager = nil
     }
     
-    //MARK: AuthenticationDelegate
     func sessionCreatedSuccessfully(session: Session) {
         loadingIndicator.stopAnimating()
 

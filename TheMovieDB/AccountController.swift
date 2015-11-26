@@ -11,17 +11,14 @@ import SDWebImage
 
 class AccountController: UIViewController, AccountDelegate {
     
-    //MARK: Properties
     var segmentsLoader: UserSegmentsDelegate?
     var accountManager: AccountManager?
     
-    //MARK: Outlets
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
-    //MARK: Actions
     @IBAction func usersSetChanged(sender: UISegmentedControl, forEvent event: UIEvent) {
         let type = AccountSegmentType(rawValue: sender.selectedSegmentIndex)
         if let segmentType = type {
@@ -29,7 +26,6 @@ class AccountController: UIViewController, AccountDelegate {
         }
     }
     
-    //MARK: Controller lifecycle
     override func viewDidLoad() {
         if let session = Cache.restoreSession() {
             accountManager = AccountManager(sessionId: session, accountDelegate: self)
@@ -37,7 +33,6 @@ class AccountController: UIViewController, AccountDelegate {
         }
     }
     
-    //MARK: AccountDelegate
     func userLoadedSuccessfully(account: Account) {
         if loadingIndicator.isAnimating() {
             loadingIndicator.stopAnimating()
@@ -49,7 +44,9 @@ class AccountController: UIViewController, AccountDelegate {
     }
     
     func userLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -61,6 +58,15 @@ class AccountController: UIViewController, AccountDelegate {
 
 enum AccountSegmentType: Int {
     case List = 0, Favorite, Rated, Watchlist
+    
+    var requestUrl: String {
+        switch self {
+        case .Favorite: return ApiEndpoints.accountFavoriteMovies
+        case .Rated: return ApiEndpoints.accountRatedMovies
+        case .Watchlist: return ApiEndpoints.accountWatchlistMovies
+        case .List: return ApiEndpoints.accountLists
+        }
+    }
 }
 
 protocol UserSegmentsDelegate {

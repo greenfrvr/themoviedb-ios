@@ -11,7 +11,6 @@ import SDWebImage
 
 class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieStateChangeDelegate, UIBackdropsDelegat, UICastDelegate {
     
-    //MARK: Properties
     var movieId: String?
     var imdbId: String?
     var movieState: AccountState?
@@ -32,7 +31,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         performer.presentViewController(navigationController, animated: true, completion: nil)
     }
     
-    //MARK: Outlets
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var taglineLabel: UILabel!
@@ -58,7 +56,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         }
     }
     
-    //MARK: Action
     @IBAction func unwindMovieDetails(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -97,11 +94,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         }
     }
     
-    override func accessibilityPerformEscape() -> Bool {
-        print("Escape performed")
-        return super.accessibilityPerformEscape()
-    }
-    
     override func viewWillAppear(animated: Bool) {
         taglineLabel.numberOfLines = 2
         taglineLabel.sizeToFit()
@@ -115,7 +107,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         castView.castDelegate = self
     }
 
-    //MARK: MovieDetailsDelegate
     func movieDetailsLoadedSuccessfully(details: MovieInfo) {
         imdbId = details.imdbId
         posterImageView.sd_setImageWithURL(NSURL(posterPath: details.posterPath, size: 3), placeholderImage: UIImage.placeholder())
@@ -148,22 +139,29 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     func movieDetailsLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func movieStateLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func movieImagesLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func movieCreditsLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
-    //MARK: MovieStateChangeDelegate
     func movieFavoriteStateChangedSuccessfully(isFavorite: Bool) {
         let title = NSLocalizedString("Favorite list", comment: "")
         let message = NSLocalizedString(isFavorite ? "Movie added to favorites" : "Movie removed from favorites", comment: "")
@@ -183,14 +181,17 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     func movieFavoriteStateChangesFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
     func movieWatchlistStateChangesFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
-    //MARK: UIBackdropsDelegate
     func backdropTapped(image: UIImage?, imageUrl: String) {
         let controller = storyboard?.instantiateViewControllerWithIdentifier("BackdropPages") as! BackdropsController
         controller.content = backdropImages
@@ -198,15 +199,12 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         presentViewController(controller, animated: true, completion: nil)
     }
     
-    //MARK: CastDelegate
     func castSelected(id: Int?) {
         if let castId = id {
             PersonDetailsController.performPersonDetails(self, id: String(castId))
         }
     }
-
     
-    //MARK: UI
     func movieStateChangeNotifier(title: String, _ message: String){
         let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: nil)
         alert.show()

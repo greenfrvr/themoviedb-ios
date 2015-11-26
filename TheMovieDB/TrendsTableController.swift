@@ -12,29 +12,27 @@ import Dollar
 
 class TrendsTableController: UITableViewController, UIPosterViewDelegate, TrendsDelegate {
     
-    //MARK: Properties
     var hasMoreItems = false
     var nextPage: Int?
     var totalItems = 0
+    var popularTrends: Bool = true
     var trendsType = TrendsType.MOVIE
     var trendsManager: TrendsManager?
     var items = [[TrendsRepresentation]]()
     
-    //MARK: Outlets
     @IBOutlet weak var typeSegmentControl: UISegmentedControl!
     @IBOutlet weak var pagintationIndicator: UIView!
     
-    //MARK: Actions
     @IBAction func typeChanged(sender: UISegmentedControl) {
         trendsType = TrendsType(rawValue: sender.selectedSegmentIndex)!
         loadInitPage()
     }
     
     @IBAction func criteriaChanged(sender: UISegmentedControl) {
-        print("Criteria changed to \(sender.selectedSegmentIndex)")
+        popularTrends = sender.selectedSegmentIndex == 0
+        loadInitPage()
     }
     
-    //MARK: Lifecycle
     override func viewDidLoad() {
         trendsManager = TrendsManager(delegate: self)
         trendsManager?.loadPopular(trendsType)
@@ -44,10 +42,18 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
         tableView.tableFooterView?.hidden = true
     }
     
-    //MARK: TrendsDelegate
     func trendsLoadedSuccessfully(trends: TrendsList) {
-        var results = trends.results
-        if  !results.isEmpty {
+        chunkResults(trends.results)
+        
+        hasMoreItems = trends.hasMorePages
+        nextPage = trends.nextPage
+        
+        tableView.tableFooterView?.hidden = true
+        tableView.reloadData()
+    }
+    
+    func chunkResults(var results: [TrendsRepresentation]) {
+        if !results.isEmpty {
             var r = (3 - totalItems % 3) % 3
             totalItems += results.count
             
@@ -60,36 +66,30 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
                 items.append(chunk)
             }
         }
-        
-        hasMoreItems = trends.hasMorePages
-        nextPage = trends.nextPage
-        
-        tableView.tableFooterView?.hidden = true
-        tableView.reloadData()
     }
     
     func loadInitPage(){
         nextPage = 1
         totalItems = 0
         items.removeAll()
-        trendsManager?.loadPopular(trendsType, page: nextPage!)
+        trendsManager?.loadPopular(trendsType, popular: popularTrends, page: nextPage!)
     }
     
     func loadNextPage() {
         tableView.tableFooterView?.hidden = false
         if let page = nextPage {
-            trendsManager?.loadPopular(trendsType, page: page)
+            trendsManager?.loadPopular(trendsType, popular: popularTrends, page: page)
         }
         hasMoreItems = false
     }
     
     func trendsLoadingFailed(error: NSError) {
-        print(error)
+        if let error = error.apiError {
+            error.printError()
+        }
     }
     
-    //MARK: PosterDelegate
     func posterTapped(itemId: Int?) {
-        print("Item with id \(itemId!) was tapped")
         switch trendsType {
         case .MOVIE:
             MovieDetailsController.performMovieController(self, id: String(itemId!))
@@ -98,7 +98,6 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
         }
     }
     
-    //MARK: TableView
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(TrendsTableViewCell.identifier, forIndexPath: indexPath) as! TrendsTableViewCell
         let item = $.shuffle(items[indexPath.row])
@@ -153,10 +152,17 @@ protocol TrendsRepresentation {
 enum TrendsType: Int {
     case MOVIE = 0, TV
     
-    func url() -> String {
+    var popularUrl: String {
         switch self {
         case .MOVIE: return ApiEndpoints.popularMovies
         case .TV: return ApiEndpoints.popularTvShow
+        }
+    }
+    
+    var topUrl: String {
+        switch self {
+        case .MOVIE: return ApiEndpoints.topMovies
+        case .TV: return ApiEndpoints.topTvShow
         }
     }
 }

@@ -35,66 +35,39 @@ class MovieDetailsManager: ApiManager, SessionRequired {
     }
     
     func loadDetails(id: String) {
-        let url = String(format: ApiEndpoints.movieDetails, id)
+        let url = ApiEndpoints.movieDetails.withArgs(id)
         get(url, apiKey, detailsDelegate?.movieDetailsLoadedSuccessfully, detailsDelegate?.movieDetailsLoadingFailed)
     }
     
     func loadState(id: String) {
-        let url = String(format: ApiEndpoints.movieState, id)
+        let url = ApiEndpoints.movieState.withArgs(id)
         get(url, apiKey +> session, detailsDelegate?.movieStateLoadedSuccessfully, detailsDelegate?.movieStateLoadingFailed)
     }
     
     func loadImages(id: String){
-        let url = String(format: ApiEndpoints.movieImages, id)
+        let url = ApiEndpoints.movieImages.withArgs(id)
         get(url, apiKey +> session, detailsDelegate?.movieImagesLoadedSuccessully, detailsDelegate?.movieImagesLoadingFailed)
     }
     
     func loadCredits(id: String) {
-        let url = String(format: ApiEndpoints.movieCredits, id)
+        let url = ApiEndpoints.movieCredits.withArgs(id)
         get(url, apiKey, detailsDelegate?.movieCreditsLoadedSuccessfully, detailsDelegate?.movieCreditsLoadingFailed)
     }
     
     func changeFavoriteState(id: String, state: Bool){
         let newState = !state
-        let body = Mapper<FavoriteBody>().toJSONString(FavoriteBody(movieId: Int(id), isFavorite: newState), prettyPrint: true)!
+        let body = FavoriteBody(movieId: Int(id), isFavorite: newState)
+        let url = ApiEndpoints.accountItemFavoriteState.withArgs(id, sessionId)
         
-        let request = NSMutableURLRequest(URL: NSURL(string: String(format: ApiEndpoints.accountItemFavoriteState, id, session))!)
-        request.HTTPMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let manager = AFHTTPRequestOperationManager()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        manager.HTTPRequestOperationWithRequest(request,
-            success: { operation, response in
-                self.stateDelegate?.movieFavoriteStateChangedSuccessfully(newState)
-            },
-            failure: { operation, error in
-                self.stateDelegate?.movieFavoriteStateChangesFailed(error)
-        }).start()
+        post(url, body, { [unowned self] in self.stateDelegate?.movieFavoriteStateChangedSuccessfully(newState) }, stateDelegate?.movieFavoriteStateChangesFailed)
     }
     
     func changeWatchlistState(id: String, state: Bool){
         let newState = !state
-        let body = Mapper<WatchlistBody>().toJSONString(WatchlistBody(movieId: Int(id), isInWatchlist: newState), prettyPrint: true)!
-        print(body)
+        let body = WatchlistBody(movieId: Int(id), isInWatchlist: newState)
+        let url = ApiEndpoints.accountItemWatchlistState.withArgs(id, sessionId)
         
-        let request = NSMutableURLRequest(URL: NSURL(string: String(format: ApiEndpoints.accountItemWatchlistState, id, session))!)
-        request.HTTPMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let manager = AFHTTPRequestOperationManager()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        manager.HTTPRequestOperationWithRequest(request,
-            success: { operation, response in
-                self.stateDelegate?.movieWatchlistStateChangedSuccessfully(newState)
-            },
-            failure: { operation, error in
-                self.stateDelegate?.movieWatchlistStateChangesFailed(error)
-        }).start()
+        post(url, body, { [unowned self] in self.stateDelegate?.movieWatchlistStateChangedSuccessfully(newState) }, stateDelegate?.movieWatchlistStateChangesFailed)
     }
 }
 
