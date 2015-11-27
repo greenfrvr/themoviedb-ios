@@ -19,11 +19,11 @@ class SearchManager: ApiManager {
     func query(scope: SearchController.ScopeType, query: String, page: Int = 1){
         switch scope {
         case .MOVIE:
-            get(scope.scopeRequestUrl(), apiKey +> [ "query": query, "page": page ], searchDelegate?.searchMovieResuts, searchDelegate?.searchNoPersonFound)
+            get(scope.requestUrl, apiKey +> [ "query": query, "page": page ], searchDelegate?.searchMovieResuts, searchDelegate?.searchNoPersonFound)
         case .TV:
-            get(scope.scopeRequestUrl(), apiKey +> [ "query": query, "page": page ], searchDelegate?.searchTvShowResuts, searchDelegate?.searchNoPersonFound)
+            get(scope.requestUrl, apiKey +> [ "query": query, "page": page ], searchDelegate?.searchTvShowResuts, searchDelegate?.searchNoPersonFound)
         case .PEOPLE:
-            get(scope.scopeRequestUrl(), apiKey +> [ "query": query, "page": page ], searchDelegate?.searchPersonResuts, searchDelegate?.searchNoPersonFound)
+            get(scope.requestUrl, apiKey +> [ "query": query, "page": page ], searchDelegate?.searchPersonResuts, searchDelegate?.searchNoPersonFound)
         case .ALL:
             self.query(.MOVIE, query: query, page: page)
             self.query(.TV, query: query, page: page)

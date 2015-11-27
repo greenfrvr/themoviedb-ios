@@ -27,6 +27,7 @@ struct ApiError: Mappable {
         }
     }
 }
+
 extension NSError {
     var apiError: ApiError? {
         if let data = self.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]! as? NSData {

@@ -35,31 +35,25 @@ class TvShowDetailsManager: ApiManager, SessionRequired {
     }
     
     func loadDetails(id: String) {
-        let url = ApiEndpoints.tvDetails.withArgs(id)
-        get(url, apiKey, detailsDelegate?.tvshowDetailsLoadedSuccessfully, detailsDelegate?.tvshowDetailsLoadingFailed)
+        get(urlDetails.withArgs(id), apiKey, detailsDelegate?.tvshowDetailsLoadedSuccessfully, detailsDelegate?.tvshowDetailsLoadingFailed)
     }
     
     func loadState(id: String) {
-        let url = ApiEndpoints.tvState.withArgs(id)
-        get(url, apiKey +> session, detailsDelegate?.tvshowStateLoadedSuccessfully, detailsDelegate?.tvshowStateLoadingFailed)
-
+        get(urlState.withArgs(id), apiKey +> session, detailsDelegate?.tvshowStateLoadedSuccessfully, detailsDelegate?.tvshowStateLoadingFailed)
     }
     
     func loadImages(id: String) {
-        let url = ApiEndpoints.tvImages.withArgs(id)
-        get(url, apiKey +> session, detailsDelegate?.tvshowImagesLoadedSuccessully, detailsDelegate?.tvshowImagesLoadingFailed)
+        get(urlImages.withArgs(id), apiKey +> session, detailsDelegate?.tvshowImagesLoadedSuccessully, detailsDelegate?.tvshowImagesLoadingFailed)
     }
     
     func loadCredits(id: String) {
-        let url = ApiEndpoints.tvCredits.withArgs(id)
-        get(url, apiKey, detailsDelegate?.tvshowCreditsLoadedSuccessfully, detailsDelegate?.tvshowCreditsLoadingFailed)
+        get(urlCredits.withArgs(id), apiKey, detailsDelegate?.tvshowCreditsLoadedSuccessfully, detailsDelegate?.tvshowCreditsLoadingFailed)
     }
-
     
     func changeFavoriteState(id: String, state: Bool){
         let newState = !state
         let body = FavoriteBody(tvShowId: Int(id), isFavorite: newState)
-        let url = ApiEndpoints.accountItemFavoriteState.withArgs(id, sessionId)
+        let url = urlItemFavoriteState.withArgs(id, sessionId)
         
         post(url, body, { [unowned self] in self.stateDelegate?.tvshowFavoriteStateChangedSuccessfully(newState) }, stateDelegate?.tvshowFavoriteStateChangesFailed)
     }
@@ -67,7 +61,7 @@ class TvShowDetailsManager: ApiManager, SessionRequired {
     func changeWatchlistState(id: String, state: Bool){
         let newState = !state
         let body = WatchlistBody(tvShowId: Int(id), isInWatchlist: newState)
-        let url = ApiEndpoints.accountItemWatchlistState.withArgs(id, sessionId)
+        let url = urlItemFavoriteState.withArgs(id, sessionId)
         
         post(url, body, { [unowned self] in self.stateDelegate?.tvshowWatchlistStateChangedSuccessfully(newState) }, stateDelegate?.tvshowWatchlistStateChangesFailed)
     }
@@ -87,7 +81,7 @@ protocol TvShowDetailsDelegate {
     
     func tvshowImagesLoadingFailed(error: NSError) -> Void
     
-    func tvshowCreditsLoadedSuccessfully(credits: Credits) -> Void
+    func tvshowCreditsLoadedSuccessfully(credits: MovieCredits) -> Void
     
     func tvshowCreditsLoadingFailed(error: NSError) -> Void
 }

@@ -12,7 +12,7 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     var itemId: String?
     var itemType: String?
-    var lists = [ListInfo]()
+    var lists = [CompilationInfo]()
     var accountManager: AccountManager?
     
     @IBOutlet weak var listImageView: UIImageView!
@@ -46,7 +46,7 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
         accountManager?.loadSegment(.List)
     }
     
-    func userListsLoadedSuccessfully(pages: ListInfoPages) {
+    func userListsLoadedSuccessfully(pages: CompilationInfoPages) {
         if let results = pages.results {
             lists += results
             listsPicker.reloadAllComponents()
@@ -98,7 +98,7 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
         })
     }
     
-    func displayListInfo(item: ListInfo){
+    func displayListInfo(item: CompilationInfo){
         listImageView.sd_setImageWithURL(NSURL(posterPath: item.posterPath, size: 4), placeholderImage: UIImage.placeholder())
         descriptionLabel.text = item.representDescription
         

@@ -15,9 +15,7 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     
     var id: String?
     var homepage: String?
-    var shareUrl: String {
-        return "\(ApiEndpoints.personShare)/\(id!)"
-    }
+    var shareUrl: String { return PersonDetailsManager.urlShare.withArgs(id!) }
     var detailsManager: PersonDetailsManager?
     lazy var creditsView = UIPersonCreditsView()
 
@@ -86,7 +84,9 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     }
     
     func castSelected(itemId: Int?, type itemType: String?) {
+        print("cast selected")
         if let id = itemId, type = itemType {
+            print("Item with id: \(id) of type \(type)")
             switch type {
             case "movie": MovieDetailsController.presentControllerModally(self, id: String(id))
             case "tv": TvShowDetailsController.presentControllerModally(self, id: String(id))

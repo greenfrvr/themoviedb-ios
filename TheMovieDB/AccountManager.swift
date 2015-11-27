@@ -46,7 +46,7 @@ class AccountManager: ApiManager, SessionRequired {
             return
         }
         
-        get(ApiEndpoints.accountInfo, apiKey +> session, callback, accountDelegate?.userLoadingFailed) { Cache.saveAccount($0) }
+        get(urlAccount, apiKey +> session, callback, accountDelegate?.userLoadingFailed) { Cache.saveAccount($0) }
     }
     
     func loadSegment(type: AccountSegmentType, page: Int = 1){
@@ -65,15 +65,15 @@ class AccountManager: ApiManager, SessionRequired {
     }
     
     func addToList(listId id: String, itemId: Int) {
-        updateList(ApiEndpoints.listAddItem.withArgs(id, sessionId), itemId: itemId)
+        updateList(urlAddItem.withArgs(id, sessionId), itemId: itemId)
     }
     
     func removeFromList(listId id: String, itemId: Int) {
-        updateList(ApiEndpoints.listDeleteItem.withArgs(id, sessionId), itemId: itemId)
+        updateList(urlDeleteItem.withArgs(id, sessionId), itemId: itemId)
     }
     
     private func updateList(url: String, itemId: Int){
-        let body = ListDetails.UpdateListBody(mediaId: itemId)
+        let body = CompilationDetails.UpdateBody(mediaId: itemId)
         post(url, body, listsDelegate?.listItemUpdatedSuccessfully, listsDelegate?.listItemUpdatingFailed)
     }
 }
@@ -87,7 +87,7 @@ protocol AccountDelegate {
 
 protocol ListsDelegate {
     
-    func userListsLoadedSuccessfully(pages: ListInfoPages) -> Void
+    func userListsLoadedSuccessfully(pages: CompilationInfoPages) -> Void
     
     func userListsLoadingFailed(error: NSError) -> Void
     

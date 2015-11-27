@@ -10,8 +10,9 @@ import AFNetworking
 import ObjectMapper
 
 class ApiManager {
-    
-    final let apiKey = [ "api_key": ApiEndpoints.apiKey ]
+    final let urlApi = Endpoints.baseApiUrl
+    final let key = Endpoints.apiKey
+    final let apiKey = [ "api_key": Endpoints.apiKey ]
     
     init() {}
     

@@ -16,7 +16,7 @@ class ListDetailsController: UIViewController, ListDetailsDelegate, DetailsNavig
     var id: String?
     var detailsManager: ListDetailsManager?
     var collectionDelegate: ListItemsCollectionDelegate?
-    var shareUrl: String { return String(format: ApiEndpoints.listShare, self.id!) }
+    var shareUrl: String { return ListDetailsManager.urlShare.withArgs(self.id!) }
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
@@ -41,7 +41,7 @@ class ListDetailsController: UIViewController, ListDetailsDelegate, DetailsNavig
         }
     }
         
-    func listDetailsLoadedSuccessfully(details: ListDetails) {
+    func listDetailsLoadedSuccessfully(details: CompilationDetails) {
         loadingIndicator.stopAnimating()
         titleLabel.text = details.name
         authorLabel.text = "by \(details.createdBy!)"

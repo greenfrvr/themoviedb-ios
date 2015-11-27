@@ -24,23 +24,19 @@ class TrendsManager: ApiManager {
         case .MOVIE:
             get(url, apiKey +> [ "page": page ], { (res: MovieTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
                 [unowned self] in
-                if let result = TrendsList(fromMovieList: $0) {
-                    self.delegate?.trendsLoadedSuccessfully(result)
-                }
+                self.delegate?.trendsLoadedSuccessfully(TrendsList(list: $0))
             }
         case .TV:
             get(url, apiKey +> [ "page": page ], { (res: TvTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
                 [unowned self] in
-                if let result = TrendsList(fromTvList: $0) {
-                    self.delegate?.trendsLoadedSuccessfully(result)
-                }
+                self.delegate?.trendsLoadedSuccessfully(TrendsList(list: $0))
             }
         }
     }
 }
 
 protocol TrendsDelegate {
-
+    
     func trendsLoadedSuccessfully(trends: TrendsList) -> Void
     
     func trendsLoadingFailed(error: NSError) -> Void

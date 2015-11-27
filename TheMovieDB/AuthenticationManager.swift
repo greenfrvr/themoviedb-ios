@@ -14,16 +14,16 @@ class AuthenticationManager: ApiManager, TokenRequired {
     var delegate: AuthenticationDelegate?
     
     func loadRequestToken(){
-        get(ApiEndpoints.newToken, apiKey, delegate?.tokenLoadedSuccessfully, delegate?.tokenLoadingFailed) { [unowned self] in self.tokenId = $0.requestToken }
+        get(urlGetToken, apiKey, delegate?.tokenLoadedSuccessfully, delegate?.tokenLoadingFailed) { [unowned self] in self.tokenId = $0.requestToken }
     }
     
     func validateRequestToken(login: String, _ password: String){
         let params = wrapAuth(login, password)
-        get(ApiEndpoints.validateToken, apiKey +> token +> params, delegate?.tokenValidatedSuccessfully, delegate?.tokenValidationFailed) { [unowned self] in self.tokenId = $0.requestToken }
+        get(urlValidateToken, apiKey +> token +> params, delegate?.tokenValidatedSuccessfully, delegate?.tokenValidationFailed) { [unowned self] in self.tokenId = $0.requestToken }
     }
     
     func createSession(){
-        get(ApiEndpoints.createNewSession, apiKey +> token, delegate?.sessionCreatedSuccessfully, delegate?.sessionCreationFailed) { Cache.saveSession($0) }
+        get(urlCreateSession, apiKey +> token, delegate?.sessionCreatedSuccessfully, delegate?.sessionCreationFailed) { Cache.saveSession($0) }
     }
     
     private func wrapAuth(login: String, _ password: String) -> [String : String] {

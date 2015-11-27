@@ -11,7 +11,7 @@ import SDWebImage
 
 class ListItemsCollectionController: UICollectionViewController, ListItemsCollectionDelegate {
     
-    var items = [ListItem]()
+    var items = [CompilationItem]()
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
@@ -37,7 +37,7 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
         return 1
     }
     
-    func collectionFetched(collection: [ListItem]) {
+    func collectionFetched(collection: [CompilationItem]) {
         items += collection
         collectionView?.reloadData()
     }
@@ -45,6 +45,6 @@ class ListItemsCollectionController: UICollectionViewController, ListItemsCollec
 
 protocol ListItemsCollectionDelegate {
     
-    func collectionFetched(collection: [ListItem]) -> Void
+    func collectionFetched(collection: [CompilationItem]) -> Void
 
 }

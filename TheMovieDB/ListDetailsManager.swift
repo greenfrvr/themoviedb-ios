@@ -25,19 +25,17 @@ class ListDetailsManager: ApiManager, SessionRequired {
     }
     
     func listDetails(listId id: String){
-        let url = ApiEndpoints.listDetails.withArgs(id)
-        get(url, apiKey, detailsDelegate?.listDetailsLoadedSuccessfully, detailsDelegate?.listDetailsLoadingFailed)
+        get(urlDetails.withArgs(id), apiKey, detailsDelegate?.listDetailsLoadedSuccessfully, detailsDelegate?.listDetailsLoadingFailed)
     }
     
     func listDelete(listId id: String) {
-        let url = ApiEndpoints.listDetails.withArgs(id)
-        delete(url, apiKey, detailsDelegate?.listRemovedSuccessfully, detailsDelegate?.listRemovingFailed)
+        delete(urlDetails.withArgs(id), apiKey, detailsDelegate?.listRemovedSuccessfully, detailsDelegate?.listRemovingFailed)
     }
 }
 
 protocol ListDetailsDelegate {
     
-    func listDetailsLoadedSuccessfully(details: ListDetails) -> Void
+    func listDetailsLoadedSuccessfully(details: CompilationDetails) -> Void
     
     func listDetailsLoadingFailed(error: NSError) -> Void
     

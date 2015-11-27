@@ -46,6 +46,7 @@ class UIPersonCreditsView: UIScrollCollectionWithLabel<PersonCredits.Cast>  {
     
     override func posterTapped(itemId: Int?) {
         let item = $.find(items, callback: callback(itemId))
+        print("item \(item)")
         creditsDelegate?.castSelected(itemId, type: item?.type)
     }
 }

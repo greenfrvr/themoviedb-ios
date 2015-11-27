@@ -36,7 +36,7 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         tableView.tableFooterView?.hidden = true
     }
     
-    func receiveResults(@autoclosure persistData: () -> Void, pages: PaginationLoading) {
+    func receiveResults<T: PaginationLoading>(@autoclosure persistData: () -> Void, pages: T) {
         persistData()
         
         hasMoreItems = pages.hasMorePages
@@ -47,12 +47,16 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         stopRefreshing()
     }
     
-    func userListsLoadedSuccessfully(results: ListInfoPages) {
-        receiveResults(lists += results.resultsRepresentative!, pages: results)
+    func userListsLoadedSuccessfully(results: CompilationInfoPages) {
+        guard let list = results.resultsRepresentative else { return }
+        
+        receiveResults(lists += list, pages: results)
     }
     
     func userSegmentLoadedSuccessfully(results: SegmentList) {
-        receiveResults(lists += results.resultsRepresentative!, pages: results)
+        guard let list = results.resultsRepresentative else { return }
+
+        receiveResults(lists += list, pages: results)
     }
     
     func userFetched(){

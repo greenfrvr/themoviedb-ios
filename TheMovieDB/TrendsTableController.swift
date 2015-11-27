@@ -43,7 +43,7 @@ class TrendsTableController: UITableViewController, UIPosterViewDelegate, Trends
     }
     
     func trendsLoadedSuccessfully(trends: TrendsList) {
-        chunkResults(trends.results)
+        chunkResults(trends.results!)
         
         hasMoreItems = trends.hasMorePages
         nextPage = trends.nextPage
@@ -154,15 +154,15 @@ enum TrendsType: Int {
     
     var popularUrl: String {
         switch self {
-        case .MOVIE: return ApiEndpoints.popularMovies
-        case .TV: return ApiEndpoints.popularTvShow
+        case .MOVIE: return TrendsManager.urlPopMovies
+        case .TV: return TrendsManager.urlPopTv
         }
     }
     
     var topUrl: String {
         switch self {
-        case .MOVIE: return ApiEndpoints.topMovies
-        case .TV: return ApiEndpoints.topTvShow
+        case .MOVIE: return TrendsManager.urlTopMovies
+        case .TV: return TrendsManager.urlTopTv
         }
     }
 }

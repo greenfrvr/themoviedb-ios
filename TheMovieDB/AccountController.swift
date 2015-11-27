@@ -74,10 +74,10 @@ enum AccountSegmentType: Int {
     
     var requestUrl: String {
         switch self {
-        case .Favorite: return ApiEndpoints.accountFavoriteMovies
-        case .Rated: return ApiEndpoints.accountRatedMovies
-        case .Watchlist: return ApiEndpoints.accountWatchlistMovies
-        case .List: return ApiEndpoints.accountLists
+        case .Favorite: return AccountManager.urlFavoriteMovies
+        case .Rated: return AccountManager.urlRatedMovies
+        case .Watchlist: return AccountManager.urlWatchlistMovies
+        case .List: return AccountManager.urlCompilations
         }
     }
 }

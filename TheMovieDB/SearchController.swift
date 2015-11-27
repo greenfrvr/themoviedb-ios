@@ -69,7 +69,7 @@ class SearchController: UIViewController, UITabBarControllerDelegate, UITableVie
         FileCache.saveLastQueryParams(queryString, scopeIndex)
     }
     
-    func receiveResults(@autoclosure persistData: () -> Void, pages: PaginationLoading) {
+    func receiveResults<T: PaginationLoading>(@autoclosure persistData: () -> Void, pages: T) {
         persistData()
         
         hasMoreItems = scopeIndex > 0 && pages.hasMorePages
@@ -105,17 +105,17 @@ class SearchController: UIViewController, UITabBarControllerDelegate, UITableVie
     }
     
     func searchMovieResuts(searchResults: SearchMovieResults) {
-        print("\(searchResults.results!.count) movies loaded out of \(searchResults.totalItems!)")
+        print("\(searchResults.results!.count) movies loaded out of \(searchResults.totalResults!)")
         receiveResults(self.resultsMovies += searchResults.results!, pages: searchResults)
     }
     
     func searchTvShowResuts(searchResults: SearchTVResults) {
-        print("\(searchResults.results!.count) tv shows loaded out of \(searchResults.totalItems!)")
+        print("\(searchResults.results!.count) tv shows loaded out of \(searchResults.totalResults!)")
         receiveResults(self.resultsTvShow += searchResults.results!, pages: searchResults)
     }
     
     func searchPersonResuts(searchResults: SearchPersonResults) {
-        print("\(searchResults.results!.count) psersons loaded out of \(searchResults.totalItems!)")
+        print("\(searchResults.results!.count) psersons loaded out of \(searchResults.totalResults!)")
         receiveResults(self.resultsPerson += searchResults.results!, pages: searchResults)
     }
     
@@ -140,7 +140,7 @@ class SearchController: UIViewController, UITabBarControllerDelegate, UITableVie
         }
     }
     
-    func extractDataForRepresentation(row row: Int, section: Int) -> SearchViewRepresentation? {
+    func extractDataForRepresentation(row row: Int, section: Int) -> SearchCellRepresentation? {
         switch ScopeType(scopeIndex, section) {
         case .MOVIE: return resultsMovies[row]
         case .TV: return resultsTvShow[row]
@@ -251,11 +251,11 @@ class SearchController: UIViewController, UITabBarControllerDelegate, UITableVie
             }
         }
         
-        func scopeRequestUrl() -> String {
+        var requestUrl: String {
             switch self {
-            case .MOVIE: return ApiEndpoints.searchMovie
-            case .TV: return ApiEndpoints.searchTvShow
-            case .PEOPLE: return ApiEndpoints.searchPerson
+            case .MOVIE: return SearchManager.urlSearchMovie
+            case .TV: return SearchManager.urlSearchTv
+            case .PEOPLE: return SearchManager.urlSearchPeople
             case .ALL: return ""
             }
         }

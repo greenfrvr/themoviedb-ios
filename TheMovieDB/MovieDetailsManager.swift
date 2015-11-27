@@ -35,29 +35,25 @@ class MovieDetailsManager: ApiManager, SessionRequired {
     }
     
     func loadDetails(id: String) {
-        let url = ApiEndpoints.movieDetails.withArgs(id)
-        get(url, apiKey, detailsDelegate?.movieDetailsLoadedSuccessfully, detailsDelegate?.movieDetailsLoadingFailed)
+        get(urlDetails.withArgs(id), apiKey, detailsDelegate?.movieDetailsLoadedSuccessfully, detailsDelegate?.movieDetailsLoadingFailed)
     }
     
     func loadState(id: String) {
-        let url = ApiEndpoints.movieState.withArgs(id)
-        get(url, apiKey +> session, detailsDelegate?.movieStateLoadedSuccessfully, detailsDelegate?.movieStateLoadingFailed)
+        get(urlState.withArgs(id), apiKey +> session, detailsDelegate?.movieStateLoadedSuccessfully, detailsDelegate?.movieStateLoadingFailed)
     }
     
     func loadImages(id: String){
-        let url = ApiEndpoints.movieImages.withArgs(id)
-        get(url, apiKey +> session, detailsDelegate?.movieImagesLoadedSuccessully, detailsDelegate?.movieImagesLoadingFailed)
+        get(urlImages.withArgs(id), apiKey +> session, detailsDelegate?.movieImagesLoadedSuccessully, detailsDelegate?.movieImagesLoadingFailed)
     }
     
     func loadCredits(id: String) {
-        let url = ApiEndpoints.movieCredits.withArgs(id)
-        get(url, apiKey, detailsDelegate?.movieCreditsLoadedSuccessfully, detailsDelegate?.movieCreditsLoadingFailed)
+        get(urlCredits.withArgs(id), apiKey, detailsDelegate?.movieCreditsLoadedSuccessfully, detailsDelegate?.movieCreditsLoadingFailed)
     }
     
     func changeFavoriteState(id: String, state: Bool){
         let newState = !state
         let body = FavoriteBody(movieId: Int(id), isFavorite: newState)
-        let url = ApiEndpoints.accountItemFavoriteState.withArgs(id, sessionId)
+        let url = urlItemFavoriteState.withArgs(id, sessionId)
         
         post(url, body, { [unowned self] in self.stateDelegate?.movieFavoriteStateChangedSuccessfully(newState) }, stateDelegate?.movieFavoriteStateChangesFailed)
     }
@@ -65,7 +61,7 @@ class MovieDetailsManager: ApiManager, SessionRequired {
     func changeWatchlistState(id: String, state: Bool){
         let newState = !state
         let body = WatchlistBody(movieId: Int(id), isInWatchlist: newState)
-        let url = ApiEndpoints.accountItemWatchlistState.withArgs(id, sessionId)
+        let url = urlItemWatchlistState.withArgs(id, sessionId)
         
         post(url, body, { [unowned self] in self.stateDelegate?.movieWatchlistStateChangedSuccessfully(newState) }, stateDelegate?.movieWatchlistStateChangesFailed)
     }
@@ -85,7 +81,7 @@ protocol MovieDetailsDelegate {
     
     func movieImagesLoadingFailed(error: NSError) -> Void
     
-    func movieCreditsLoadedSuccessfully(credits: Credits) -> Void
+    func movieCreditsLoadedSuccessfully(credits: MovieCredits) -> Void
     
     func movieCreditsLoadingFailed(error: NSError) -> Void
 }

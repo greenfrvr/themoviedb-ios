@@ -19,12 +19,8 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     var movieState: AccountState?
     var detailsManager: MovieDetailsManager?
     var backdropImages = [ImageInfo]()
-    var shareUrl: String {
-        return "\(ApiEndpoints.movieShare)/\(id!)"
-    }
-    var openIMDBUrl: String {
-        return "http://www.imdb.com/title/\(imdbId!)"
-    }
+    var shareUrl: String { return MovieDetailsManager.urlShare.withArgs(id!) }
+    var openIMDBUrl: String { return "http://www.imdb.com/title/\(imdbId!)" }
     lazy var castView = UICastHorizontalView()
     
     @IBOutlet weak var posterImageView: UIImageView!
@@ -132,7 +128,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         }
     }
     
-    func movieCreditsLoadedSuccessfully(credits: Credits) {
+    func movieCreditsLoadedSuccessfully(credits: MovieCredits) {
         if let cast = credits.casts {
             castView.castDisplay(cast)
         }

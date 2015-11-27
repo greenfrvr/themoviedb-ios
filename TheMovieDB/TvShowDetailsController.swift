@@ -18,9 +18,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     var showState: AccountState?
     var detailsManager: TvShowDetailsManager?
     var backdropImages = [ImageInfo]()
-    var shareUrl: String {
-        return "\(ApiEndpoints.tvShare)/\(id!)"
-    }
+    var shareUrl: String { return TvShowDetailsManager.urlShare.withArgs(id!) }
     lazy var castView = UICastHorizontalView()
         
     @IBOutlet weak var posterImageView: UIImageView!
@@ -121,7 +119,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         updateStateIndicators()
     }
     
-    func tvshowCreditsLoadedSuccessfully(credits: Credits) {
+    func tvshowCreditsLoadedSuccessfully(credits: MovieCredits) {
         if let cast = credits.casts {
             castView.castDisplay(cast)
         }

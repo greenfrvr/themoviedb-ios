@@ -9,7 +9,7 @@
 import UIKit
 import Dollar
 
-class UICastHorizontalView: UIScrollCollectionWithLabel<Credits.Cast> {
+class UICastHorizontalView: UIScrollCollectionWithLabel<MovieCredits.Cast> {
     
     var castDelegate: UICastDelegate? {
         didSet {
@@ -35,15 +35,15 @@ class UICastHorizontalView: UIScrollCollectionWithLabel<Credits.Cast> {
         label.text = "\(items[currentItem].name!) as \(items[currentItem].character!)"
     }
     
-    override func setupPosterId(item: Credits.Cast, inout poster: UIPosterView) {
+    override func setupPosterId(item: MovieCredits.Cast, inout poster: UIPosterView) {
         poster.itemId = item.id
     }
     
-    override func imageUrl(item: Credits.Cast) -> String {
+    override func imageUrl(item: MovieCredits.Cast) -> String {
         return ImagesConfig.profile(2, item.profilePath ?? "")
     }
     
-    override func callback(itemId: Int?) -> ((Credits.Cast) -> Bool) {
+    override func callback(itemId: Int?) -> ((MovieCredits.Cast) -> Bool) {
         return { $0.id == itemId }
     }
     

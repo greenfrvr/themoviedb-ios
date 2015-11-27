@@ -18,13 +18,11 @@ class PersonDetailsManager: ApiManager {
     }
     
     func loadDetails(id: String) {
-        let url = ApiEndpoints.personDetails.withArgs(id)
-        get(url, apiKey, detailsDelegate?.personDetailsLoadedSuccessfully, detailsDelegate?.personDetailsLoadingFailed)
+        get(urlDetails.withArgs(id), apiKey, detailsDelegate?.personDetailsLoadedSuccessfully, detailsDelegate?.personDetailsLoadingFailed)
     }
     
     func loadCredits(id: String) {
-        let url = ApiEndpoints.personCredits.withArgs(id)
-        get(url, apiKey, detailsDelegate?.personCreditsLoadedScuccessfully, detailsDelegate?.personCreditsLoadingFailed)
+        get(urlCredits.withArgs(id), apiKey, detailsDelegate?.personCreditsLoadedScuccessfully, detailsDelegate?.personCreditsLoadingFailed)
     }
 }
 
