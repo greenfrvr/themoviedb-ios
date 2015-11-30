@@ -11,11 +11,13 @@ import UIKit
 class ListDetailsActionAlert: DetailsActionAlert {
     
     var listId: String
+    var title: String
     var shareUrl: String?
     weak var detailsManager: ListDetailsManager?
     
-    init(presenter controller: UIViewController?, detailsManager: ListDetailsManager?, id: String, url: String?){
+    init(presenter controller: UIViewController?, detailsManager: ListDetailsManager?, id: String, title: String, url: String?){
         self.listId = id
+        self.title = title
         self.shareUrl = url
         self.detailsManager = detailsManager
         
@@ -37,6 +39,13 @@ class ListDetailsActionAlert: DetailsActionAlert {
                         self.controller?.presentViewController(shareController, animated: true, completion: nil)
                 })
             ]
+        }
+        
+        if #available(iOS 9.0, *) {
+            actions += [ UIAlertAction(title: NSLocalizedString("Homescreen access", comment: ""), style: .Default, handler: { action in
+                let shortcut = UIApplicationShortcutItem(type: "com.greenfrvr.moviedb.favorite-list", localizedTitle: self.title, localizedSubtitle: NSLocalizedString("Open compilation details", comment: ""), icon: UIApplicationShortcutIcon(templateImageName: "Star"), userInfo: ["listId" : String(self.listId)])
+                UIApplication.sharedApplication().shortcutItems = [shortcut]
+            }) ]
         }
         
         actions += [

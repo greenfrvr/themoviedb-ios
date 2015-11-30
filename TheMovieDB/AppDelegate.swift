@@ -48,9 +48,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     @available(iOS 9, *)
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-        if shortcutItem.type == "com.greenfrvr.moviedb.search" {
-            if let controller = self.window?.rootViewController as? UITabBarController {
-                controller.selectedIndex = 1
+        if let tabBarController = self.window?.rootViewController as? UITabBarController {
+            if shortcutItem.type == "com.greenfrvr.moviedb.search" {
+                tabBarController.selectedIndex = 1
+                completionHandler(true)
+            } else if shortcutItem.type == "com.greenfrvr.moviedb.favorite-list" {
+                print("favorite list action")
+                tabBarController.selectedIndex = 0
+                if let controller = tabBarController.selectedViewController, id = shortcutItem.userInfo!["listId"] as? String{
+                    ListDetailsController.presentControllerWithNavigation(controller, id: id)
+                }
                 completionHandler(true)
             }
         }

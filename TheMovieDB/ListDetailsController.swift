@@ -30,7 +30,7 @@ class ListDetailsController: UIViewController, ListDetailsDelegate, DetailsNavig
     }
     
     @IBAction func actionButtonClick(sender: UIBarButtonItem) {
-        let alert = ListDetailsActionAlert(presenter: self, detailsManager: detailsManager, id: id!, url: shareUrl)
+        let alert = ListDetailsActionAlert(presenter: self, detailsManager: detailsManager, id: id!, title: titleLabel.text!, url: shareUrl)
         alert.present()
     }
     
