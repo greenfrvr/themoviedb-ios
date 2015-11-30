@@ -33,6 +33,11 @@ protocol SegmentsRepresentation {
     var representTitle: String? { get }
     var representDescription: String? { get }
     var representCounter: String? { get }
+    mutating func increaseCounter()
+}
+
+extension SegmentsRepresentation {
+    mutating func increaseCounter() {}
 }
 
 protocol SearchCellRepresentation {

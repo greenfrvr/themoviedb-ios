@@ -37,6 +37,7 @@
 		11759AED1BE764FB00BE2B46 /* TheMovieDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AEC1BE764FB00BE2B46 /* TheMovieDBTests.swift */; };
 		11759AF81BE764FB00BE2B46 /* TheMovieDBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759AF71BE764FB00BE2B46 /* TheMovieDBUITests.swift */; };
 		11759B061BE76D5800BE2B46 /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11759B051BE76D5800BE2B46 /* AccountController.swift */; };
+		11774C8A1C0C251D0080E531 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11774C891C0C251D0080E531 /* Notifications.swift */; };
 		117BF1571C04460900708172 /* ListDetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117BF1561C04460900708172 /* ListDetailsActionAlert.swift */; };
 		117BF1591C044F7900708172 /* BackdropSizes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 117BF1581C044F7900708172 /* BackdropSizes.plist */; };
 		117BF15B1C044FFB00708172 /* PosterSizes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 117BF15A1C044FFB00708172 /* PosterSizes.plist */; };
@@ -144,6 +145,7 @@
 		11759AF71BE764FB00BE2B46 /* TheMovieDBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMovieDBUITests.swift; sourceTree = "<group>"; };
 		11759AF91BE764FB00BE2B46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11759B051BE76D5800BE2B46 /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
+		11774C891C0C251D0080E531 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		117BF1561C04460900708172 /* ListDetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListDetailsActionAlert.swift; sourceTree = "<group>"; };
 		117BF1581C044F7900708172 /* BackdropSizes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = BackdropSizes.plist; path = ../BackdropSizes.plist; sourceTree = "<group>"; };
 		117BF15A1C044FFB00708172 /* PosterSizes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PosterSizes.plist; path = ../PosterSizes.plist; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				118336A61BF2145700D590AF /* Utils.swift */,
 				1161C70D1C05C8360070A1DC /* Operators.swift */,
 				1163B4CC1C0714AB00713AE2 /* FileCache.swift */,
+				11774C891C0C251D0080E531 /* Notifications.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 			files = (
 				1180EFAF1BE9EB7F00082B6E /* ListItemViewCell.swift in Sources */,
 				117CF94F1BECD56E00BA2A3B /* MovieDetailsController.swift in Sources */,
+				11774C8A1C0C251D0080E531 /* Notifications.swift in Sources */,
 				1180EFAD1BE9EAA900082B6E /* ListItemsCollectionController.swift in Sources */,
 				118BFF1F1C08406400CA3EFC /* CompilationModel.swift in Sources */,
 				118B11621BFA1587001DDC80 /* DetailsActionAlert.swift in Sources */,
@@ -778,7 +782,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -817,6 +821,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -835,10 +840,11 @@
 				INFOPLIST_FILE = TheMovieDB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.greenfrvr.TheMovieDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos9.1;
-				VALID_ARCHS = "i386 x86_64";
+				SDKROOT = iphoneos;
+				VALID_ARCHS = "i386 x86_64 armv7s armv7 arm64";
 			};
 			name = Debug;
 		};
@@ -854,10 +860,11 @@
 				INFOPLIST_FILE = TheMovieDB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.greenfrvr.TheMovieDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos9.1;
-				VALID_ARCHS = "i386 x86_64";
+				SDKROOT = iphoneos;
+				VALID_ARCHS = "i386 x86_64 armv7s armv7 arm64";
 			};
 			name = Release;
 		};

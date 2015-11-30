@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import Dollar
 
 class AccountTableController: UITableViewController, ListsDelegate, UserSegmentsDelegate {
 
@@ -34,6 +35,28 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     
         setupPullToRefreshControl()
         tableView.tableFooterView?.hidden = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveListUpdate:", name: Notify.ListUpdate.rawValue, object: nil)
+    }
+    
+    func receiveListUpdate(notification: NSNotification) {
+        guard let dict = notification.userInfo, list = dict["listId"] as? String else {
+            print("Received notification with no data")
+            return
+        }
+    
+        let ind = $.findIndex(lists) {
+            guard let id = $0.id else { return false }
+            return id == list
+        }
+        
+        guard let index = ind else { return }
+        
+        var item = lists[index]
+        item.increaseCounter()
+        lists[index] = item
+        
+        tableView.reloadData()
     }
     
     func receiveResults<T: PaginationLoading>(@autoclosure persistData: () -> Void, pages: T) {

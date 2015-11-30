@@ -14,6 +14,10 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var itemType: String?
     var lists = [CompilationInfo]()
     var accountManager: AccountManager?
+    var selectedList: CompilationInfo {
+        let index = listsPicker.selectedRowInComponent(0)
+        return lists[index]
+    }
     
     @IBOutlet weak var listImageView: UIImageView!
     @IBOutlet weak var listsPicker: UIPickerView!
@@ -26,8 +30,7 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @IBAction func doneButtonClicked(sender: AnyObject) {
-        let list = lists[listsPicker.selectedRowInComponent(0)]
-        if let listId = list.id, id = Int(self.itemId!) {
+        if let listId = selectedList.id, id = Int(self.itemId!) {
             accountManager?.addToList(listId: listId, itemId: id)
         }
     }
@@ -63,7 +66,15 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     func listItemUpdatedSuccessfully() {
+        notifyListsUpdate()
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func notifyListsUpdate() {
+        guard let listId = selectedList.id else { return }
+
+        let dictionary = [ "listId" : listId]
+        NSNotificationCenter.defaultCenter().postNotificationName(Notify.ListUpdate.rawValue, object: nil, userInfo: dictionary)
     }
     
     func listItemUpdatingFailed(error: NSError) {
@@ -115,12 +126,14 @@ class ListPickerController: UIViewController, UIPickerViewDataSource, UIPickerVi
         }
     }
     
-    private func animateInfo(alpha alpha: CGFloat, delay: NSTimeInterval = 0, completion: ((Bool) -> Void)? = nil){
-        UIView.animateWithDuration(0.3, delay: delay) {
-                self.listImageView.alpha = alpha
-                self.descriptionLabel.alpha = alpha
-                self.itemsCountLabel.alpha = alpha
-                self.favoriteCountLabel.alpha = alpha
-            }
+    private func animateInfo(alpha alpha: CGFloat, completion: ((Bool) -> Void)? = nil){
+        let animations = {
+            self.listImageView.alpha = alpha
+            self.descriptionLabel.alpha = alpha
+            self.itemsCountLabel.alpha = alpha
+            self.favoriteCountLabel.alpha = alpha
+        }
+        
+        UIView.animateWithDuration(0.3, animations: animations, completion: completion)
     }
 }

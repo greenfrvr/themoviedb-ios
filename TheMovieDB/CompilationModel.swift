@@ -57,6 +57,11 @@ struct CompilationInfo: Mappable, SegmentsRepresentation {
         return "\(count > 0 ? String(count) : "no") item\(count != 1 ? "s" : "")"
     }
     
+    mutating func increaseCounter() {
+        if let items = itemsInList {
+            itemsInList = items + 1
+        }
+    }
 }
 
 struct CompilationInfoPages: Mappable, PaginationLoading {
