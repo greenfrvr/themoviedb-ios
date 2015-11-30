@@ -9,7 +9,7 @@
 import AFNetworking
 import ObjectMapper
 
-class ListDetailsManager: ApiManager, SessionRequired {
+class ListDetailsManager: ApiManager, SessionRequired, LanguageRequired {
     var sessionId: String
     let detailsDelegate: ListDetailsDelegate?
     
@@ -25,11 +25,11 @@ class ListDetailsManager: ApiManager, SessionRequired {
     }
     
     func listDetails(listId id: String){
-        get(urlDetails.withArgs(id), apiKey, detailsDelegate?.listDetailsLoadedSuccessfully, detailsDelegate?.listDetailsLoadingFailed)
+        get(urlDetails.withArgs(id), apiKey +> lang, detailsDelegate?.listDetailsLoadedSuccessfully, detailsDelegate?.listDetailsLoadingFailed)
     }
     
     func listDelete(listId id: String) {
-        delete(urlDetails.withArgs(id), apiKey, detailsDelegate?.listRemovedSuccessfully, detailsDelegate?.listRemovingFailed)
+        delete(urlDetails.withArgs(id), apiKey +> lang, detailsDelegate?.listRemovedSuccessfully, detailsDelegate?.listRemovingFailed)
     }
 }
 

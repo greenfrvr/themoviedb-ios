@@ -13,10 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        NSUserDefaults.standardUserDefaults().registerDefaults(["account" : "username", "session_caching_enabled" : true])
+        NSUserDefaults.standardUserDefaults().registerDefaults([Settings.Account.rawValue : Settings.deaultUser, Settings.SessionCaching.rawValue : true, Settings.Language.rawValue : Settings.defaultLang])
+        
+        let lang = NSUserDefaults.standardUserDefaults().valueForKey(Settings.Language.rawValue) as? String
+        NSUserDefaults.standardUserDefaults().setObject([lang ?? Settings.defaultLang], forKey: "AppleLanguages")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
         return true
     }
 

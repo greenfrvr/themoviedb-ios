@@ -9,7 +9,7 @@
 import AFNetworking
 import ObjectMapper
 
-class MovieDetailsManager: ApiManager, SessionRequired {
+class MovieDetailsManager: ApiManager, SessionRequired, LanguageRequired {
     var sessionId: String
     let detailsDelegate: MovieDetailsDelegate?
     let stateDelegate: MovieStateChangeDelegate?
@@ -35,7 +35,7 @@ class MovieDetailsManager: ApiManager, SessionRequired {
     }
     
     func loadDetails(id: String) {
-        get(urlDetails.withArgs(id), apiKey, detailsDelegate?.movieDetailsLoadedSuccessfully, detailsDelegate?.movieDetailsLoadingFailed)
+        get(urlDetails.withArgs(id), apiKey +> lang, detailsDelegate?.movieDetailsLoadedSuccessfully, detailsDelegate?.movieDetailsLoadingFailed)
     }
     
     func loadState(id: String) {

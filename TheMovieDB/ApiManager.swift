@@ -83,3 +83,24 @@ extension TokenRequired {
     var token: [String: String] { return [ "request_token": tokenId ?? "" ] }
     
 }
+
+protocol LanguageRequired {
+    
+    var langCode: String { get }
+    
+}
+
+extension LanguageRequired {
+    
+    var langCode: String {
+        guard let langCode = NSUserDefaults.standardUserDefaults().valueForKey(Settings.Language.rawValue) as? String
+            else { return Settings.defaultLang }
+        
+        return langCode
+    }
+    var lang: [String: String] {
+        print("Language code: \(langCode)")
+        return ["language": langCode]
+    }
+    
+}

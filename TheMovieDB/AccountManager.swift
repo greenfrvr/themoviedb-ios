@@ -8,7 +8,7 @@
 import AFNetworking
 import ObjectMapper
 
-class AccountManager: ApiManager, SessionRequired {
+class AccountManager: ApiManager, SessionRequired, LanguageRequired {
     var sessionId: String
     var account: Account?
     let accountDelegate: AccountDelegate?
@@ -58,9 +58,9 @@ class AccountManager: ApiManager, SessionRequired {
         let url = type.requestUrl.withArgs(userId)
         switch type {
         case .List:
-            get(url, apiKey +> session +> [ "page" : page ], listsDelegate?.userListsLoadedSuccessfully, listsDelegate?.userListsLoadingFailed)
+            get(url, apiKey +> lang +> session +> [ "page" : page ], listsDelegate?.userListsLoadedSuccessfully, listsDelegate?.userListsLoadingFailed)
         default:
-            get(url, apiKey +> session +> [ "page" : page ], listsDelegate?.userSegmentLoadedSuccessfully, listsDelegate?.userSegmentLoadingFailed)
+            get(url, apiKey +> lang +> session +> [ "page" : page ], listsDelegate?.userSegmentLoadedSuccessfully, listsDelegate?.userSegmentLoadingFailed)
         }
     }
     

@@ -11,6 +11,8 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>General</string>
+			<key>FooterText</key>
+			<string>Language update hint</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -33,6 +35,28 @@
 			<string>session_caching_enabled</string>
 			<key>DefaultValue</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Language</string>
+			<key>Key</key>
+			<string>app_lang</string>
+			<key>DefaultValue</key>
+			<string>en</string>
+			<key>Values</key>
+			<array>
+				<string>en</string>
+				<string>ru</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>English</string>
+				<string>Russian</string>
+			</array>
+			<key>New item</key>
+			<string></string>
 		</dict>
 	</array>
 </dict>

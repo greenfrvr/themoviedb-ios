@@ -9,7 +9,7 @@
 import AFNetworking
 import ObjectMapper
 
-class TvShowDetailsManager: ApiManager, SessionRequired {
+class TvShowDetailsManager: ApiManager, SessionRequired, LanguageRequired {
     var sessionId: String
     let detailsDelegate: TvShowDetailsDelegate?
     let stateDelegate: TvShowStateChangeDelegate?
@@ -35,7 +35,7 @@ class TvShowDetailsManager: ApiManager, SessionRequired {
     }
     
     func loadDetails(id: String) {
-        get(urlDetails.withArgs(id), apiKey, detailsDelegate?.tvshowDetailsLoadedSuccessfully, detailsDelegate?.tvshowDetailsLoadingFailed)
+        get(urlDetails.withArgs(id), apiKey +> lang, detailsDelegate?.tvshowDetailsLoadedSuccessfully, detailsDelegate?.tvshowDetailsLoadingFailed)
     }
     
     func loadState(id: String) {

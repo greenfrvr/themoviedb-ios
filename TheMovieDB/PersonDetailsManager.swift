@@ -9,7 +9,7 @@
 import AFNetworking
 import ObjectMapper
 
-class PersonDetailsManager: ApiManager {
+class PersonDetailsManager: ApiManager, LanguageRequired {
     var detailsDelegate: PersonDetailsDelegate?
     
     init(detailsDelegate: PersonDetailsDelegate?){
@@ -18,7 +18,7 @@ class PersonDetailsManager: ApiManager {
     }
     
     func loadDetails(id: String) {
-        get(urlDetails.withArgs(id), apiKey, detailsDelegate?.personDetailsLoadedSuccessfully, detailsDelegate?.personDetailsLoadingFailed)
+        get(urlDetails.withArgs(id), apiKey +> lang, detailsDelegate?.personDetailsLoadedSuccessfully, detailsDelegate?.personDetailsLoadingFailed)
     }
     
     func loadCredits(id: String) {

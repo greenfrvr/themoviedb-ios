@@ -9,7 +9,7 @@
 import AFNetworking
 import ObjectMapper
 
-class TrendsManager: ApiManager {
+class TrendsManager: ApiManager, LanguageRequired {
     let delegate: TrendsDelegate?
     
     init(delegate: TrendsDelegate?){
@@ -22,12 +22,12 @@ class TrendsManager: ApiManager {
         
         switch type {
         case .MOVIE:
-            get(url, apiKey +> [ "page": page ], { (res: MovieTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
+            get(url, apiKey +> lang +> [ "page": page ], { (res: MovieTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
                 [unowned self] in
                 self.delegate?.trendsLoadedSuccessfully(TrendsList(list: $0))
             }
         case .TV:
-            get(url, apiKey +> [ "page": page ], { (res: TvTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
+            get(url, apiKey +> lang +> [ "page": page ], { (res: TvTrendsList) -> Void in }, delegate?.trendsLoadingFailed) {
                 [unowned self] in
                 self.delegate?.trendsLoadedSuccessfully(TrendsList(list: $0))
             }

@@ -1,0 +1,10 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"General" = "Общие";
+"Current user" = "Текущий пользователь";
+"none given" = "none given";
+"Enabled" = "Активно";
+"Language" = "Язык";
+"English" = "Английский";
+"Russian" = "Русский";
+"Language update hint" = "Для того, чтобы изменения языка вступили в силу необходимо перезапустить приложение.";

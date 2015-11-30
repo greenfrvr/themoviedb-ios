@@ -8,6 +8,21 @@
 
 import UIKit
 
+enum Settings: String {
+    case Account = "account"
+    case SessionCaching = "session_caching_enabled"
+    case Language = "app_lang"
+
+    static var defaultLang: String {
+        return "en"
+    }
+
+    static var deaultUser: String {
+        return "user"
+    }
+}
+
+
 extension UIViewController {
     
     func showAlert(titleKey: String, _ messageKey: String, _ cancelKey: String) {
