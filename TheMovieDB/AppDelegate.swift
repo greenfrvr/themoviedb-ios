@@ -46,6 +46,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    @available(iOS 9, *)
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+        if shortcutItem.type == "com.greenfrvr.moviedb.search" {
+            if let controller = self.window?.rootViewController as? UITabBarController {
+                controller.selectedIndex = 1
+                completionHandler(true)
+            }
+        }
+        completionHandler(false)
+    }
+    
     func application(application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
         return true
     }

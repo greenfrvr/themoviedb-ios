@@ -22,7 +22,7 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
     @IBOutlet weak var segmentsChooser: UISegmentedControl!
     @IBOutlet weak var typeSwitcher: UISwitch!
     
-    @IBAction func usersSetChanged(sender: UISegmentedControl) {
+    @IBAction func usersSetChanged(sender: UISegmentedControl, forEvent event: UIEvent) {
         loadData()
     }
     
