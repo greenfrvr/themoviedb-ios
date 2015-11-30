@@ -1,0 +1,144 @@
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "0Bf-iZ-V57"; */
+"0Bf-iZ-V57.title" = "Назад";
+
+/* Class = "UILabel"; text = "James McAvoy"; ObjectID = "0L4-7g-P5R"; */
+"0L4-7g-P5R.text" = "James McAvoy";
+
+/* Class = "UILabel"; text = "Seasons:"; ObjectID = "0fZ-rZ-RnQ"; */
+"0fZ-rZ-RnQ.text" = "Сезонов:";
+
+/* Class = "UILabel"; text = "Last episode:"; ObjectID = "4SO-GY-bJs"; */
+"4SO-GY-bJs.text" = "Последний эпизод:";
+
+/* Class = "UIViewController"; title = "Movie Details"; ObjectID = "531-sP-cKr"; */
+"531-sP-cKr.title" = "Movie Details";
+
+/* Class = "UILabel"; text = "Episodes:"; ObjectID = "5t9-91-5VY"; */
+"5t9-91-5VY.text" = "Эпизодов:";
+
+/* Class = "UINavigationController"; title = "TV Details Navigation"; ObjectID = "65j-zA-ZRu"; */
+"65j-zA-ZRu.title" = "TV Details Navigation";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "BIH-pv-YaB"; */
+"BIH-pv-YaB.text" = "Label";
+
+/* Class = "UINavigationController"; title = "Person Details Navigation"; ObjectID = "BXL-PL-w1z"; */
+"BXL-PL-w1z.title" = "Person Details Navigation";
+
+/* Class = "UINavigationItem"; title = "Details"; ObjectID = "BYf-x8-zf3"; */
+"BYf-x8-zf3.title" = "Детали";
+
+/* Class = "UILabel"; text = "Cast"; ObjectID = "Dy1-jA-Ngv"; */
+"Dy1-jA-Ngv.text" = "Актерский состав";
+
+/* Class = "UILabel"; text = "Backdrops"; ObjectID = "HWL-tN-TBu"; */
+"HWL-tN-TBu.text" = "Кадры";
+
+/* Class = "UILabel"; text = "Cast"; ObjectID = "Hf3-ig-TUH"; */
+"Hf3-ig-TUH.text" = "Актерский состав";
+
+/* Class = "UILabel"; text = "5 000 000$"; ObjectID = "KAR-VQ-Tj6"; */
+"KAR-VQ-Tj6.text" = "5 000 000$";
+
+/* Class = "UILabel"; text = "131 min"; ObjectID = "Ltf-yi-0eH"; */
+"Ltf-yi-0eH.text" = "131 min";
+
+/* Class = "UILabel"; text = "7.3"; ObjectID = "Odl-Rk-kdJ"; */
+"Odl-Rk-kdJ.text" = "7.3";
+
+/* Class = "UILabel"; text = "more..."; ObjectID = "QOT-jG-mst"; */
+"QOT-jG-mst.text" = "еще...";
+
+/* Class = "UILabel"; text = "Revenue:"; ObjectID = "RtE-0M-7xQ"; */
+"RtE-0M-7xQ.text" = "Доход:";
+
+/* Class = "UILabel"; text = "Overview"; ObjectID = "SBl-KC-y3r"; */
+"SBl-KC-y3r.text" = "Краткое описание";
+
+/* Class = "UILabel"; text = "Birth date:"; ObjectID = "TEW-o8-W6W"; */
+"TEW-o8-W6W.text" = "Дата рождения:";
+
+/* Class = "UILabel"; text = "131 min"; ObjectID = "U8w-dF-f3a"; */
+"U8w-dF-f3a.text" = "131 min";
+
+/* Class = "UILabel"; text = "Backdrops"; ObjectID = "W5K-o3-Puf"; */
+"W5K-o3-Puf.text" = "Кадры из фильма";
+
+/* Class = "UILabel"; text = "(10375)"; ObjectID = "ZHk-5A-Mdi"; */
+"ZHk-5A-Mdi.text" = "(10375)";
+
+/* Class = "UIViewController"; title = "TV Details"; ObjectID = "ciW-cu-Glc"; */
+"ciW-cu-Glc.title" = "TV Details";
+
+/* Class = "UILabel"; text = "Works"; ObjectID = "d0r-pt-vwH"; */
+"d0r-pt-vwH.text" = "Работы";
+
+/* Class = "UIBarButtonItem"; title = "fdsfs"; ObjectID = "d15-FR-jM6"; */
+"d15-FR-jM6.title" = "fdsfs";
+
+/* Class = "UINavigationItem"; title = "Details"; ObjectID = "dbj-K3-zjq"; */
+"dbj-K3-zjq.title" = "Детали";
+
+/* Class = "UILabel"; text = "Fight Club"; ObjectID = "dxf-C5-kAf"; */
+"dxf-C5-kAf.text" = "Fight Club";
+
+/* Class = "UILabel"; text = "Biography"; ObjectID = "fCz-kw-6B2"; */
+"fCz-kw-6B2.text" = "Биография";
+
+/* Class = "UILabel"; text = "(10375)"; ObjectID = "fE5-c8-Omf"; */
+"fE5-c8-Omf.text" = "(10375)";
+
+/* Class = "UILabel"; text = "176"; ObjectID = "gFv-AW-IPn"; */
+"gFv-AW-IPn.text" = "176";
+
+/* Class = "UILabel"; text = "7.3"; ObjectID = "gYn-6v-Ujo"; */
+"gYn-6v-Ujo.text" = "7.3";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "gvP-RS-2C6"; */
+"gvP-RS-2C6.text" = "Label";
+
+/* Class = "UILabel"; text = "10"; ObjectID = "jb0-k7-m3U"; */
+"jb0-k7-m3U.text" = "10";
+
+/* Class = "UILabel"; text = "Budget:"; ObjectID = "lKd-T1-8iq"; */
+"lKd-T1-8iq.text" = "Бюджет:";
+
+/* Class = "UINavigationController"; title = "Movie Details Navigation"; ObjectID = "lvt-sX-gqP"; */
+"lvt-sX-gqP.title" = "Movie Details Navigation";
+
+/* Class = "UILabel"; text = "Fight Club"; ObjectID = "o4H-Mc-E5a"; */
+"o4H-Mc-E5a.text" = "Fight Club";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pYb-FI-2nb"; */
+"pYb-FI-2nb.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "q0E-Mo-G9U"; */
+"q0E-Mo-G9U.text" = "Label";
+
+/* Class = "UILabel"; text = "2013/10/03"; ObjectID = "qUj-nv-Rex"; */
+"qUj-nv-Rex.text" = "2013/10/03";
+
+/* Class = "UILabel"; text = "How much can you know about yourself if you've never been in a fight?"; ObjectID = "sT4-Qo-rvk"; */
+"sT4-Qo-rvk.text" = "How much can you know about yourself if you've never been in a fight?";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "svY-NZ-bMG"; */
+"svY-NZ-bMG.title" = "Назад";
+
+/* Class = "UIViewController"; title = "Person Details"; ObjectID = "t6S-9r-2Lb"; */
+"t6S-9r-2Lb.title" = "Person Details";
+
+/* Class = "UILabel"; text = "Overview"; ObjectID = "tWr-0X-bUt"; */
+"tWr-0X-bUt.text" = "Краткое описание";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "tXM-uO-Znp"; */
+"tXM-uO-Znp.text" = "Label";
+
+/* Class = "UILabel"; text = "10 000 000$"; ObjectID = "vmm-fX-Nlm"; */
+"vmm-fX-Nlm.text" = "10 000 000$";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "wNn-tp-P3W"; */
+"wNn-tp-P3W.title" = "Назад";
+
+/* Class = "UINavigationItem"; title = "Details"; ObjectID = "zlv-bu-S27"; */
+"zlv-bu-S27.title" = "Детали";

@@ -60,6 +60,7 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     }
     
     func receiveResults<T: PaginationLoading>(@autoclosure persistData: () -> Void, pages: T) {
+        clearIfNeeded()
         persistData()
         
         hasMoreItems = pages.hasMorePages
@@ -157,7 +158,10 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         tableView.reloadData()
         loadingIndicatorVisible(true)
         accountManager?.loadSegment(currentType)
-        updateRefreshingTitle()
+    }
+    
+    func refreshInitPage(){
+        accountManager?.loadSegment(currentType)
     }
     
     func loadingIndicatorVisible(start: Bool) {
@@ -174,13 +178,22 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         let refresh = UIRefreshControl()
         refresh.backgroundColor = UIColor.rgb(22, 122, 110)
         refresh.tintColor = UIColor.whiteColor()
-        refresh.addTarget(self, action: "loadInitPage", forControlEvents: UIControlEvents.ValueChanged)
+        refresh.addTarget(self, action: "refreshInitPage", forControlEvents: UIControlEvents.ValueChanged)
         
         refreshControl = refresh
     }
     
     func stopRefreshing() {
-            refreshControl?.endRefreshing()
+        if let control = refreshControl where control.refreshing {
+            control.endRefreshing()
+        }
+        updateRefreshingTitle()
+    }
+    
+    func clearIfNeeded() {
+        if let control = refreshControl where control.refreshing {
+            lists.removeAll()
+        }
     }
     
     func updateRefreshingTitle() {

@@ -20,7 +20,11 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var segmentsChooser: UISegmentedControl!
-    @IBOutlet weak var typeSwitcher: UISwitch!
+    @IBOutlet weak var typeSwitcher: UISwitch! {
+        didSet {
+            typeSwitcher.tintColor = UIColor.whiteColor()
+        }
+    }
     
     @IBAction func usersSetChanged(sender: UISegmentedControl, forEvent event: UIEvent) {
         loadData()
@@ -31,7 +35,11 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
         typeLabel.text = isMovie ? "Movie" : "TV"
         AccountManager.isMovie = isMovie
         
-        loadData()
+        UIView.animateWithDuration(0.3) { self.view.backgroundColor = isMovie ? UIColor.whiteColor() : UIColor.rgb(202, 203, 207) }
+        
+        if segmentsChooser.selectedSegmentIndex > 0 {
+            loadData()
+        }
     }
     
     override func viewDidLoad() {

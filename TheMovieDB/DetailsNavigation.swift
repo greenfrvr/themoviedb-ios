@@ -23,7 +23,7 @@ protocol DetailsNavigation {
 extension DetailsNavigation {
     
     static func presentControllerWithNavigation(presenter: UIViewController, id: String?) {
-        let navigationController = presenter.storyboard?.instantiateViewControllerWithIdentifier(navigationId) as! UINavigationController
+        let navigationController = UIStoryboard(name: "Details", bundle: nil).instantiateViewControllerWithIdentifier(navigationId) as! UINavigationController
         var controller = navigationController.topViewController as! DetailsNavigation
         controller.id = id
         presenter.presentViewController(navigationController, animated: true, completion: nil)
