@@ -17,14 +17,21 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var fullNameLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var segmentsChooser: UISegmentedControl!
+    @IBOutlet weak var typeSwitcher: UISwitch!
     
-    @IBAction func usersSetChanged(sender: UISegmentedControl, forEvent event: UIEvent) {
-        let index = sender.selectedSegmentIndex
-        if let type = AccountSegmentType(rawValue: index) {
-            segmentsLoader?.loadSelectedSegment(type)
-        }
+    @IBAction func usersSetChanged(sender: UISegmentedControl) {
+        loadData()
+    }
+    
+    @IBAction func typeSwticher(sender: UISwitch) {
+        let isMovie = sender.on
+        typeLabel.text = isMovie ? "Movie" : "TV"
+        AccountManager.isMovie = isMovie
+        
+        loadData()
     }
     
     override func viewDidLoad() {
@@ -37,9 +44,7 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
     }
     
     func userLoadedSuccessfully(account: Account) {
-        if loadingIndicator.isAnimating() {
-            loadingIndicator.stopAnimating()
-        }
+        if loadingIndicator.isAnimating() { loadingIndicator.stopAnimating() }
         
         usernameLabel.text = account.username
         fullNameLabel.text = account.fullName
@@ -52,6 +57,13 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
         }
     }
     
+    func loadData() {
+        let index = segmentsChooser.selectedSegmentIndex
+        guard let segment = AccountSegmentType(rawValue: index) else { return }
+        
+        segmentsLoader?.loadSelectedSegment(segment)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "UserListsSegue" {
            segmentsLoader = segue.destinationViewController as? UserSegmentsDelegate
@@ -60,11 +72,7 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         if viewController == self {
-            print("You're back to account controller")
-            let index = segmentsChooser.selectedSegmentIndex
-            if let type = AccountSegmentType(rawValue: index) {
-                segmentsLoader?.loadSelectedSegment(type)
-            }
+            loadData()
         }
     }
 }

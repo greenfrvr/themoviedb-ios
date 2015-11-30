@@ -167,8 +167,10 @@ struct CompilationDetails: Mappable {
 struct SegmentListItem: Mappable, SegmentsRepresentation {
     var itemId: Int?
     var title: String?
+    var tvTitle: String?
     var titleOriginal: String?
     var releaseDate: String?
+    var firstAirDate: String?
     var posterPath: String?
     var backdropPath: String?
     var voteAverage: Double?
@@ -181,8 +183,10 @@ struct SegmentListItem: Mappable, SegmentsRepresentation {
     mutating func mapping(map: Map) {
         itemId<-map["id"]
         title<-map["title"]
+        tvTitle<-map["name"]
         titleOriginal<-map["original_title"]
         releaseDate<-map["release_date"]
+        firstAirDate<-map["first_air_date"]
         posterPath<-map["poster_path"]
         backdropPath<-map["backdrop_path"]
         voteAverage<-map["vote_average"]
@@ -200,11 +204,27 @@ struct SegmentListItem: Mappable, SegmentsRepresentation {
     }
     
     var representTitle: String? {
-        return title
+        if let title = title {
+            return title
+        }
+        
+        if let title = tvTitle {
+            return title
+        }
+        
+        return nil
     }
     
     var representDescription: String? {
-        return releaseDate?.stringByReplacingOccurrencesOfString("-", withString: "/")
+        if let date = releaseDate {
+            return date.stringByReplacingOccurrencesOfString("-", withString: "/")
+        }
+    
+        if let date = firstAirDate {
+            return date.stringByReplacingOccurrencesOfString("-", withString: "/")
+        }
+        
+        return nil
     }
     
     var representImage: String? {

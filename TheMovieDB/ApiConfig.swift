@@ -24,9 +24,9 @@ extension AuthenticationManager {
 
 extension AccountManager {
     static var urlCompilations: String { return "\(Endpoints.baseApiUrl)/account/%d/lists" }
-    static var urlFavoriteMovies: String { return "\(Endpoints.baseApiUrl)/account/%d/favorite/movies" }
-    static var urlRatedMovies: String { return "\(Endpoints.baseApiUrl)/account/%d/rated/movies" }
-    static var urlWatchlistMovies: String { return "\(Endpoints.baseApiUrl)/account/%d/watchlist/movies" }
+    static var urlFavoriteMovies: String { return "\(Endpoints.baseApiUrl)/account/%d/favorite/\(urlTypePath)" }
+    static var urlRatedMovies: String { return "\(Endpoints.baseApiUrl)/account/%d/rated/\(urlTypePath)" }
+    static var urlWatchlistMovies: String { return "\(Endpoints.baseApiUrl)/account/%d/watchlist/\(urlTypePath)" }
     
     var urlAccount: String { return "\(urlApi)/account" }
     var urlAddItem: String { return "\(urlApi)/list/%@/add_item?api_key=\(key)&session_id=%@" }

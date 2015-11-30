@@ -13,6 +13,10 @@ class AccountManager: ApiManager, SessionRequired, LanguageRequired {
     var account: Account?
     let accountDelegate: AccountDelegate?
     let listsDelegate: ListsDelegate?
+    static var isMovie: Bool = true
+    static var urlTypePath: String {
+        return isMovie ? "movies" : "tv"
+    }
     
     init?(session: String, accountDelegate: AccountDelegate?, listsDelegate: ListsDelegate?){
         self.sessionId = session

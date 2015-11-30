@@ -99,7 +99,6 @@ extension LanguageRequired {
         return langCode
     }
     var lang: [String: String] {
-        print("Language code: \(langCode)")
         return ["language": langCode]
     }
     

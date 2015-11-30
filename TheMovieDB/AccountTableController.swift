@@ -71,12 +71,14 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     }
     
     func userListsLoadedSuccessfully(results: CompilationInfoPages) {
+        loadingIndicatorVisible(false)
         guard let list = results.resultsRepresentative else { return }
         
         receiveResults(lists += list, pages: results)
     }
     
     func userSegmentLoadedSuccessfully(results: SegmentList) {
+        loadingIndicatorVisible(false)
         guard let list = results.resultsRepresentative else { return }
 
         receiveResults(lists += list, pages: results)
@@ -152,8 +154,20 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     
     func loadInitPage(){
         lists.removeAll()
+        tableView.reloadData()
+        loadingIndicatorVisible(true)
         accountManager?.loadSegment(currentType)
         updateRefreshingTitle()
+    }
+    
+    func loadingIndicatorVisible(start: Bool) {
+        if let parent = self.parentViewController as? AccountController {
+            if start {
+                parent.loadingIndicator.startAnimating()
+            } else {
+                parent.loadingIndicator.stopAnimating()
+            }
+        }
     }
     
     func setupPullToRefreshControl() {
