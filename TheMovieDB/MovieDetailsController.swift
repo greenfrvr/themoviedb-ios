@@ -26,6 +26,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var taglineLabel: UILabel!
+    @IBOutlet weak var rateIcon: UIImageView!
     @IBOutlet weak var averageVoteLabel: UILabel!
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var runtimeLabel: UILabel!
@@ -34,6 +35,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     
     @IBOutlet weak var navFavoriteButton: UIBarButtonItem!
     @IBOutlet weak var watchlistButton: UIImageView!
+    @IBOutlet weak var watchlistLabel: UILabel!
     
     @IBOutlet weak var descriptionLabel: UILabelWithPadding!
     @IBOutlet weak var overviewLabel: UILabel!
@@ -54,10 +56,6 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         } else {
             navigationController?.popViewControllerAnimated(true)
         }
-    }
-    
-    @IBAction func overviewSectionClicked(sender: AnyObject) {
-        print("Overview clicked")
     }
     
     @IBAction func addToFavorite(sender: UIBarButtonItem) {
@@ -87,16 +85,11 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
             detailsManager?.loadState(id)
             detailsManager?.loadImages(id)
             detailsManager?.loadCredits(id)
+//            detailsManager?.loadSimilar(id)
         }
     }
     
     override func viewWillAppear(animated: Bool) {
-        taglineLabel.numberOfLines = 2
-        taglineLabel.sizeToFit()
-        
-        overviewLabel.numberOfLines = 0
-        overviewLabel.sizeToFit()
-        
         watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
         
         imagesScrollView.backdropsDelegate = self
@@ -105,15 +98,26 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
 
     func movieDetailsLoadedSuccessfully(details: MovieInfo) {
         imdbId = details.imdbId
-        posterImageView.sd_setImageWithURL(NSURL(posterPath: details.posterPath, size: 3), placeholderImage: UIImage.placeholder())
+        posterImageView.sd_setImageWithURL(NSURL(posterPath: details.posterPath, size: 3), placeholderImage: UIImage(res: .PosterPlaceholder))
         titleLabel.text = details.title
-        taglineLabel.text = details.tagline
+
+        if let tagline = details.tagline where !tagline.isEmpty {
+            taglineLabel.text = tagline
+            taglineLabel.sizeToFit()
+        } else {
+            taglineLabel.removeConstraints(taglineLabel.constraints)
+            NSLayoutConstraint(item: rateIcon, attribute: .Top, relatedBy: .Equal, toItem: titleLabel, attribute: .Bottom, multiplier: 1.0, constant: 8).active = true
+        }
         averageVoteLabel.text = String(details.voteAverage ?? 0.0)
         voteCountLabel.text = "(\(details.voteCount ?? 0))"
         runtimeLabel.text = "\(details.runtime ?? 0) min"
         budgetLabel.text = "\(details.budget ?? 0)$"
         revenueLabel.text = "\(details.revenue ?? 0)$"
+        
         overviewLabel.text = details.overview
+        overviewLabel.sizeToFit()
+
+        view.layoutIfNeeded()
     }
     
     func movieStateLoadedSuccessfully(state: AccountState) {
@@ -132,6 +136,10 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         if let cast = credits.casts {
             castView.castDisplay(cast)
         }
+    }
+    
+    func movieSimilarLoadedSuccessfully(similar: SegmentList) {
+        print("Results: \(similar.resultsRepresentative)")
     }
     
     func movieDetailsLoadingFailed(error: NSError) {
@@ -153,6 +161,12 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     func movieCreditsLoadingFailed(error: NSError) {
+        if let error = error.apiError {
+            error.printError()
+        }
+    }
+    
+    func movieSimilarLoadingFailed(error: NSError) {
         if let error = error.apiError {
             error.printError()
         }
@@ -212,7 +226,8 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     func updateStateIndicators(){
-        navFavoriteButton.image = UIImage(named: movieState?.favorite ?? false ? "Like Filled" : "Hearts")
-        watchlistButton.image = UIImage(named: movieState?.watchlist ?? false ? "Movie Filled" : "Movie")
+        navFavoriteButton.image = UIImage(res: movieState?.favorite ?? false ? .HeartFilled : .Heart)
+        watchlistButton.image = UIImage(res: movieState?.watchlist ?? false ? .MovieFilled : .Movie)
+        watchlistLabel.text = movieState?.watchlist ?? false ? "In watchlist" : "Add to watchlist"
     }
 }

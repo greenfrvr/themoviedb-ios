@@ -51,6 +51,7 @@ extension MovieDetailsManager: ItemStateChange {
     var urlDetails: String { return "\(urlApi)/movie/%@" }
     var urlImages: String { return "\(urlApi)/movie/%@/images" }
     var urlCredits: String { return "\(urlApi)/movie/%@/credits" }
+    var urlSimilar: String { return "\(urlApi)/movie/%@/similar" }
     var urlState: String { return "\(urlApi)/movie/%@/account_states" }
 }
 

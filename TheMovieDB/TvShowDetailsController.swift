@@ -33,6 +33,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     
     @IBOutlet weak var navFavoriteButton: UIBarButtonItem!
     @IBOutlet weak var watchlistButton: UIImageView!
+    @IBOutlet weak var watchlistLabel: UILabel!
     
     @IBOutlet weak var descriptionLabel: UILabelWithPadding!
     @IBOutlet weak var backdropsLabel: UILabelWithPadding!
@@ -82,13 +83,6 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     override func viewWillAppear(animated: Bool) {
-        overviewLabel.numberOfLines = 0
-        overviewLabel.sizeToFit()
-        
-        descriptionLabel.padding = 10
-        backdropsLabel.padding = 10
-        castLabel.padding = 10
-        
         watchlistButton.tintColor = UIColor.rgb(6, 117, 255)
         
         imagesScrollView.backdropsDelegate = self
@@ -97,7 +91,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     
     func tvshowDetailsLoadedSuccessfully(details: TvShowInfo) {
         homepage = details.homepage
-        posterImageView.sd_setImageWithURL(NSURL(posterPath: details.posterPath, size: 2), placeholderImage: UIImage.placeholder())
+        posterImageView.sd_setImageWithURL(NSURL(posterPath: details.posterPath, size: 2), placeholderImage: UIImage(res: .PosterPlaceholder))
         titleLabel.text = details.name
         averageVoteLabel.text = String(details.voteAverage ?? 0.0)
         voteCountLabel.text = "(\(details.voteCount ?? 0))"
@@ -105,6 +99,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         numberOfEpisodesLabel.text = String(details.numberOfEpisodes!)
         lastAirLabel.text = details.lastAirDate?.stringByReplacingOccurrencesOfString("-", withString: "/")
         overviewLabel.text = details.overview
+        overviewLabel.sizeToFit()
     }
     
     func tvshowImagesLoadedSuccessully(images: ImageInfoList) {
@@ -203,7 +198,8 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     func updateStateIndicators(){
-        navFavoriteButton.image = UIImage(named: showState?.favorite ?? false ? "Like Filled" : "Hearts")
-        watchlistButton.image = UIImage(named: showState?.watchlist ?? false ? "Movie Filled" : "Movie")
+        navFavoriteButton.image = UIImage(res: showState?.favorite ?? false ? .HeartFilled : .Heart)
+        watchlistButton.image = UIImage(res: showState?.watchlist ?? false ? .MovieFilled : .Movie)
+        watchlistLabel.text = showState?.watchlist ?? false ? "In watchlist" : "Add to watchlist"
     }
 }

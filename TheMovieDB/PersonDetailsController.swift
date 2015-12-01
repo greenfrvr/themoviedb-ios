@@ -58,7 +58,7 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     
     func personDetailsLoadedSuccessfully(details: PersonInfo) {
         homepage = details.homepage
-        profileImageView.sd_setImageWithURL(NSURL(profilePath: details.profilePath, size: 3), placeholderImage: UIImage.placeholder())
+        profileImageView.sd_setImageWithURL(NSURL(profilePath: details.profilePath, size: 3), placeholderImage: UIImage(res: .Placeholder))
         nameLabel.text = details.name
         birthdayLabel.text = details.birthday
         birthplaceLabel.text = details.birthplace

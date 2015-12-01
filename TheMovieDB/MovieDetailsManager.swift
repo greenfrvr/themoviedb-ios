@@ -50,6 +50,10 @@ class MovieDetailsManager: ApiManager, SessionRequired, LanguageRequired {
         get(urlCredits.withArgs(id), apiKey, detailsDelegate?.movieCreditsLoadedSuccessfully, detailsDelegate?.movieCreditsLoadingFailed)
     }
     
+    func loadSimilar(id: String, page: Int = 1) {
+        get(urlSimilar.withArgs(id), apiKey +> lang +> ["page" : page], detailsDelegate?.movieSimilarLoadedSuccessfully, detailsDelegate?.movieSimilarLoadingFailed)
+    }
+    
     func changeFavoriteState(id: String, state: Bool){
         let newState = !state
         let body = FavoriteBody(movieId: Int(id), isFavorite: newState)
@@ -84,6 +88,10 @@ protocol MovieDetailsDelegate {
     func movieCreditsLoadedSuccessfully(credits: MovieCredits) -> Void
     
     func movieCreditsLoadingFailed(error: NSError) -> Void
+    
+    func movieSimilarLoadedSuccessfully(similar: SegmentList) -> Void
+    
+    func movieSimilarLoadingFailed(error: NSError) -> Void
 }
 
 protocol MovieStateChangeDelegate {

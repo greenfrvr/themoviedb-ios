@@ -61,7 +61,7 @@ class TvShowDetailsManager: ApiManager, SessionRequired, LanguageRequired {
     func changeWatchlistState(id: String, state: Bool){
         let newState = !state
         let body = WatchlistBody(tvShowId: Int(id), isInWatchlist: newState)
-        let url = urlItemFavoriteState.withArgs(id, sessionId)
+        let url = urlItemWatchlistState.withArgs(id, sessionId)
         
         post(url, body, { [unowned self] in self.stateDelegate?.tvshowWatchlistStateChangedSuccessfully(newState) }, stateDelegate?.tvshowWatchlistStateChangesFailed)
     }

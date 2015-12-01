@@ -56,7 +56,7 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
         
         usernameLabel.text = account.username
         fullNameLabel.text = account.fullName
-        avatarImageView.sd_setImageWithURL(NSURL(string: account.gravatar), placeholderImage: UIImage.placeholder())
+        avatarImageView.sd_setImageWithURL(NSURL(string: account.gravatar), placeholderImage: UIImage(res: .Placeholder))
     }
     
     func userLoadingFailed(error: NSError) {

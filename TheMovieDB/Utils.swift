@@ -62,8 +62,21 @@ extension UIColor {
 
 extension UIImage {
     
-    static func placeholder() -> UIImage? {
-        return UIImage(named: "defaultPhoto")
+    convenience init(res: ImageRes) {
+        self.init(named: res.rawValue)!
+    }
+    
+    enum ImageRes: String {
+        case Placeholder = "defaultPhoto"
+        case PosterPlaceholder = "Poster placeholder"
+        case Heart = "Hearts"
+        case HeartFilled = "Like Filled"
+        case Movie = "Movie"
+        case MovieFilled = "Movie Filled"
+        case Star = "Star"
+        case StarFilled = "Star Filled"
+        case Search = "Search"
+        case SearchFilled = "Search Filled"
     }
 }
 
