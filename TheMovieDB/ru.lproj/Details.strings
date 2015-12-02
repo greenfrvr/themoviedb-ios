@@ -1,4 +1,7 @@
 
+/* Class = "UILabel"; text = "Similar"; ObjectID = "08Q-IV-u4G"; */
+"08Q-IV-u4G.text" = "Похожие";
+
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "0Bf-iZ-V57"; */
 "0Bf-iZ-V57.title" = "Назад";
 
@@ -6,7 +9,7 @@
 "0L4-7g-P5R.text" = "James McAvoy";
 
 /* Class = "UILabel"; text = "Seasons:"; ObjectID = "0fZ-rZ-RnQ"; */
-"0fZ-rZ-RnQ.text" = "Сезонов:";
+"0fZ-rZ-RnQ.text" = "Сезоны:";
 
 /* Class = "UILabel"; text = "Last episode:"; ObjectID = "4SO-GY-bJs"; */
 "4SO-GY-bJs.text" = "Последний эпизод:";
@@ -15,19 +18,22 @@
 "531-sP-cKr.title" = "Movie Details";
 
 /* Class = "UILabel"; text = "Episodes:"; ObjectID = "5t9-91-5VY"; */
-"5t9-91-5VY.text" = "Эпизодов:";
+"5t9-91-5VY.text" = "Эпизоды:";
 
 /* Class = "UINavigationController"; title = "TV Details Navigation"; ObjectID = "65j-zA-ZRu"; */
 "65j-zA-ZRu.title" = "TV Details Navigation";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "BIH-pv-YaB"; */
-"BIH-pv-YaB.text" = "Label";
 
 /* Class = "UINavigationController"; title = "Person Details Navigation"; ObjectID = "BXL-PL-w1z"; */
 "BXL-PL-w1z.title" = "Person Details Navigation";
 
 /* Class = "UINavigationItem"; title = "Details"; ObjectID = "BYf-x8-zf3"; */
 "BYf-x8-zf3.title" = "Детали";
+
+/* Class = "UILabel"; text = "Add to watchlist"; ObjectID = "BwX-6j-dNZ"; */
+"BwX-6j-dNZ.text" = "Add to watchlist";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "ChK-mu-ezS"; */
+"ChK-mu-ezS.text" = "Описание";
 
 /* Class = "UILabel"; text = "Cast"; ObjectID = "Dy1-jA-Ngv"; */
 "Dy1-jA-Ngv.text" = "Актерский состав";
@@ -38,6 +44,9 @@
 /* Class = "UILabel"; text = "Cast"; ObjectID = "Hf3-ig-TUH"; */
 "Hf3-ig-TUH.text" = "Актерский состав";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "IiC-xj-OZ6"; */
+"IiC-xj-OZ6.text" = "Label";
+
 /* Class = "UILabel"; text = "5 000 000$"; ObjectID = "KAR-VQ-Tj6"; */
 "KAR-VQ-Tj6.text" = "5 000 000$";
 
@@ -46,9 +55,6 @@
 
 /* Class = "UILabel"; text = "7.3"; ObjectID = "Odl-Rk-kdJ"; */
 "Odl-Rk-kdJ.text" = "7.3";
-
-/* Class = "UILabel"; text = "more..."; ObjectID = "QOT-jG-mst"; */
-"QOT-jG-mst.text" = "еще...";
 
 /* Class = "UILabel"; text = "Revenue:"; ObjectID = "RtE-0M-7xQ"; */
 "RtE-0M-7xQ.text" = "Доход:";
@@ -62,11 +68,26 @@
 /* Class = "UILabel"; text = "131 min"; ObjectID = "U8w-dF-f3a"; */
 "U8w-dF-f3a.text" = "131 min";
 
+/* Class = "UILabel"; text = "Created by"; ObjectID = "Vtt-GK-WAe"; */
+"Vtt-GK-WAe.text" = "Created by";
+
 /* Class = "UILabel"; text = "Backdrops"; ObjectID = "W5K-o3-Puf"; */
-"W5K-o3-Puf.text" = "Кадры из фильма";
+"W5K-o3-Puf.text" = "Кадры";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "YJf-zK-daU"; */
+"YJf-zK-daU.text" = "Title";
 
 /* Class = "UILabel"; text = "(10375)"; ObjectID = "ZHk-5A-Mdi"; */
 "ZHk-5A-Mdi.text" = "(10375)";
+
+/* Class = "UIPageViewController"; title = "Backdrops Gallery"; ObjectID = "Zzt-gz-TqR"; */
+"Zzt-gz-TqR.title" = "Backdrops Gallery";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "aAX-9a-QZy"; */
+"aAX-9a-QZy.title" = "Назад";
+
+/* Class = "UINavigationItem"; title = "List Details"; ObjectID = "bvw-Le-pMg"; */
+"bvw-Le-pMg.title" = "List Details";
 
 /* Class = "UIViewController"; title = "TV Details"; ObjectID = "ciW-cu-Glc"; */
 "ciW-cu-Glc.title" = "TV Details";
@@ -95,14 +116,20 @@
 /* Class = "UILabel"; text = "7.3"; ObjectID = "gYn-6v-Ujo"; */
 "gYn-6v-Ujo.text" = "7.3";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "gvP-RS-2C6"; */
-"gvP-RS-2C6.text" = "Label";
+/* Class = "UILabel"; text = "Add to watchlist"; ObjectID = "hYj-3O-JyT"; */
+"hYj-3O-JyT.text" = "Add to watchlist";
 
 /* Class = "UILabel"; text = "10"; ObjectID = "jb0-k7-m3U"; */
 "jb0-k7-m3U.text" = "10";
 
 /* Class = "UILabel"; text = "Budget:"; ObjectID = "lKd-T1-8iq"; */
 "lKd-T1-8iq.text" = "Бюджет:";
+
+/* Class = "UICollectionViewController"; title = "List Details Collection"; ObjectID = "lKz-qR-P9q"; */
+"lKz-qR-P9q.title" = "List Details Collection";
+
+/* Class = "UIViewController"; title = "List Details"; ObjectID = "lvD-v3-B9H"; */
+"lvD-v3-B9H.title" = "List Details";
 
 /* Class = "UINavigationController"; title = "Movie Details Navigation"; ObjectID = "lvt-sX-gqP"; */
 "lvt-sX-gqP.title" = "Movie Details Navigation";
@@ -119,6 +146,9 @@
 /* Class = "UILabel"; text = "2013/10/03"; ObjectID = "qUj-nv-Rex"; */
 "qUj-nv-Rex.text" = "2013/10/03";
 
+/* Class = "UIViewController"; title = "Single Backdrop "; ObjectID = "rkD-nR-vSg"; */
+"rkD-nR-vSg.title" = "Single Backdrop";
+
 /* Class = "UILabel"; text = "How much can you know about yourself if you've never been in a fight?"; ObjectID = "sT4-Qo-rvk"; */
 "sT4-Qo-rvk.text" = "How much can you know about yourself if you've never been in a fight?";
 
@@ -134,11 +164,18 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "tXM-uO-Znp"; */
 "tXM-uO-Znp.text" = "Label";
 
+/* Class = "UILabel"; text = "123"; ObjectID = "ve4-Nw-Zf5"; */
+"ve4-Nw-Zf5.text" = "123";
+
 /* Class = "UILabel"; text = "10 000 000$"; ObjectID = "vmm-fX-Nlm"; */
 "vmm-fX-Nlm.text" = "10 000 000$";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "wNn-tp-P3W"; */
 "wNn-tp-P3W.title" = "Назад";
 
+/* Class = "UINavigationController"; title = "List Details Navigation"; ObjectID = "xiH-WO-F8X"; */
+"xiH-WO-F8X.title" = "List Details Navigation";
+
 /* Class = "UINavigationItem"; title = "Details"; ObjectID = "zlv-bu-S27"; */
-"zlv-bu-S27.title" = "Детали";
+"zlv-bu-S27.title" = "Детали
+";

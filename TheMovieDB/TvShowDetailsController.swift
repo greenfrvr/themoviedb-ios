@@ -20,7 +20,9 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     var backdropImages = [ImageInfo]()
     var shareUrl: String { return TvShowDetailsManager.urlShare.withArgs(id!) }
     lazy var castView = UICastHorizontalView()
-        
+    
+    @IBOutlet var screenPanRecognizer: UIScreenEdgePanGestureRecognizer!
+    
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var averageVoteLabel: UILabel!
@@ -40,10 +42,15 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     @IBOutlet weak var castLabel: UILabelWithPadding!
     
     @IBOutlet weak var detailsScrollContainer: UIScrollView!
-    @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView!
+    @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView! {
+        didSet {
+            imagesScrollView.panGestureRecognizer.requireGestureRecognizerToFail(screenPanRecognizer)
+        }
+    }
     @IBOutlet weak var castScrollView: UIScrollView! {
         didSet {
             castView.scrollView = castScrollView
+            castScrollView.panGestureRecognizer.requireGestureRecognizerToFail(screenPanRecognizer)
         }
     }
     
@@ -70,6 +77,24 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     @IBAction func actionButtonClicked(sender: AnyObject) {
         let alert = TvShowDetailsActionAlert(presenter: self, homepage: homepage, url: shareUrl)
         alert.present()
+    }
+    
+    @IBAction func screenSwipe(sender: UIScreenEdgePanGestureRecognizer) {
+        if sender.state == .Changed {
+            view.frame.origin.x = sender.translationInView(view).x
+        } else if sender.state == .Ended {
+            var targetX: CGFloat = 0
+            var completion: ((Bool) -> Void)?
+            
+            if view.frame.origin.x > view.bounds.width / 2 {
+                targetX = view.bounds.width
+                completion = { completed in
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            }
+            
+            UIView.animateWithDuration(0.3, animations: { self.view.frame.origin.x = targetX }, completion: completion)
+        }
     }
     
     override func viewDidLoad() {

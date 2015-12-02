@@ -13,7 +13,7 @@
         <!--Movie Details-->
         <scene sceneID="yVY-HG-pQi">
             <objects>
-                <viewController storyboardIdentifier="MovieDetails" title="Movie Details" providesPresentationContextTransitionStyle="YES" id="531-sP-cKr" customClass="MovieDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetails" title="Movie Details" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="overCurrentContext" id="531-sP-cKr" customClass="MovieDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FIC-vK-X9E"/>
                         <viewControllerLayoutGuide type="bottom" id="vAR-EY-umq"/>
@@ -291,15 +291,59 @@
                                         <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wOY-TX-93i">
+                                        <rect key="frame" x="0.0" y="677" width="375" height="156"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="156" id="ZY1-RS-Hx8"/>
+                                        </constraints>
+                                        <inset key="scrollIndicatorInsets" minX="48" minY="0.0" maxX="48" maxY="0.0"/>
+                                    </scrollView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Similar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08Q-IV-u4G" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="641" width="375" height="28"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="WCU-S4-KHr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableGradientBackground" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="0.40191271550000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.70153556029999997" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="gradientCenter">
+                                                <real key="value" value="0.75"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="Odl-Rk-kdJ" firstAttribute="centerY" secondItem="zjI-r5-LPP" secondAttribute="centerY" id="077-H7-LHf"/>
                                     <constraint firstItem="sT4-Qo-rvk" firstAttribute="leading" secondItem="o4H-Mc-E5a" secondAttribute="leading" id="0Sk-eQ-Zr8"/>
                                     <constraint firstAttribute="trailing" secondItem="tWr-0X-bUt" secondAttribute="trailing" id="0vP-3S-a2V"/>
                                     <constraint firstItem="FZg-WR-6Xi" firstAttribute="leading" secondItem="ZHk-5A-Mdi" secondAttribute="trailing" constant="8" id="6gC-mL-NZK"/>
                                     <constraint firstItem="fkf-0C-DSn" firstAttribute="top" secondItem="Hf3-ig-TUH" secondAttribute="bottom" constant="4" id="6hU-MR-QJ6"/>
+                                    <constraint firstItem="wOY-TX-93i" firstAttribute="centerX" secondItem="FbP-fh-D9K" secondAttribute="centerX" id="84D-tE-AUs"/>
                                     <constraint firstAttribute="trailing" secondItem="Hf3-ig-TUH" secondAttribute="trailing" id="9y6-Lf-cGg"/>
                                     <constraint firstItem="BIH-pv-YaB" firstAttribute="leading" secondItem="FbP-fh-D9K" secondAttribute="leading" constant="16" id="AKy-qS-OBl"/>
                                     <constraint firstAttribute="trailing" secondItem="BIH-pv-YaB" secondAttribute="trailing" constant="16" id="BOa-Rg-PeP"/>
@@ -315,9 +359,9 @@
                                     <constraint firstItem="RtE-0M-7xQ" firstAttribute="leading" secondItem="LOl-9J-5V0" secondAttribute="trailing" constant="8" id="JBQ-4t-80f"/>
                                     <constraint firstItem="o4H-Mc-E5a" firstAttribute="top" secondItem="LOl-9J-5V0" secondAttribute="top" id="JwD-ER-SJj"/>
                                     <constraint firstItem="zjI-r5-LPP" firstAttribute="leading" secondItem="LOl-9J-5V0" secondAttribute="trailing" constant="8" id="Kdx-YU-cLU"/>
-                                    <constraint firstAttribute="bottom" secondItem="2qT-z7-RFy" secondAttribute="bottom" id="ML5-WQ-srI"/>
                                     <constraint firstItem="ZHk-5A-Mdi" firstAttribute="leading" secondItem="Odl-Rk-kdJ" secondAttribute="trailing" constant="2" id="NHd-kf-aEm"/>
                                     <constraint firstItem="KAR-VQ-Tj6" firstAttribute="trailing" secondItem="sT4-Qo-rvk" secondAttribute="trailing" id="P2z-5N-fuG"/>
+                                    <constraint firstItem="08Q-IV-u4G" firstAttribute="leading" secondItem="FbP-fh-D9K" secondAttribute="leading" id="PaO-9G-EYm"/>
                                     <constraint firstItem="BIH-pv-YaB" firstAttribute="centerX" secondItem="FbP-fh-D9K" secondAttribute="centerX" id="R0g-89-1b3"/>
                                     <constraint firstItem="tWr-0X-bUt" firstAttribute="top" secondItem="fkf-0C-DSn" secondAttribute="bottom" constant="8" id="Rmq-ZU-qG7"/>
                                     <constraint firstItem="2qT-z7-RFy" firstAttribute="leading" secondItem="FbP-fh-D9K" secondAttribute="leading" id="Szg-ot-Mf0"/>
@@ -325,15 +369,20 @@
                                     <constraint firstItem="HWL-tN-TBu" firstAttribute="leading" secondItem="FbP-fh-D9K" secondAttribute="leading" id="UMe-6o-pDn"/>
                                     <constraint firstItem="LOl-9J-5V0" firstAttribute="leading" secondItem="FbP-fh-D9K" secondAttribute="leading" constant="12" id="Z9P-Er-rmt"/>
                                     <constraint firstItem="HWL-tN-TBu" firstAttribute="top" secondItem="BIH-pv-YaB" secondAttribute="bottom" constant="8" id="ZSI-u5-jq8"/>
+                                    <constraint firstItem="wOY-TX-93i" firstAttribute="top" secondItem="08Q-IV-u4G" secondAttribute="bottom" constant="8" id="ZWU-Mv-mvE"/>
                                     <constraint firstItem="vmm-fX-Nlm" firstAttribute="leading" secondItem="RtE-0M-7xQ" secondAttribute="trailing" constant="4" id="Zpu-L6-nub"/>
                                     <constraint firstItem="FZg-WR-6Xi" firstAttribute="centerY" secondItem="ZHk-5A-Mdi" secondAttribute="centerY" id="ZxS-r1-dza"/>
                                     <constraint firstItem="fkf-0C-DSn" firstAttribute="leading" secondItem="FbP-fh-D9K" secondAttribute="leading" id="cBv-bZ-dwv"/>
+                                    <constraint firstItem="wOY-TX-93i" firstAttribute="leading" secondItem="FbP-fh-D9K" secondAttribute="leading" id="cTM-RW-W3l"/>
                                     <constraint firstItem="sT4-Qo-rvk" firstAttribute="trailing" secondItem="o4H-Mc-E5a" secondAttribute="trailing" id="dWL-fC-hBD"/>
                                     <constraint firstItem="ZHk-5A-Mdi" firstAttribute="centerY" secondItem="Odl-Rk-kdJ" secondAttribute="centerY" id="eMM-uB-Tnj"/>
                                     <constraint firstItem="Rix-bi-eb4" firstAttribute="bottom" secondItem="LOl-9J-5V0" secondAttribute="bottom" id="fjE-8l-Bjm"/>
+                                    <constraint firstAttribute="trailing" secondItem="wOY-TX-93i" secondAttribute="trailing" id="hep-us-xMK"/>
                                     <constraint firstItem="KAR-VQ-Tj6" firstAttribute="baseline" secondItem="lKd-T1-8iq" secondAttribute="baseline" id="ipF-bs-Lkx"/>
                                     <constraint firstItem="BIH-pv-YaB" firstAttribute="top" secondItem="tWr-0X-bUt" secondAttribute="bottom" constant="8" id="j9h-lQ-Dk3"/>
+                                    <constraint firstAttribute="bottom" secondItem="wOY-TX-93i" secondAttribute="bottom" id="jX8-D4-jko"/>
                                     <constraint firstItem="vmm-fX-Nlm" firstAttribute="baseline" secondItem="RtE-0M-7xQ" secondAttribute="baseline" id="l5S-VK-qdZ"/>
+                                    <constraint firstItem="08Q-IV-u4G" firstAttribute="top" secondItem="2qT-z7-RFy" secondAttribute="bottom" constant="8" id="mOl-zb-V0I"/>
                                     <constraint firstItem="Ltf-yi-0eH" firstAttribute="leading" secondItem="FZg-WR-6Xi" secondAttribute="trailing" constant="2" id="nVA-ZA-T5J"/>
                                     <constraint firstItem="Hf3-ig-TUH" firstAttribute="leading" secondItem="FbP-fh-D9K" secondAttribute="leading" id="oTC-gM-UwT"/>
                                     <constraint firstItem="vmm-fX-Nlm" firstAttribute="trailing" secondItem="KAR-VQ-Tj6" secondAttribute="trailing" id="plE-8x-fL7"/>
@@ -342,6 +391,7 @@
                                     <constraint firstAttribute="trailing" secondItem="o4H-Mc-E5a" secondAttribute="trailing" constant="16" id="qPc-Q3-2BD"/>
                                     <constraint firstAttribute="trailing" secondItem="HWL-tN-TBu" secondAttribute="trailing" id="rRs-cI-aVW"/>
                                     <constraint firstItem="hYj-3O-JyT" firstAttribute="bottom" secondItem="Rix-bi-eb4" secondAttribute="bottom" constant="-2" id="rjB-4n-P30"/>
+                                    <constraint firstAttribute="trailing" secondItem="08Q-IV-u4G" secondAttribute="trailing" id="sn7-GD-tj2"/>
                                     <constraint firstAttribute="trailing" secondItem="fkf-0C-DSn" secondAttribute="trailing" id="swC-Y3-vjT"/>
                                     <constraint firstItem="Odl-Rk-kdJ" firstAttribute="leading" secondItem="zjI-r5-LPP" secondAttribute="trailing" constant="2" id="vZ4-5n-bjF"/>
                                     <constraint firstItem="zjI-r5-LPP" firstAttribute="top" secondItem="sT4-Qo-rvk" secondAttribute="bottom" constant="4" id="wNp-br-xcI"/>
@@ -363,6 +413,9 @@
                             <constraint firstItem="FbP-fh-D9K" firstAttribute="leading" secondItem="myT-4T-hGT" secondAttribute="leading" id="sVA-ZH-IIk"/>
                             <constraint firstItem="FbP-fh-D9K" firstAttribute="top" secondItem="myT-4T-hGT" secondAttribute="top" id="xd6-56-xgE"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="6RO-1a-sgp" appends="YES" id="WUG-2R-0IN"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="BYf-x8-zf3">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="0Bf-iZ-V57">
@@ -399,6 +452,8 @@
                         <outlet property="rateIcon" destination="zjI-r5-LPP" id="fFz-sp-rK7"/>
                         <outlet property="revenueLabel" destination="vmm-fX-Nlm" id="hnS-0P-4p5"/>
                         <outlet property="runtimeLabel" destination="Ltf-yi-0eH" id="MSM-VC-gPs"/>
+                        <outlet property="screenPanRecognizer" destination="6RO-1a-sgp" id="EFw-jg-C2d"/>
+                        <outlet property="similarScrollView" destination="wOY-TX-93i" id="WU1-7T-rLt"/>
                         <outlet property="taglineLabel" destination="sT4-Qo-rvk" id="CeZ-g9-tio"/>
                         <outlet property="titleLabel" destination="o4H-Mc-E5a" id="nUv-UA-mMO"/>
                         <outlet property="voteCountLabel" destination="ZHk-5A-Mdi" id="F2I-af-fIt"/>
@@ -412,13 +467,19 @@
                         <action selector="addToWatchlist:" destination="531-sP-cKr" id="yNA-qt-cOe"/>
                     </connections>
                 </tapGestureRecognizer>
+                <screenEdgePanGestureRecognizer delaysTouchesBegan="YES" minimumNumberOfTouches="1" id="6RO-1a-sgp">
+                    <rectEdge key="edges" left="YES"/>
+                    <connections>
+                        <action selector="screenSwipe:" destination="531-sP-cKr" id="GOK-76-9PA"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="832.5" y="309.5"/>
         </scene>
         <!--Movie Details Navigation-->
         <scene sceneID="1pL-PS-jOf">
             <objects>
-                <navigationController storyboardIdentifier="MovieNavigationController" title="Movie Details Navigation" automaticallyAdjustsScrollViewInsets="NO" id="lvt-sX-gqP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MovieNavigationController" title="Movie Details Navigation" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="lvt-sX-gqP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fc3-T8-lnx">
@@ -438,7 +499,7 @@
         <!--TV Details-->
         <scene sceneID="okv-uQ-uY8">
             <objects>
-                <viewController storyboardIdentifier="TvDetails" title="TV Details" providesPresentationContextTransitionStyle="YES" id="ciW-cu-Glc" customClass="TvShowDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TvDetails" title="TV Details" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="overCurrentContext" id="ciW-cu-Glc" customClass="TvShowDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qt3-fE-qmC"/>
                         <viewControllerLayoutGuide type="bottom" id="LDw-OT-k0e"/>
@@ -716,6 +777,7 @@
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="dxf-C5-kAf" secondAttribute="trailing" constant="16" id="0Cf-yn-198"/>
                                     <constraint firstItem="4SO-GY-bJs" firstAttribute="leading" secondItem="s4e-qG-Tp6" secondAttribute="trailing" constant="8" id="0Xj-0z-3SX"/>
@@ -784,6 +846,9 @@
                             <constraint firstAttribute="trailing" secondItem="YID-1c-PWT" secondAttribute="trailing" id="o3o-5z-eXJ"/>
                             <constraint firstItem="YID-1c-PWT" firstAttribute="leading" secondItem="xvk-bE-KEc" secondAttribute="leading" id="qHn-MI-Tq3"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="UEj-ef-cql" appends="YES" id="AKt-f6-6b9"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="zlv-bu-S27">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="wNn-tp-P3W">
@@ -820,6 +885,7 @@
                         <outlet property="overviewLabel" destination="gvP-RS-2C6" id="vnl-iB-WwP"/>
                         <outlet property="posterImageView" destination="s4e-qG-Tp6" id="xx0-XB-zjR"/>
                         <outlet property="runtimeLabel" destination="U8w-dF-f3a" id="KnR-dC-V6J"/>
+                        <outlet property="screenPanRecognizer" destination="UEj-ef-cql" id="wad-hj-Lmc"/>
                         <outlet property="titleLabel" destination="dxf-C5-kAf" id="k8i-x7-pW0"/>
                         <outlet property="voteCountLabel" destination="fE5-c8-Omf" id="yAS-gR-M8o"/>
                         <outlet property="watchlistButton" destination="mJ4-Uk-K0S" id="UbL-YM-MiC"/>
@@ -832,13 +898,19 @@
                         <action selector="addToWatchlist:" destination="ciW-cu-Glc" id="xjB-bn-ya2"/>
                     </connections>
                 </tapGestureRecognizer>
+                <screenEdgePanGestureRecognizer delaysTouchesBegan="YES" minimumNumberOfTouches="1" id="UEj-ef-cql">
+                    <rectEdge key="edges" left="YES"/>
+                    <connections>
+                        <action selector="screenSwipe:" destination="ciW-cu-Glc" id="M9O-Ox-i7s"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="832.5" y="1037.5"/>
         </scene>
         <!--Person Details-->
         <scene sceneID="eZK-dg-NP6">
             <objects>
-                <viewController storyboardIdentifier="PersonDetails" title="Person Details" id="t6S-9r-2Lb" customClass="PersonDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PersonDetails" title="Person Details" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="overCurrentContext" id="t6S-9r-2Lb" customClass="PersonDetailsController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aeN-3l-DfD"/>
                         <viewControllerLayoutGuide type="bottom" id="Ije-Hs-azC"/>
@@ -974,6 +1046,7 @@
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="pYb-FI-2nb" firstAttribute="centerY" secondItem="TEW-o8-W6W" secondAttribute="centerY" id="0mt-VO-fxY"/>
                                     <constraint firstItem="TEW-o8-W6W" firstAttribute="leading" secondItem="0L4-7g-P5R" secondAttribute="leading" id="3K9-V0-BvC"/>
@@ -1020,6 +1093,9 @@
                             <constraint firstItem="tcB-sH-HFq" firstAttribute="leading" secondItem="dTH-Kc-a5e" secondAttribute="leading" id="X8T-GE-OER"/>
                             <constraint firstItem="tcB-sH-HFq" firstAttribute="top" secondItem="dTH-Kc-a5e" secondAttribute="top" id="uJx-kk-ajM"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="PAF-8O-cef" appends="YES" id="Scm-Ae-T9S"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="dbj-K3-zjq">
                         <barButtonItem key="backBarButtonItem" title="fdsfs" id="d15-FR-jM6"/>
@@ -1042,16 +1118,23 @@
                         <outlet property="creditsScrollView" destination="og3-5m-8Pp" id="LgD-Xm-nJ0"/>
                         <outlet property="nameLabel" destination="0L4-7g-P5R" id="l1J-12-cJx"/>
                         <outlet property="profileImageView" destination="0nX-OP-Q2J" id="Wpv-6s-k7G"/>
+                        <outlet property="screenPanRecognizer" destination="PAF-8O-cef" id="NhX-qn-8mC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IyI-Ih-xaU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <screenEdgePanGestureRecognizer delaysTouchesBegan="YES" minimumNumberOfTouches="1" id="PAF-8O-cef">
+                    <rectEdge key="edges" left="YES"/>
+                    <connections>
+                        <action selector="screenSwipe:" destination="t6S-9r-2Lb" id="VJO-30-ekZ"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="832.5" y="1757.5"/>
         </scene>
         <!--TV Details Navigation-->
         <scene sceneID="Jmz-YV-lYb">
             <objects>
-                <navigationController storyboardIdentifier="TvNavigationController" title="TV Details Navigation" automaticallyAdjustsScrollViewInsets="NO" id="65j-zA-ZRu" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TvNavigationController" title="TV Details Navigation" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="65j-zA-ZRu" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zKB-ha-oZF">
@@ -1071,7 +1154,7 @@
         <!--Person Details Navigation-->
         <scene sceneID="Pna-8y-RVJ">
             <objects>
-                <navigationController storyboardIdentifier="PersonNavigationController" title="Person Details Navigation" automaticallyAdjustsScrollViewInsets="NO" id="BXL-PL-w1z" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="PersonNavigationController" title="Person Details Navigation" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="BXL-PL-w1z" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7RT-Ui-M5u">

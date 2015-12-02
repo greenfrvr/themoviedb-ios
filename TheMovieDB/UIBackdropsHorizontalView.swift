@@ -21,7 +21,7 @@ class UIBackdropsHorizontalView: UIScrollView {
         for (pos, image) in backdrops.enumerate() {
             let width = itemHeight * CGFloat(image.aspectRatio ?? 1.0)
             let imageView = UIImageView(frame: CGRect(x: x, y: 0, width: width, height: itemHeight))
-            imageView.sd_setImageWithURL(NSURL(backdropPath: image.filePath))
+            imageView.sd_setImageWithURL(NSURL(backdropPath: image.filePath, size: 2))
             
             x += width + (pos == backdrops.count - 1 ? padding : itemsMargin)
             

@@ -19,6 +19,8 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     var detailsManager: PersonDetailsManager?
     lazy var creditsView = UIPersonCreditsView()
 
+    @IBOutlet var screenPanRecognizer: UIScreenEdgePanGestureRecognizer!
+    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var birthdayLabel: UILabel!
@@ -27,6 +29,7 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     @IBOutlet weak var creditsScrollView: UIScrollView! {
         didSet {
             creditsView.scrollView = creditsScrollView
+            creditsScrollView.panGestureRecognizer.requireGestureRecognizerToFail(screenPanRecognizer)
         }
     }
     
@@ -41,6 +44,27 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
     @IBAction func actionButtonClicked(sender: AnyObject) {
         let alert = PersonDetailsActionAlert(presenter: self, homepage: homepage, url: shareUrl)
         alert.present()
+    }
+    @IBAction func screenSwipe(sender: UIScreenEdgePanGestureRecognizer) {
+        if sender.state == .Changed {
+            if let controller = self.navigationController?.topViewController {
+                controller.view.frame.origin.x = sender.translationInView(view).x
+            } else {
+                self.view.frame.origin.x = sender.translationInView(view).x
+            }
+        } else if sender.state == .Ended {
+            var targetX: CGFloat = 0
+            var completion: ((Bool) -> Void)?
+            
+            if view.frame.origin.x > view.bounds.width / 2 {
+                targetX = view.bounds.width
+                completion = { completed in
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            }
+            
+            UIView.animateWithDuration(0.3, animations: { self.view.frame.origin.x = targetX }, completion: completion)
+        }
     }
     
     override func viewDidLoad() {

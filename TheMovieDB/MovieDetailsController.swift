@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieStateChangeDelegate, UIBackdropsDelegat, UICastDelegate, DetailsNavigation {
+class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieStateChangeDelegate, UIBackdropsDelegat, UICastDelegate, UISimilarViewDelegate,DetailsNavigation {
     
     static var controllerId = "MovieDetails"
     static var navigationId = "MovieNavigationController"
@@ -22,6 +22,9 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     var shareUrl: String { return MovieDetailsManager.urlShare.withArgs(id!) }
     var openIMDBUrl: String { return "http://www.imdb.com/title/\(imdbId!)" }
     lazy var castView = UICastHorizontalView()
+    lazy var similarView = UISimilarView()
+    
+    @IBOutlet var screenPanRecognizer: UIScreenEdgePanGestureRecognizer!
     
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -43,10 +46,21 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     @IBOutlet weak var castLabel: UILabelWithPadding!
     
     @IBOutlet weak var detailsScrollContainer: UIScrollView!
-    @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView!
+    @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView! {
+        didSet {
+            imagesScrollView.panGestureRecognizer.requireGestureRecognizerToFail(screenPanRecognizer)
+        }
+    }
+    @IBOutlet weak var similarScrollView: UIScrollView! {
+        didSet {
+            similarView.scrollView = similarScrollView
+            similarScrollView.panGestureRecognizer.requireGestureRecognizerToFail(screenPanRecognizer)
+        }
+    }
     @IBOutlet weak var castScrollView: UIScrollView! {
         didSet {
             castView.scrollView = castScrollView
+            castScrollView.panGestureRecognizer.requireGestureRecognizerToFail(screenPanRecognizer)
         }
     }
     
@@ -76,6 +90,24 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         alert.present()
     }
     
+    @IBAction func screenSwipe(sender: UIScreenEdgePanGestureRecognizer) {
+        if sender.state == .Changed {
+            view.frame.origin.x = sender.translationInView(view).x
+        } else if sender.state == .Ended {
+            var targetX: CGFloat = 0
+            var completion: ((Bool) -> Void)?
+            
+            if view.frame.origin.x > view.bounds.width / 2 {
+                targetX = view.bounds.width
+                completion = { completed in
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            }
+            
+            UIView.animateWithDuration(0.3, animations: { self.view.frame.origin.x = targetX }, completion: completion)
+        }
+    }
+    
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +117,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
             detailsManager?.loadState(id)
             detailsManager?.loadImages(id)
             detailsManager?.loadCredits(id)
-//            detailsManager?.loadSimilar(id)
+            detailsManager?.loadSimilar(id)
         }
     }
     
@@ -94,6 +126,7 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
         
         imagesScrollView.backdropsDelegate = self
         castView.castDelegate = self
+        similarView.delegate = self
     }
 
     func movieDetailsLoadedSuccessfully(details: MovieInfo) {
@@ -139,7 +172,9 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     }
     
     func movieSimilarLoadedSuccessfully(similar: SegmentList) {
-        print("Results: \(similar.resultsRepresentative)")
+        if let similar = similar.results {
+            similarView.castDisplay(similar)
+        }
     }
     
     func movieDetailsLoadingFailed(error: NSError) {
@@ -212,6 +247,12 @@ class MovieDetailsController: UIViewController, MovieDetailsDelegate, MovieState
     func castSelected(id: Int?) {
         if let castId = id {
             PersonDetailsController.presentControllerModally(self, id: String(castId))
+        }
+    }
+    
+    func similarItemTapped(id: Int?) {
+        if let movieId = id {
+            MovieDetailsController.presentControllerModally(self, id: String(movieId))
         }
     }
     

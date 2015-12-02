@@ -17,7 +17,7 @@ protocol DetailsNavigation {
     static func presentControllerWithNavigation(presenter: UIViewController, id: String?)
     
     static func presentControllerModally(presenter: UIViewController, id: String?)
-    
+
 }
 
 extension DetailsNavigation {
@@ -26,7 +26,7 @@ extension DetailsNavigation {
         let navigationController = UIStoryboard(name: "Details", bundle: nil).instantiateViewControllerWithIdentifier(navigationId) as! UINavigationController
         var controller = navigationController.topViewController as! DetailsNavigation
         controller.id = id
-        presenter.presentViewController(navigationController, animated: true, completion: nil)
+        presenter.showDetailViewController(navigationController, sender: nil)
     }
     
     static func presentControllerModally(presenter: UIViewController, id: String?) {
