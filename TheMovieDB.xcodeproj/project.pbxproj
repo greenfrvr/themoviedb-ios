@@ -241,7 +241,6 @@
 				11759AD91BE764FB00BE2B46 /* SignInController.swift */,
 				11759B051BE76D5800BE2B46 /* AccountController.swift */,
 				1174C9631BE8BF0600A0075B /* AccountTableController.swift */,
-				1180EFAC1BE9EAA900082B6E /* ListItemsCollectionController.swift */,
 				1174C95F1BE895E400A0075B /* SearchController.swift */,
 				1174C9611BE8960D00A0075B /* TrendsController.swift */,
 				113F96BA1BF4AE6B006551BD /* TrendsTableController.swift */,
@@ -331,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				1174C9691BE8E67900A0075B /* ListDetailsController.swift */,
+				1180EFAC1BE9EAA900082B6E /* ListItemsCollectionController.swift */,
 				117CF94E1BECD56E00BA2A3B /* MovieDetailsController.swift */,
 				11A3DC4F1BF60C6900F7F2B1 /* TvShowDetailsController.swift */,
 				116D4A011BFB0C3000AB44F1 /* PersonDetailsController.swift */,
