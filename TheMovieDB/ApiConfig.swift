@@ -61,6 +61,7 @@ extension TvShowDetailsManager: ItemStateChange {
     var urlDetails: String { return "\(urlApi)/tv/%@" }
     var urlImages: String { return "\(urlApi)/tv/%@/images" }
     var urlCredits: String { return "\(urlApi)/tv/%@/credits" }
+    var urlSimilar: String { return "\(urlApi)/tv/%@/similar" }
     var urlState: String { return "\(urlApi)/tv/%@/account_states" }
 }
 

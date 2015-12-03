@@ -10,8 +10,9 @@ import UIKit
 
 class UISimilarCard: UIView {
     
-    let delegate: UIPosterViewDelegate
+    let margin: CGFloat = 8
     let posterWidth: CGFloat = 104
+    let delegate: UIPosterViewDelegate
     var item: SegmentListItem
     
     init(frame: CGRect, item: SegmentListItem, delegate: UIPosterViewDelegate) {
@@ -84,7 +85,7 @@ class UISimilarCard: UIView {
     }
     
     func addTitle(inout parent: UIVisualEffectView) -> CGFloat {
-        let view = UILabel(frame: CGRectMake(8, 8, bounds.width - posterWidth - 16, 36))
+        let view = UILabel(frame: CGRectMake(margin, margin, bounds.width - posterWidth - 2 * margin, 36))
         view.numberOfLines = 2
         view.font = UIFont(name: "Helvetica Neue", size: 14)
         view.text = item.representTitle
@@ -96,7 +97,7 @@ class UISimilarCard: UIView {
     }
     
     func addDate(inout parent: UIVisualEffectView, offset: CGFloat) {
-        let view = UILabel(frame: CGRectMake(8, 12 + offset, bounds.width - posterWidth - 16, 18))
+        let view = UILabel(frame: CGRectMake(margin, 4 + margin + offset, bounds.width - posterWidth - 2 * margin, 18))
         view.font = UIFont(name: "Helvetica Neue", size: 12)
         view.text = item.representDescription
         view.sizeToFit()
@@ -105,9 +106,11 @@ class UISimilarCard: UIView {
     }
     
     func addRateStars(inout parent: UIVisualEffectView) {
-        let view = UIView(frame: CGRectMake(8, bounds.height - 40, bounds.width - posterWidth - 16, 18))
+        let height: CGFloat = 18
+        let view = UIView(frame: CGRectMake(margin, bounds.height - height - 22, bounds.width - posterWidth - 2 * margin, height))
+        let size: CGFloat = 12
         for i in 0..<10 {
-            let star = UIImageView(frame: CGRectMake(CGFloat(i) * 13, 3, 12, 12))
+            let star = UIImageView(frame: CGRectMake(CGFloat(i) * (size + 1), 3, size, size))
             star.image = UIImage(res: Double(i) < round(item.voteAverage ?? 0.0) ? .StarFilled : .Star)
                 .imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             view.addSubview(star)
@@ -117,7 +120,8 @@ class UISimilarCard: UIView {
     }
     
     func addRateLabel(inout parent: UIVisualEffectView) {
-        let view = UILabel(frame: CGRectMake(8, bounds.height - 20, bounds.width - posterWidth - 16, 12))
+        let height: CGFloat = 12
+        let view = UILabel(frame: CGRectMake(margin, bounds.height - margin - height, bounds.width - posterWidth - 2 * margin, height))
         view.text = String(item.voteAverage ?? 0.0)
         view.font = UIFont(name: "Helvetica Neue", size: 12)
         
@@ -125,7 +129,8 @@ class UISimilarCard: UIView {
     }
     
     func addVotesCount(inout parent: UIVisualEffectView) {
-        let view = UILabel(frame: CGRectMake(8, bounds.height - 19, bounds.width - posterWidth - 16, 10))
+        let height: CGFloat = 10
+        let view = UILabel(frame: CGRectMake(margin, bounds.height - margin - height, bounds.width - posterWidth - 2 * margin, height))
         view.text = String(item.voteCount ?? 0)
         view.textAlignment = NSTextAlignment.Right
         view.font = UIFont(name: "Helvetica Neue", size: 10)

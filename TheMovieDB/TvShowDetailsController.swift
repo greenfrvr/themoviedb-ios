@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowStateChangeDelegate, UIBackdropsDelegat, UICastDelegate, DetailsNavigation {
+class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowStateChangeDelegate, UIBackdropsDelegat, UICastDelegate, UISimilarViewDelegate, DetailsNavigation {
     
     static var controllerId = "TvDetails"
     static var navigationId = "TvNavigationController"
@@ -20,6 +20,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     var backdropImages = [ImageInfo]()
     var shareUrl: String { return TvShowDetailsManager.urlShare.withArgs(id!) }
     lazy var castView = UICastHorizontalView()
+    lazy var similarView = UISimilarView()
     
     @IBOutlet var screenPanRecognizer: UIScreenEdgePanGestureRecognizer!
     
@@ -45,6 +46,13 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     @IBOutlet weak var imagesScrollView: UIBackdropsHorizontalView! {
         didSet {
             imagesScrollView.panGestureRecognizer.requireGestureRecognizerToFail(screenPanRecognizer)
+        }
+    }
+    @IBOutlet weak var similarScrollView: UIScrollView! {
+        didSet {
+            similarView.scrollView = similarScrollView
+            similarScrollView.panGestureRecognizer.requireGestureRecognizerToFail(screenPanRecognizer)
+            
         }
     }
     @IBOutlet weak var castScrollView: UIScrollView! {
@@ -104,6 +112,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
             detailsManager?.loadState(id)
             detailsManager?.loadImages(id)
             detailsManager?.loadCredits(id)
+            detailsManager?.loadSimilar(id)
         }
     }
     
@@ -112,6 +121,7 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         
         imagesScrollView.backdropsDelegate = self
         castView.castDelegate = self
+        similarView.delegate = self
     }
     
     func tvshowDetailsLoadedSuccessfully(details: TvShowInfo) {
@@ -145,6 +155,12 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         }
     }
     
+    func tvshowSimilarLoadedSuccessfully(similar: SegmentList) {
+        if let similar = similar.results {
+            similarView.castDisplay(similar)
+        }
+    }
+    
     func tvshowDetailsLoadingFailed(error: NSError) {
         if let error = error.apiError {
             error.printError()
@@ -164,6 +180,12 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
     }
     
     func tvshowCreditsLoadingFailed(error: NSError) {
+        if let error = error.apiError {
+            error.printError()
+        }
+    }
+    
+    func tvshowSimilarLoadingFailed(error: NSError) {
         if let error = error.apiError {
             error.printError()
         }
@@ -210,6 +232,14 @@ class TvShowDetailsController: UIViewController, TvShowDetailsDelegate, TvShowSt
         if let castId = id {
             PersonDetailsController.presentControllerModally(self, id: String(castId))
          }
+    }
+    
+    func similarItemTapped(id: Int?) {
+        if let showId = id {
+            TvShowDetailsController.presentControllerModally(self, id: String(showId))
+        } else {
+            print("smth went wrong")
+        }
     }
     
     func movieStateChangeNotifier(title: String, _ message: String){

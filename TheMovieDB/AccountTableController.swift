@@ -176,8 +176,8 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
     
     func setupPullToRefreshControl() {
         let refresh = UIRefreshControl()
-        refresh.backgroundColor = UIColor.rgb(22, 122, 110)
-        refresh.tintColor = UIColor.whiteColor()
+        refresh.backgroundColor = view.backgroundColor
+        refresh.tintColor = UIColor.rgb(6, 117, 255)
         refresh.addTarget(self, action: "refreshInitPage", forControlEvents: UIControlEvents.ValueChanged)
         
         refreshControl = refresh
@@ -187,7 +187,6 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         if let control = refreshControl where control.refreshing {
             control.endRefreshing()
         }
-        updateRefreshingTitle()
     }
     
     func clearIfNeeded() {
@@ -196,12 +195,6 @@ class AccountTableController: UITableViewController, ListsDelegate, UserSegments
         }
     }
     
-    func updateRefreshingTitle() {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "MMM d, h:mm a"
-        let title = String(format: NSLocalizedString("Last update:", comment: ""), formatter.stringFromDate(NSDate()))
-        refreshControl?.attributedTitle = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
-    }
 }
 
 

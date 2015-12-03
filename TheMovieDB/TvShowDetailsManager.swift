@@ -50,6 +50,9 @@ class TvShowDetailsManager: ApiManager, SessionRequired, LanguageRequired {
         get(urlCredits.withArgs(id), apiKey, detailsDelegate?.tvshowCreditsLoadedSuccessfully, detailsDelegate?.tvshowCreditsLoadingFailed)
     }
     
+    func loadSimilar(id: String, page: Int = 1) {
+        get(urlSimilar.withArgs(id), apiKey +> lang +> ["page" : page], detailsDelegate?.tvshowSimilarLoadedSuccessfully, detailsDelegate?.tvshowSimilarLoadingFailed)
+    }
     func changeFavoriteState(id: String, state: Bool){
         let newState = !state
         let body = FavoriteBody(tvShowId: Int(id), isFavorite: newState)
@@ -84,6 +87,10 @@ protocol TvShowDetailsDelegate {
     func tvshowCreditsLoadedSuccessfully(credits: MovieCredits) -> Void
     
     func tvshowCreditsLoadingFailed(error: NSError) -> Void
+    
+    func tvshowSimilarLoadedSuccessfully(similar: SegmentList) -> Void
+    
+    func tvshowSimilarLoadingFailed(error: NSError) -> Void
 }
 
 protocol TvShowStateChangeDelegate {

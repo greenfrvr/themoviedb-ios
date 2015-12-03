@@ -745,13 +745,6 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="1Gu-uQ-qjJ" customClass="UIBackdropsHorizontalView" customModule="TheMovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="505" width="375" height="128"/>
-                                        <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="128" id="lbm-Mj-kyf"/>
-                                        </constraints>
-                                    </scrollView>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="TlA-l5-Fnm">
                                         <rect key="frame" x="0.0" y="248" width="375" height="148"/>
                                         <animations/>
@@ -774,6 +767,55 @@
                                             <constraint firstAttribute="height" constant="20" id="fC7-h3-j8Z"/>
                                         </constraints>
                                     </imageView>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Niq-dY-0rq">
+                                        <rect key="frame" x="0.0" y="677" width="371" height="156"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="156" id="7Qv-Ng-YZJ"/>
+                                        </constraints>
+                                        <inset key="scrollIndicatorInsets" minX="48" minY="0.0" maxX="48" maxY="0.0"/>
+                                    </scrollView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Similar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQo-cD-7OF" customClass="UILabelWithPadding" customModule="TheMovieDB" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="641" width="375" height="28"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="sy4-Wo-4MU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableGradientBackground" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="0.40191271550000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.70153556029999997" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="gradientCenter">
+                                                <real key="value" value="0.75"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="1Gu-uQ-qjJ" customClass="UIBackdropsHorizontalView" customModule="TheMovieDB" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="505" width="375" height="128"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="lbm-Mj-kyf"/>
+                                        </constraints>
+                                    </scrollView>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -799,33 +841,39 @@
                                     <constraint firstItem="s4e-qG-Tp6" firstAttribute="top" secondItem="YID-1c-PWT" secondAttribute="top" constant="16" id="IyL-JD-VXW"/>
                                     <constraint firstItem="SBl-KC-y3r" firstAttribute="top" secondItem="TlA-l5-Fnm" secondAttribute="bottom" constant="8" id="JCl-ms-M3O"/>
                                     <constraint firstItem="U8w-dF-f3a" firstAttribute="centerY" secondItem="Zgw-P1-bFf" secondAttribute="centerY" id="Jey-Jb-bgS"/>
+                                    <constraint firstItem="Niq-dY-0rq" firstAttribute="leading" secondItem="YID-1c-PWT" secondAttribute="leading" id="KJD-pe-OZf"/>
                                     <constraint firstItem="fE5-c8-Omf" firstAttribute="leading" secondItem="gYn-6v-Ujo" secondAttribute="trailing" constant="2" id="KTx-aV-Yjr"/>
                                     <constraint firstAttribute="trailing" secondItem="Dy1-jA-Ngv" secondAttribute="trailing" constant="-4" id="N1d-yn-f2r"/>
                                     <constraint firstItem="Zgw-P1-bFf" firstAttribute="leading" secondItem="fE5-c8-Omf" secondAttribute="trailing" constant="8" id="O6N-c2-uuE"/>
                                     <constraint firstItem="1Gu-uQ-qjJ" firstAttribute="top" secondItem="W5K-o3-Puf" secondAttribute="bottom" constant="8" id="Q1c-DE-UWe"/>
+                                    <constraint firstAttribute="bottom" secondItem="Niq-dY-0rq" secondAttribute="bottom" id="SMm-ov-O89"/>
                                     <constraint firstItem="gFv-AW-IPn" firstAttribute="baseline" secondItem="5t9-91-5VY" secondAttribute="baseline" id="SW4-Wt-dcK"/>
                                     <constraint firstItem="gvP-RS-2C6" firstAttribute="leading" secondItem="YID-1c-PWT" secondAttribute="leading" constant="16" id="Ufa-9o-7u4"/>
                                     <constraint firstItem="TlA-l5-Fnm" firstAttribute="top" secondItem="Dy1-jA-Ngv" secondAttribute="bottom" constant="4" id="Vfb-kp-rsm"/>
                                     <constraint firstItem="BwX-6j-dNZ" firstAttribute="leading" secondItem="mJ4-Uk-K0S" secondAttribute="trailing" constant="4" id="X2C-pn-z7D"/>
+                                    <constraint firstAttribute="trailing" secondItem="Niq-dY-0rq" secondAttribute="trailing" id="YG2-Me-NXf"/>
                                     <constraint firstItem="TXD-F8-BLN" firstAttribute="leading" secondItem="s4e-qG-Tp6" secondAttribute="trailing" constant="8" id="YTN-yG-Eqb"/>
                                     <constraint firstItem="4SO-GY-bJs" firstAttribute="top" secondItem="5t9-91-5VY" secondAttribute="bottom" constant="2" id="YdQ-VN-fzK"/>
                                     <constraint firstItem="1Gu-uQ-qjJ" firstAttribute="leading" secondItem="YID-1c-PWT" secondAttribute="leading" id="Z3S-F3-d36"/>
                                     <constraint firstItem="mJ4-Uk-K0S" firstAttribute="leading" secondItem="TXD-F8-BLN" secondAttribute="leading" id="ZEf-tf-lbP"/>
                                     <constraint firstItem="Dy1-jA-Ngv" firstAttribute="leading" secondItem="YID-1c-PWT" secondAttribute="leading" id="a9A-uA-Rql"/>
-                                    <constraint firstAttribute="bottom" secondItem="1Gu-uQ-qjJ" secondAttribute="bottom" id="f3i-i0-1vv"/>
+                                    <constraint firstItem="fQo-cD-7OF" firstAttribute="top" secondItem="1Gu-uQ-qjJ" secondAttribute="bottom" constant="8" id="gO2-DL-xFu"/>
                                     <constraint firstItem="U8w-dF-f3a" firstAttribute="leading" secondItem="Zgw-P1-bFf" secondAttribute="trailing" constant="2" id="gf9-5r-as9"/>
+                                    <constraint firstItem="fQo-cD-7OF" firstAttribute="leading" secondItem="YID-1c-PWT" secondAttribute="leading" id="haH-RI-wPx"/>
                                     <constraint firstItem="5t9-91-5VY" firstAttribute="top" secondItem="0fZ-rZ-RnQ" secondAttribute="bottom" constant="2" id="ipb-oq-ac7"/>
                                     <constraint firstAttribute="trailing" secondItem="1Gu-uQ-qjJ" secondAttribute="trailing" constant="-4" id="lzh-rZ-k8N"/>
                                     <constraint firstItem="gYn-6v-Ujo" firstAttribute="centerY" secondItem="TXD-F8-BLN" secondAttribute="centerY" id="mTt-IN-DuZ"/>
                                     <constraint firstItem="0fZ-rZ-RnQ" firstAttribute="top" secondItem="TXD-F8-BLN" secondAttribute="bottom" constant="4" id="nPb-0Q-eZ3"/>
                                     <constraint firstItem="5t9-91-5VY" firstAttribute="leading" secondItem="s4e-qG-Tp6" secondAttribute="trailing" constant="8" id="ngw-UM-HT7"/>
                                     <constraint firstItem="fE5-c8-Omf" firstAttribute="centerY" secondItem="gYn-6v-Ujo" secondAttribute="centerY" id="pPz-ES-J9a"/>
+                                    <constraint firstItem="Niq-dY-0rq" firstAttribute="top" secondItem="fQo-cD-7OF" secondAttribute="bottom" constant="8" id="qUX-eY-uSW"/>
                                     <constraint firstItem="jb0-k7-m3U" firstAttribute="leading" secondItem="0fZ-rZ-RnQ" secondAttribute="trailing" constant="4" id="rtt-2V-aa1"/>
                                     <constraint firstItem="gFv-AW-IPn" firstAttribute="leading" secondItem="5t9-91-5VY" secondAttribute="trailing" constant="4" id="sT0-i2-vsL"/>
                                     <constraint firstItem="SBl-KC-y3r" firstAttribute="leading" secondItem="YID-1c-PWT" secondAttribute="leading" id="slK-QT-9tS"/>
                                     <constraint firstItem="gYn-6v-Ujo" firstAttribute="leading" secondItem="TXD-F8-BLN" secondAttribute="trailing" constant="2" id="tFK-QA-GKv"/>
                                     <constraint firstItem="dxf-C5-kAf" firstAttribute="leading" secondItem="s4e-qG-Tp6" secondAttribute="trailing" constant="8" id="ta1-Bv-HGy"/>
                                     <constraint firstItem="BwX-6j-dNZ" firstAttribute="bottom" secondItem="mJ4-Uk-K0S" secondAttribute="bottom" constant="-2" id="uR6-ag-cjv"/>
+                                    <constraint firstAttribute="trailing" secondItem="fQo-cD-7OF" secondAttribute="trailing" constant="-4" id="wIF-PH-qua"/>
                                     <constraint firstItem="W5K-o3-Puf" firstAttribute="top" secondItem="gvP-RS-2C6" secondAttribute="bottom" constant="8" id="wLW-3S-IFq"/>
                                     <constraint firstItem="gvP-RS-2C6" firstAttribute="top" secondItem="SBl-KC-y3r" secondAttribute="bottom" constant="8" id="xhz-3g-Hy1"/>
                                     <constraint firstItem="TXD-F8-BLN" firstAttribute="top" secondItem="dxf-C5-kAf" secondAttribute="bottom" constant="4" id="ymL-Ps-efb"/>
@@ -886,6 +934,7 @@
                         <outlet property="posterImageView" destination="s4e-qG-Tp6" id="xx0-XB-zjR"/>
                         <outlet property="runtimeLabel" destination="U8w-dF-f3a" id="KnR-dC-V6J"/>
                         <outlet property="screenPanRecognizer" destination="UEj-ef-cql" id="wad-hj-Lmc"/>
+                        <outlet property="similarScrollView" destination="Niq-dY-0rq" id="leB-I5-Jsj"/>
                         <outlet property="titleLabel" destination="dxf-C5-kAf" id="k8i-x7-pW0"/>
                         <outlet property="voteCountLabel" destination="fE5-c8-Omf" id="yAS-gR-M8o"/>
                         <outlet property="watchlistButton" destination="mJ4-Uk-K0S" id="UbL-YM-MiC"/>
