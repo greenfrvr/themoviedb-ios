@@ -57,6 +57,24 @@ class AccountController: UIViewController, UITabBarControllerDelegate, AccountDe
         usernameLabel.text = account.username
         fullNameLabel.text = account.fullName
         avatarImageView.sd_setImageWithURL(NSURL(string: account.gravatar), placeholderImage: UIImage(res: .Placeholder))
+        avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "avatarTapped"))
+    }
+    
+    func avatarTapped() {
+        let alert = UIAlertController(title: "Account", message: "Change Account", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        alert.addAction(UIAlertAction(title: "Log out", style: UIAlertActionStyle.Default, handler: { action in
+            Cache.logout()
+            let mainController = self.storyboard?.instantiateViewControllerWithIdentifier("SignInControllerID")
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.window?.rootViewController = mainController
+        }))
+        
+        if let presentation = alert.popoverPresentationController {
+            presentation.sourceView = avatarImageView
+            presentation.sourceRect = avatarImageView.bounds
+            presentation.permittedArrowDirections = UIPopoverArrowDirection.Left
+        }
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     func userLoadingFailed(error: NSError) {

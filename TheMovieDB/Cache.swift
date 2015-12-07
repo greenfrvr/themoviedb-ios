@@ -33,21 +33,37 @@ class Cache {
     
     static func clearSessionIfNeeded() {
         if !needsSessionCaching() {
-            do {
-                try Locksmith.deleteDataForUserAccount(userAccount, inService: serviceName)
-            } catch {
-                print("Cannot clear session cache")
-                print(error)
-            }
+            clearSession()
         }
     }
 
+    static func clearSession() {
+        do {
+            try Locksmith.deleteDataForUserAccount(userAccount, inService: serviceName)
+        } catch {
+            print("Cannot clear session cache")
+            print(error)
+        }
+    }
+    
+    static func logout() {
+        clearSession()
+        saveUsername(Settings.deaultUser)
+        
+        guard let url = NSURL(docsFilePath: "account.archive") else {
+            print("Cannot save account info")
+            return
+        }
+
+        try! NSFileManager.defaultManager().removeItemAtURL(url)
+    }
+    
     private static func needsSessionCaching() -> Bool {
         return NSUserDefaults.standardUserDefaults().boolForKey("session_caching_enabled")
     }
 
     static func saveUsername(username: String?) {
-        NSUserDefaults.standardUserDefaults().setObject(username, forKey: "account")
+        NSUserDefaults.standardUserDefaults().setObject(username, forKey: Settings.Account.rawValue)
     }
     
     static func saveAccount(account: Account) {

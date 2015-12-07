@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="96" placeholderIntrinsicHeight="96" translatesAutoresizingMaskIntoConstraints="NO" id="caT-wG-tG1">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="96" placeholderIntrinsicHeight="96" translatesAutoresizingMaskIntoConstraints="NO" id="caT-wG-tG1">
                                 <rect key="frame" x="16" y="32" width="64" height="64"/>
                                 <animations/>
                                 <constraints>
@@ -472,18 +472,30 @@
                                 <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoV-36-ffy">
-                                <rect key="frame" x="163" y="431" width="50" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Sign-in"/>
-                                <connections>
-                                    <action selector="signInClick:" destination="9qG-mN-TCb" eventType="touchUpInside" id="15J-hf-C9B"/>
-                                </connections>
-                            </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EGl-0s-Dvy">
                                 <rect key="frame" x="178" y="391" width="20" height="20"/>
                                 <animations/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoV-36-ffy" customClass="UITicketButton" customModule="TheMovieDB" customModuleProvider="target">
+                                <rect key="frame" x="140" y="431" width="96" height="56"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="epY-b5-ao8"/>
+                                    <constraint firstAttribute="width" constant="96" id="las-Br-gSB"/>
+                                </constraints>
+                                <state key="normal" title="Sign-in"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
+                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="signInClick:" destination="9qG-mN-TCb" eventType="touchUpInside" id="15J-hf-C9B"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

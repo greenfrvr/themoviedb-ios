@@ -59,6 +59,7 @@
 		1180EFAF1BE9EB7F00082B6E /* ListItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1180EFAE1BE9EB7F00082B6E /* ListItemViewCell.swift */; };
 		1180EFB11BEA027500082B6E /* UILabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1180EFB01BEA027500082B6E /* UILabelWithPadding.swift */; };
 		118336A71BF2145700D590AF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118336A61BF2145700D590AF /* Utils.swift */; };
+		118ACFF01C155C9A00062402 /* UITicketButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118ACFEF1C155C9A00062402 /* UITicketButton.swift */; };
 		118B115B1BF9B9BA001DDC80 /* UICastHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B115A1BF9B9BA001DDC80 /* UICastHorizontalView.swift */; };
 		118B115E1BFA0F69001DDC80 /* TvShowDetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B115D1BFA0F69001DDC80 /* TvShowDetailsActionAlert.swift */; };
 		118B11601BFA12F3001DDC80 /* MovieDetailsActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B115F1BFA12F3001DDC80 /* MovieDetailsActionAlert.swift */; };
@@ -170,6 +171,7 @@
 		1180EFAE1BE9EB7F00082B6E /* ListItemViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListItemViewCell.swift; sourceTree = "<group>"; };
 		1180EFB01BEA027500082B6E /* UILabelWithPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelWithPadding.swift; sourceTree = "<group>"; };
 		118336A61BF2145700D590AF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		118ACFEF1C155C9A00062402 /* UITicketButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITicketButton.swift; sourceTree = "<group>"; };
 		118B115A1BF9B9BA001DDC80 /* UICastHorizontalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICastHorizontalView.swift; sourceTree = "<group>"; };
 		118B115D1BFA0F69001DDC80 /* TvShowDetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TvShowDetailsActionAlert.swift; sourceTree = "<group>"; };
 		118B115F1BFA12F3001DDC80 /* MovieDetailsActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailsActionAlert.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				113F96BE1BF4D557006551BD /* UIPosterView.swift */,
 				117641EC1C0DC6E100BA9121 /* UISimilarView.swift */,
 				1163C1EF1C0EF3F300404089 /* UISimilarCard.swift */,
+				118ACFEF1C155C9A00062402 /* UITicketButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				118ACFF01C155C9A00062402 /* UITicketButton.swift in Sources */,
 				1180EFAF1BE9EB7F00082B6E /* ListItemViewCell.swift in Sources */,
 				117CF94F1BECD56E00BA2A3B /* MovieDetailsController.swift in Sources */,
 				11774C8A1C0C251D0080E531 /* Notifications.swift in Sources */,
