@@ -45,6 +45,7 @@ class PersonDetailsController: UIViewController, PersonDetailsDelegate, UIPerson
         let alert = PersonDetailsActionAlert(presenter: self, homepage: homepage, url: shareUrl)
         alert.present()
     }
+    
     @IBAction func screenSwipe(sender: UIScreenEdgePanGestureRecognizer) {
         if sender.state == .Changed {
             if let controller = self.navigationController?.topViewController {

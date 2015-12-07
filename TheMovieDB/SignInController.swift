@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignInController: UIViewController, AuthenticationDelegate {
+class SignInController: UIViewController, AuthenticationDelegate, UITextFieldDelegate {
 
     var authManager: AuthenticationManager?
     
@@ -16,7 +16,7 @@ class SignInController: UIViewController, AuthenticationDelegate {
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var signInButton: UITicketButton!
     
     @IBAction func signInClick(sender: UIButton) {
         if let login = loginField.text, password = passwordField.text {
@@ -117,8 +117,32 @@ class SignInController: UIViewController, AuthenticationDelegate {
     
     func prepareViews() {
         loginField.layer.addSublayer(bottomLineLayer())
+        loginField.delegate = self
         passwordField.layer.addSublayer(bottomLineLayer())
+        passwordField.delegate = self
         appNameLabel.transform = CGAffineTransformMakeScale(0, 0)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField.returnKeyType == UIReturnKeyType.Next {
+            print("NEXT")
+            passwordField.becomeFirstResponder()
+        } else if textField.returnKeyType == UIReturnKeyType.Done {
+            print("DONE")
+            passwordField.resignFirstResponder()
+            UIView.animateWithDuration(0.15, animations: {
+                    self.signInButton.transform = CGAffineTransformMakeScale(1.05, 1.05)
+                    self.signInButton.fillColor = self.signInButton.strokeColor.colorWithAlphaComponent(0.1)
+                    self.signInButton.setNeedsDisplay()
+                }, completion: { completed in
+                    UIView.animateWithDuration(0.25, animations: {
+                        self.signInButton.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                        self.signInButton.fillColor = self.signInButton.fill
+                        self.signInButton.setNeedsDisplay()
+                    })
+            })
+        }
+        return true
     }
     
     func bottomLineLayer() -> CALayer {
